@@ -12,19 +12,6 @@
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
-  # TODO: do I need this? it is also in @/nixos/hosts/common/global/nix.nix
-  nix = {
-    package = lib.mkDefault pkgs.nix;
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-        "ca-derivations"
-        "repl-flake"
-      ];
-    };
-  };
-
   programs = {
     home-manager.enable = true;
     git.enable = true;

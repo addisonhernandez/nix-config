@@ -55,10 +55,10 @@
       # };
 
       # Desktop
-      # vulcan = lib.nixosSystem {
-      #   modules = [./hosts/vulcan];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
+      vulcan = lib.nixosSystem {
+        modules = [./hosts/vulcan];
+        specialArgs = {inherit inputs outputs;};
+      };
 
       # Mini Desktop (Beelink SER7)
       # simple-green = lib.nixosSystem {
@@ -82,7 +82,18 @@
       # };
 
       # Desktop
+      "addison@vulcan" = lib.homeManagerConfiguration {
+        modules = [./home/addison/vulcan.nix ./home/addison/nixpkgs.nix];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+      };
+
       # Mini Desktop
+      # "addison@simple-green" = lib.homeManagerConfiguration {
+      #   modules = [./home/addison/simple-green.nix ./home/addison/nixpkgs.nix];
+      #   pkgs = pkgsFor.x86_64-linux;
+      #   extraSpecialArgs = {inherit inputs outputs;};
+      # };
 
       # Media Server
       "addison@jeeves" = lib.homeManagerConfiguration {

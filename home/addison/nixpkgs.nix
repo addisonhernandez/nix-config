@@ -1,13 +1,14 @@
 # This file should be included when using hm standalone
 {
-  outputs,
   lib,
   inputs,
+  outputs,
   ...
 }: let
   flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
 in {
   nix = {
+    package = lib.mkDefault pkgs.nix;
     settings = {
       experimental-features = [
         "nix-command"
