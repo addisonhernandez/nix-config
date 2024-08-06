@@ -1,4 +1,8 @@
 {
+  config,
+  inputs,
+  ...
+}: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel-cpu-only
     inputs.hardware.nixosModules.common-gpu-nvidia-nonprime
@@ -21,6 +25,9 @@
     };
     # kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
   };
+
+  nixpkgs.config.nvidia.acceptLicense = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
 
   system.stateVersion = "24.05";
 }
