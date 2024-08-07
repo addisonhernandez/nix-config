@@ -12,7 +12,7 @@
       ./nix.nix
       ./fish.nix
       ./openssh.nix
-      # ./podman.nix TODO
+      ./podman.nix
       ./tailscale.nix
     ]
     ++ (builtins.attrValues outputs.nixosModules);
