@@ -9,7 +9,7 @@
       inputs.home-manager.nixosModules.home-manager
       ./locale.nix
       ./fonts.nix
-
+      ./nix.nix
       ./fish.nix
       ./openssh.nix
       # ./podman.nix TODO
