@@ -5,6 +5,7 @@
     ./direnv.nix
     ./fish.nix
     ./git.nix
+    ./nix-index.nix
     ./starship.nix
   ];
 
