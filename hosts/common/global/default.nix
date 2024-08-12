@@ -7,10 +7,10 @@
   imports =
     [
       inputs.home-manager.nixosModules.home-manager
-      ./locale.nix
-      ./fonts.nix
-      ./nix.nix
       ./fish.nix
+      ./fonts.nix
+      ./locale.nix
+      ./nix.nix
       ./openssh.nix
       ./podman.nix
       ./tailscale.nix
