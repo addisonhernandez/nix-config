@@ -12,6 +12,8 @@
 
     ../common/global
     ../common/users/addison
+
+    ../common/optional/docker.nix
   ];
 
   networking = {
