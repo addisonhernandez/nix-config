@@ -1,5 +1,6 @@
 {
   imports = [
+    ./caddy.nix
     ./jellyfin.nix
     ./jellyseerr.nix
     ./sonarr.nix
