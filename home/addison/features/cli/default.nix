@@ -24,6 +24,7 @@
     jq # JSON CLI tool
     just # command runner
     lf # TUI file manager
+    lsof # list open files and ports
     p7zip # archiver
     ranger # TUI file manager
     ripgrep # better grep (provides `rg`)
