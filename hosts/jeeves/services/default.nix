@@ -1,14 +1,6 @@
 {
   imports = [
-    #     ../../common/optional/example1.nix
-
-    #     ./transmission.nix
-    #     ./qbittorrent.nix
-
     ./servarr.nix
-    #     ./jellyfin.nix
-    #     ./file-server.nix
-    #     ./syncthing.nix
   ];
 
   services = {
@@ -22,8 +14,7 @@
 
     flatpak.enable = true;
 
-    devmon.enable = true;
-    # gvfs.enable = true;
+    # devmon.enable = true;
     udisks2.enable = true;
 
     # Enable CUPS to print documents.
