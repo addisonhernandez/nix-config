@@ -22,3 +22,7 @@ rebuild host=hostname:
 # build the config and show what would change
 dry-activate host=hostname:
     sudo nixos-rebuild dry-activate --flake .#{{ host }}
+
+# build the config and link the derivation to ./result
+build host=hostname:
+    nixos-rebuild build --flake .#{{ host }}
