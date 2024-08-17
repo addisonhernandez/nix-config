@@ -26,3 +26,7 @@ dry-activate host=hostname:
 # build the config and link the derivation to ./result
 build host=hostname:
     nixos-rebuild build --flake .#{{ host }}
+
+# diff the activated system and the system built in ./result
+diff-system: build
+    nvd diff /nix/var/nix/profiles/system ./result
