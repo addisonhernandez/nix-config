@@ -59,7 +59,8 @@
         "relatime"
         "users"
         "uid=1000"
-        "gid=100"
+        # "gid=100" # users
+        "gid=6969" # media
         "nofail"
       ];
     };

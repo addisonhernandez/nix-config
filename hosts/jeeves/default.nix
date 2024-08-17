@@ -9,6 +9,8 @@
     ../common/global
     ../common/users/addison
     ../common/users/audrey
+
+    ../common/optional/docker.nix
   ];
 
   networking = {

@@ -1,5 +1,0 @@
-{
-  services.jellyseerr = {
-    enable = true;
-  };
-}

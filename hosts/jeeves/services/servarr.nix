@@ -2,9 +2,13 @@
   imports = [
     ./caddy.nix
     ./jellyfin.nix
-    ./jellyseerr.nix
-    ./sonarr.nix
-    ./prowlarr.nix
-    ./radarr.nix
   ];
+
+  users.groups.media = {
+    gid = 6969;
+    members = [
+      "hotio"
+      "jellyfin"
+    ];
+  };
 }

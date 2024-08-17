@@ -1,0 +1,87 @@
+name: homelab
+
+networks:
+  default:
+    name: homelab
+    # external: true
+    attachable: true
+    ipam:
+      config:
+        - subnet: 10.69.0.0/16
+          ip_range: 10.69.0.0/24
+          gateway: 10.69.0.1
+
+services:
+  # caddy:
+  # media-server: jellyfin
+  media-requests:
+    container_name: jellyseerr
+    image: ghcr.io/hotio/jellyseerr:latest
+    ports:
+      - "5055:5055"
+    env_file:
+      - .env.base
+    volumes:
+      - /homelab/config/jellyseerr:/config
+
+  indexers:
+    container_name: prowlarr
+    image: ghcr.io/hotio/prowlarr:latest
+    ports:
+      - "9696:9696"
+    env_file:
+      - .env.base
+    volumes:
+      - /homelab/config/prowlarr:/config
+
+  movie-manager:
+    container_name: radarr
+    image: ghcr.io/hotio/radarr:latest
+    ports:
+      - "7878:7878"
+    env_file:
+      - .env.base
+    volumes:
+      - /homelab/config/radarr:/config
+      - /homelab/data:/data
+
+  tv-manager:
+    container_name: sonarr
+    image: ghcr.io/hotio/sonarr:latest
+    ports:
+      - "8989:8989"
+    env_file: .env.base
+    volumes:
+      - /homelab/config/sonarr:/config
+      - /homelab/data:/data
+
+  vpn:
+    container_name: gluetun
+    image: ghcr.io/qdm12/gluetun:latest # stable -> gluetun:v3
+    cap_add:
+      - NET_ADMIN
+    env_file:
+      - .env.gluetun
+    environment:
+      - TZ=America/New_York
+      - VPN_SERVICE_PROVIDER=mullvad
+      - VPN_TYPE=wireguard
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - "8080:8080" # qbittorrent WebUI
+
+  torrent-downloader:
+    container_name: qbittorrent
+    image: ghcr.io/hotio/qbittorrent:latest  # alternate -> qbittorrent:legacy (pinned 4.3.9)
+    # Ports are opened on the vpn service, due to the `network_mode` attribute
+    # ports:
+    #   - "8080:8080"
+    volumes:
+      - /homelab/config/qbittorrent:/config:rw
+      - /homelab/data/torrents:/data/torrents:rw
+    env_file: .env.base
+    environment:
+      - WEBUI_PORTS=8080/tcp,8080/udp
+    network_mode: "service:vpn"
+

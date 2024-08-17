@@ -28,8 +28,8 @@ build host=hostname:
     nixos-rebuild build --flake .#{{ host }}
 
 # diff the activated system and the system built in ./result
-diff-system: build
-    nvd diff /nix/var/nix/profiles/system ./result
+diff-system prev="/nix/var/nix/profiles/system" final="./result": build
+    nvd diff {{ prev }} {{ final }}
 
 collect-garbage:
     nix-collect-garbage 2>./gc.log &

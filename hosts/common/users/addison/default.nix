@@ -17,6 +17,7 @@ in {
         "jellyfin"
         "libvirtd"
         "lxd"
+        "media"
         "networkmanager"
         "podman"
         "wheel"

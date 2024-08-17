@@ -1,3 +1,0 @@
-{
-  services.prowlarr.enable = true;
-}
