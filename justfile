@@ -30,3 +30,6 @@ build host=hostname:
 # diff the activated system and the system built in ./result
 diff-system: build
     nvd diff /nix/var/nix/profiles/system ./result
+
+collect-garbage:
+    nix-collect-garbage 2>./gc.log &
