@@ -2,6 +2,7 @@
 {
   inputs,
   outputs,
+  pkgs,
   ...
 }: {
   imports =
@@ -16,6 +17,10 @@
       ./tailscale.nix
     ]
     ++ (builtins.attrValues outputs.nixosModules);
+
+  environment.systemPackages = with pkgs; [
+    lunarvim
+  ];
 
   home-manager = {
     useGlobalPkgs = true;
