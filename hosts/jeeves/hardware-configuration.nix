@@ -4,7 +4,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }: {
@@ -18,15 +17,41 @@
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/0fe27892-92a9-460a-844a-ec99c7572c49";
+    device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
     options = ["subvol=@"];
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/0BFB-6BF9";
+    device = "/dev/disk/by-label/boot";
     fsType = "vfat";
     options = ["fmask=0022" "dmask=0022"];
+  };
+
+  fileSystems."/mnt/Passport" = {
+    device = "/dev/disk/by-label/Passport4TB";
+    fsType = "ntfs3";
+    options = [
+      "nosuid"
+      "nodev"
+      "relatime"
+      "users"
+      "uid=1000"
+      "gid=100"
+      "nofail"
+    ];
+  };
+
+  fileSystems."/homelab/data/media" = {
+    depends = ["/mnt/Passport"];
+    device = "/mnt/Passport/media";
+    options = ["bind"];
+  };
+
+  fileSystems."/homelab/data/torrents" = {
+    depends = ["/mnt/Passport"];
+    device = "/mnt/Passport/torrents";
+    options = ["bind"];
   };
 
   swapDevices = [];
@@ -37,6 +62,7 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.tailscale0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
