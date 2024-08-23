@@ -16,42 +16,68 @@
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "btrfs";
-    options = ["subvol=@"];
-  };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = ["subvol=@" "compress=zstd"];
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/boot";
-    fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
-  };
+    "/home" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = ["subvol=@home" "compress=zstd"];
+    };
 
-  fileSystems."/mnt/Passport" = {
-    device = "/dev/disk/by-label/Passport4TB";
-    fsType = "ntfs3";
-    options = [
-      "nosuid"
-      "nodev"
-      "relatime"
-      "users"
-      "uid=1000"
-      "gid=100"
-      "nofail"
-    ];
-  };
+    "/homelab" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = ["subvol=@homelab" "compress=zstd"];
+    };
 
-  fileSystems."/homelab/data/media" = {
-    depends = ["/mnt/Passport"];
-    device = "/mnt/Passport/media";
-    options = ["bind"];
-  };
+    "/nix" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = ["subvol=@nix" "compress=zstd" "noatime"];
+    };
 
-  fileSystems."/homelab/data/torrents" = {
-    depends = ["/mnt/Passport"];
-    device = "/mnt/Passport/torrents";
-    options = ["bind"];
+    "/var/log" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = ["subvol=@log" "compress=zstd"];
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-label/boot";
+      fsType = "vfat";
+      options = ["fmask=0022" "dmask=0022"];
+    };
+
+    "/mnt/Passport" = {
+      device = "/dev/disk/by-label/Passport4TB";
+      fsType = "ntfs3";
+      options = [
+        "nosuid"
+        "nodev"
+        "relatime"
+        "users"
+        "uid=1000"
+        "gid=100"
+        "nofail"
+      ];
+    };
+
+    "/homelab/data/media" = {
+      depends = ["/mnt/Passport"];
+      device = "/mnt/Passport/media";
+      options = ["bind"];
+    };
+
+    "/homelab/data/torrents" = {
+      depends = ["/mnt/Passport"];
+      device = "/mnt/Passport/torrents";
+      options = ["bind"];
+    };
   };
 
   swapDevices = [];
