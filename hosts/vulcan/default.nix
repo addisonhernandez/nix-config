@@ -14,6 +14,7 @@
     ../common/users/addison
 
     ../common/optional/docker.nix
+    ../common/optional/flatpak.nix
   ];
 
   networking = {

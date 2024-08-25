@@ -11,6 +11,7 @@
     ../common/users/audrey
 
     ../common/optional/docker.nix
+    ../common/optional/flatpak.nix
   ];
 
   networking = {
