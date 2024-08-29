@@ -4,7 +4,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }: {
@@ -17,34 +16,63 @@
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/dccce93d-a11b-4d0f-8d85-5f12ca1c83b0";
-    fsType = "btrfs";
-    options = ["subvol=@" "compress=zstd"];
-  };
+  fileSystems = {
+    # Root SSD
+    "/" = {
+      label = "nixos";
+      fsType = "btrfs";
+      options = ["subvol=@" "compress=zstd"];
+    };
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/dccce93d-a11b-4d0f-8d85-5f12ca1c83b0";
-    fsType = "btrfs";
-    options = ["subvol=@home" "compress=zstd"];
-  };
+    "/home" = {
+      label = "nixos";
+      fsType = "btrfs";
+      options = ["subvol=@home" "compress=zstd"];
+    };
 
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/dccce93d-a11b-4d0f-8d85-5f12ca1c83b0";
-    fsType = "btrfs";
-    options = ["subvol=@nix" "compress=zstd" "noatime"];
-  };
+    "/nix" = {
+      label = "nixos";
+      fsType = "btrfs";
+      options = ["subvol=@nix" "compress=zstd" "noatime"];
+    };
 
-  fileSystems."/var/log" = {
-    device = "/dev/disk/by-uuid/dccce93d-a11b-4d0f-8d85-5f12ca1c83b0";
-    fsType = "btrfs";
-    options = ["subvol=@log" "compress=zstd"];
-  };
+    "/var/log" = {
+      label = "nixos";
+      fsType = "btrfs";
+      options = ["subvol=@log" "compress=zstd"];
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/D917-B332";
-    fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    # Boot EFI
+    "/boot" = {
+      device = "/dev/disk/by-label/boot";
+      fsType = "vfat";
+      options = ["fmask=0077" "dmask=0077"];
+    };
+
+    # Interal HDD
+    "/hdd" = {
+      label = "btrhd";
+      fsType = "btrfs";
+      options = ["subvol=@hdd2t" "autodefrag" "compress=zstd"];
+    };
+
+    "/hdd/backup" = {
+      label = "btrhd";
+      fsType = "btrfs";
+      options = ["subvol=@backup" "autodefrag" "noatime" "compress=zstd:15"];
+    };
+
+    "/hdd/media" = {
+      label = "btrhd";
+      fsType = "btrfs";
+      options = ["subvol=@media" "autodefrag" "noatime" "compress=zstd"];
+    };
+
+    "hdd/.temp" = {
+      label = "btrhd";
+      fsType = "btrfs";
+      options = ["subvol=@temp" "autodefrag" "noatime" "compress=zstd"];
+    };
   };
 
   swapDevices = [];
