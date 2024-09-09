@@ -7,6 +7,7 @@
     ./git.nix
     ./nix-index.nix
     ./starship.nix
+    ./zellij.nix
   ];
 
   home.packages = with pkgs; [
