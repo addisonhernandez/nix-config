@@ -1,6 +1,7 @@
 # This file should be included when using hm standalone
 {
   lib,
+  pkgs,
   inputs,
   outputs,
   ...
