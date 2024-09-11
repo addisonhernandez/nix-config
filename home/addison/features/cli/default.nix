@@ -2,6 +2,7 @@
   imports = [
     ./atuin.nix
     ./bash.nix
+    ./bat.nix
     ./direnv.nix
     ./fish.nix
     ./git.nix
@@ -15,7 +16,6 @@
     distrobox
 
     # Utilities
-    bat # better cat
     delta # diff tool
     eza # better ls
     fastfetch
