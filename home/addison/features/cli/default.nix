@@ -5,6 +5,7 @@
     ./bat.nix
     ./direnv.nix
     ./fish.nix
+    ./fzf.nix
     ./git.nix
     ./nix-index.nix
     ./starship.nix
@@ -20,7 +21,6 @@
     eza # better ls
     fastfetch
     fd # better find
-    fzf # fuzzy finder
     glow # render markdown in the terminal
     jq # JSON CLI tool
     just # command runner
