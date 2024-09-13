@@ -8,6 +8,7 @@
     ./fzf.nix
     ./git.nix
     ./nix-index.nix
+    ./ranger.nix
     ./starship.nix
     ./zellij.nix
   ];
@@ -27,7 +28,6 @@
     lf # TUI file manager
     lsof # list open files and ports
     p7zip # archiver
-    ranger # TUI file manager
     ripgrep # better grep (provides `rg`)
     tealdeer # short manpage examples
     zoxide # better cd
