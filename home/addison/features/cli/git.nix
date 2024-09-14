@@ -1,9 +1,8 @@
-{config, ...}: let
+let
   catppuccinTheme = builtins.fetchurl {
     url = "https://github.com/catppuccin/delta/raw/main/catppuccin.gitconfig";
     sha256 = "sha256:0s36qb2yb3dx4krj3fv7zh4hdd30nr1ms7zm4s8njx8aa2bxw8d1";
   };
-  themesDir = "${config.home.homeDirectory}/.themes";
 in {
   programs.git = {
     enable = true;
@@ -35,7 +34,7 @@ in {
     };
     extraConfig = {
       include = {
-        path = "$HOME/.themes/delta/catppuccin.gitconfig";
+        path = "${catppuccinTheme}";
       };
       commit.verbose = "true";
       diff.colorMoved = "default";
@@ -44,9 +43,5 @@ in {
       init.defaultBranch = "main";
       merge.conflictStyle = "diff3";
     };
-  };
-
-  home.file = {
-    "${themesDir}/delta/catppuccin.gitconfig".source = catppuccinTheme;
   };
 }

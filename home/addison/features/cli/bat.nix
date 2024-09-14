@@ -8,10 +8,10 @@
 in {
   programs.bat = {
     enable = true;
-    config.theme = "Catppuccin-Macchiato";
+    config.theme = "Catppuccin Macchiato";
   };
 
   home.file = {
-    "${themesDir}/Catppuccin-Macchiato.tmTheme".source = catppuccinMacchiatoRaw;
+    "${themesDir}/Catppuccin Macchiato.tmTheme".source = catppuccinMacchiatoRaw;
   };
 }
