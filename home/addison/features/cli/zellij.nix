@@ -1,8 +1,12 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   programs.zellij = {
     enable = true;
     settings = {
-      default_shell = "${pkgs.fish}/bin/fish";
+      default_shell = lib.getExe pkgs.fish;
       pane_frames = false;
       theme = "catppuccin-macchiato";
 
