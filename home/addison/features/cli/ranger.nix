@@ -3,7 +3,7 @@
     enable = true;
     extraConfig = ''
       # Colorscheme (one of: default, jungle, snow, solarized)
-      set colorscheme solarized
+      # set colorscheme solarized
 
       # Display status of items under version control
       set vcs_aware true
