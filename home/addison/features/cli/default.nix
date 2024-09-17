@@ -36,7 +36,6 @@
     alejandra # nix formatter
     # TODO: make a separate nh.nix config
     # see: https://github.com/viperML/nh#nixos-module
-    nh # wrapper for NixOS and HM
     nil # nix LSP written in Rust
     nix-diff # detailed difftool
     nix-output-monitor # more output info while building (provides `nom`)

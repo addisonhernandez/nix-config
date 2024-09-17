@@ -12,6 +12,7 @@
       ./fonts.nix
       ./locale.nix
       ./nix.nix
+      ./nh.nix
       ./openssh.nix
       ./podman.nix
       ./tailscale.nix
