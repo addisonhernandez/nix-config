@@ -12,6 +12,7 @@
 
     ../common/optional/docker.nix
     ../common/optional/flatpak.nix
+    ../common/optional/i2p.nix
   ];
 
   networking = {
