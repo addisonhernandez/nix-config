@@ -8,7 +8,7 @@
       end
 
       if command -q zellij
-        zellij setup --generate-completions fish >/dev/null
+        zellij setup --generate-completion fish >/dev/null
       end
     '';
 
