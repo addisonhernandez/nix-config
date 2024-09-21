@@ -1,6 +1,6 @@
 {
   programs.kitty = {
     enable = true;
-    theme = "Catppuccin-Macchiato";
+    themeFile = "Catppuccin-Macchiato";
   };
 }
