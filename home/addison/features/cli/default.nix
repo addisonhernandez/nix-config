@@ -10,6 +10,7 @@
     ./nix-index.nix
     ./ranger.nix
     ./starship.nix
+    ./yazi.nix
     ./zellij.nix
   ];
 
