@@ -16,8 +16,16 @@ update:
 
 # build and activate the config, and make it the boot default
 [confirm('Build and switch to the new config?')]
-rebuild host=hostname:
+rebuild-switch host=hostname:
     sudo nixos-rebuild switch --flake .#{{ host }}
+
+[confirm('Build the new config and activate after reboot?')]
+rebuild-boot host=hostname:
+    sudo nixos-rebuild boot --flake .#{{ host }}
+
+[confirm('Build new config and test it in this session?')]
+rebuild-test host=hostname:
+    sudo nixos-rebuild test --flake .#{{ host }}
 
 # build the config and show what would change
 dry-activate host=hostname:
