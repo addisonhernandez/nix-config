@@ -3,7 +3,6 @@ name: homelab
 networks:
   default:
     name: homelab
-    # external: true
     attachable: true
     ipam:
       config:
@@ -12,9 +11,41 @@ networks:
           gateway: 10.69.0.1
 
 services:
-  # caddy:
-  # media-server: jellyfin
-  media-requests:
+  media:
+    container_name: jellyfin
+    image: ghcr.io/hotio/jellyfin:latest
+    ports:
+      - "8096:8096"
+    env_file:
+      - .env.base
+    volumes:
+      - /homelab/config/jellyfin:/config
+      - /homelab/data/media:/data
+
+  caddy:
+    container_name: caddy
+    image: ghcr.io/hotio/caddy:latest
+    ports:
+      - "8443:8443"
+    env_file:
+      - .env.base
+    volumes:
+      - /homelab/config/caddy:/config
+
+  dashboard:
+    container_name: dashy
+    image: ghcr.io/lissy93/dashy:latest
+    ports:
+      - "4000:8080" # 8080 used by qbittorrent WebUI
+    env_file:
+      - .env.base
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - /homelab/config/dashy/conf.yml:/app/user-data/conf.yml
+      - /homelab/config/dashy/assets/item-icons:/app/public/item-icons
+
+  requests:
     container_name: jellyseerr
     image: ghcr.io/hotio/jellyseerr:latest
     ports:
@@ -34,7 +65,7 @@ services:
     volumes:
       - /homelab/config/prowlarr:/config
 
-  movie-manager:
+  movies:
     container_name: radarr
     image: ghcr.io/hotio/radarr:latest
     ports:
@@ -45,7 +76,7 @@ services:
       - /homelab/config/radarr:/config
       - /homelab/data:/data
 
-  tv-manager:
+  shows:
     container_name: sonarr
     image: ghcr.io/hotio/sonarr:latest
     ports:
@@ -71,7 +102,7 @@ services:
     ports:
       - "8080:8080" # qbittorrent WebUI
 
-  torrent-downloader:
+  torrents:
     container_name: qbittorrent
     image: ghcr.io/hotio/qbittorrent:latest  # alternate -> qbittorrent:legacy (pinned 4.3.9)
     # Ports are opened on the vpn service, due to the `network_mode` attribute

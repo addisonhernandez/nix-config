@@ -1,13 +1,13 @@
 {pkgs, ...}: {
-  services.jellyfin = {
-    enable = true;
-    user = "addison";
+  # services.jellyfin = {
+  #   enable = true;
+  #   user = "addison";
 
-    # configDir = "";
-    # dataDir = "";
-    # cacheDir = "";
-    # logDir = "";
-  };
+  #   # configDir = "";
+  #   # dataDir = "";
+  #   # cacheDir = "";
+  #   # logDir = "";
+  # };
 
   environment.systemPackages = with pkgs; [
     jellyfin

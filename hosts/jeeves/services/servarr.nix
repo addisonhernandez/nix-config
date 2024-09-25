@@ -1,6 +1,6 @@
 {
   imports = [
-    ./caddy.nix
+    # ./caddy.nix
     ./jellyfin.nix
   ];
 
@@ -8,7 +8,7 @@
     gid = 6969;
     members = [
       "hotio"
-      "jellyfin"
+      # "jellyfin"
     ];
   };
 }
