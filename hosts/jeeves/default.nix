@@ -13,19 +13,16 @@
     ../common/optional/docker.nix
     ../common/optional/flatpak.nix
     ../common/optional/i2p.nix
+    ../common/optional/kde.nix
+    ../common/optional/pipewire.nix
+    ../common/optional/systemd-boot.nix
+    ../common/optional/udisks.nix
+    ../common/optional/xserver.nix
   ];
 
   networking = {
     hostName = "jeeves";
     networkmanager.enable = true;
-  };
-
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    # kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
   };
 
   system.stateVersion = "24.05";
