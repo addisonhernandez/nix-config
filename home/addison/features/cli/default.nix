@@ -1,5 +1,7 @@
 {pkgs, ...}: {
   imports = [
+    ./lvim
+
     ./atuin.nix
     ./bash.nix
     ./bat.nix
