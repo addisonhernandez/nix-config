@@ -4,7 +4,7 @@
     ./hardware-configuration.nix
     ./intel-graphics-drivers.nix
 
-    ./services
+    ./servarr
 
     ../common/global
     ../common/users/addison
