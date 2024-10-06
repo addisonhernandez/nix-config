@@ -12,7 +12,6 @@
 
     ../common/optional/docker.nix
     ../common/optional/flatpak.nix
-    ../common/optional/i2p.nix
     ../common/optional/kde.nix
     ../common/optional/pipewire.nix
     ../common/optional/systemd-boot.nix
