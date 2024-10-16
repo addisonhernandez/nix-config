@@ -15,7 +15,6 @@ in {
         "nix-command"
         "flakes"
         "ca-derivations"
-        "repl-flake"
       ];
       flake-registry = ""; # Disable global flake registry
     };

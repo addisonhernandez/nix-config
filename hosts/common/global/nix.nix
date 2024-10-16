@@ -15,7 +15,6 @@ in {
         "ca-derivations"
         "flakes"
         "nix-command"
-        "repl-flake"
       ];
       trusted-users = [
         "root"
