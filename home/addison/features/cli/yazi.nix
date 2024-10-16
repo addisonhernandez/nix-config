@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: let
+{config, ...}: let
   catppuccinMacchiatoToml = builtins.fetchurl {
     url = "https://github.com/catppuccin/yazi/raw/refs/heads/main/themes/macchiato.toml";
     name = "yazi-theme_catppuccin-macchiato.toml";

@@ -12,7 +12,7 @@
     #   "http://i2p-projekt.i2p/hosts.txt"
     #   "http://stats.i2p/cgi-bin/newhosts.txt"
     # ];
-    bandwidth = 1024;  # if unset -> default to 32KBps
+    bandwidth = 1024; # if unset -> default to 32KBps
     # dataDir = null;
     # enableIPv4 = true;
     # enableIPv6 = false;
