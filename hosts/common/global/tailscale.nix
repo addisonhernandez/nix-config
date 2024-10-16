@@ -2,8 +2,6 @@
   services.tailscale = {
     enable = true;
     useRoutingFeatures = lib.mkDefault "client";
-    authKeyFile = /etc/tailscale/keyfile;
-    extraUpFlags = ["--ssh"];
     extraSetFlags = ["--ssh"];
   };
 
