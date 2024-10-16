@@ -8,6 +8,7 @@
   imports =
     [
       inputs.home-manager.nixosModules.home-manager
+      ./firefox.nix
       ./fish.nix
       ./fonts.nix
       ./locale.nix
