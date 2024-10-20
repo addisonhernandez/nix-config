@@ -1,7 +1,8 @@
 {
   imports = [
+    ./wezterm
+
     ./firefox.nix
     ./kitty.nix
-    ./wezterm.nix
   ];
 }
