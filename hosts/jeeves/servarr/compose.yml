@@ -21,6 +21,8 @@ services:
     volumes:
       - /homelab/config/jellyfin:/config
       - /homelab/data/media:/data
+    healthcheck:
+      test: curl -fsL http://localhost:8096/health || exit 1
 
   caddy:
     container_name: caddy
@@ -54,6 +56,13 @@ services:
       - .env.base
     volumes:
       - /homelab/config/jellyseerr:/config
+    depends_on: 
+      media:
+        condition: service_healthy
+      movies:
+        condition: service_healthy
+      shows:
+        condition: service_healthy
 
   indexers:
     container_name: prowlarr
@@ -75,6 +84,8 @@ services:
     volumes:
       - /homelab/config/radarr:/config
       - /homelab/data:/data
+    healthcheck:
+      test: curl -fsL http://localhost:7878/ping || exit 1
 
   shows:
     container_name: sonarr
@@ -85,6 +96,8 @@ services:
     volumes:
       - /homelab/config/sonarr:/config
       - /homelab/data:/data
+    healthcheck:
+      test: curl -fsL http://localhost:8989/ping || exit 1
 
   vpn:
     container_name: gluetun
@@ -115,4 +128,7 @@ services:
     environment:
       - WEBUI_PORTS=8080/tcp,8080/udp
     network_mode: "service:vpn"
+    depends_on:
+      vpn:
+        condition: service_healthy
 
