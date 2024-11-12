@@ -5,7 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
 
-    # systems.url = "github:nix-systems/default-linux"; # x86_64, aarch64
     systems.url = "github:nix-systems/x86_64-linux";
     hardware.url = "github:nixos/nixos-hardware";
 
@@ -35,7 +34,6 @@
     );
     forEachSystem = f: lib.genAttrs (import systems) (sys: f pkgsFor.${sys});
   in {
-    # FIXME: is this needed?
     inherit lib;
 
     nixosModules = import ./modules/nixos;
@@ -49,10 +47,10 @@
 
     nixosConfigurations = {
       # Laptop (Dell XPS 9560)
-      # hedgehog = lib.nixosSystem {
-      #   modules = [./hosts/hedgehog];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
+      hedgehog = lib.nixosSystem {
+        modules = [./hosts/hedgehog];
+        specialArgs = {inherit inputs outputs;};
+      };
 
       # Desktop
       vulcan = lib.nixosSystem {
@@ -75,11 +73,11 @@
 
     homeConfigurations = {
       # Laptop
-      # "addison@hedgehog" = lib.homeManagerConfiguration {
-      #   modules = [./home/addison/hedgehog.nix ./home/addison/nixpkgs.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
+      "addison@hedgehog" = lib.homeManagerConfiguration {
+        modules = [./home/addison/hedgehog.nix ./home/addison/nixpkgs.nix];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+      };
 
       # Desktop
       "addison@vulcan" = lib.homeManagerConfiguration {

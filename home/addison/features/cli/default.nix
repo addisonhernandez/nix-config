@@ -21,6 +21,7 @@
     distrobox
 
     # Utilities
+    btop # better top
     delta # diff tool
     eza # better ls
     fastfetch
