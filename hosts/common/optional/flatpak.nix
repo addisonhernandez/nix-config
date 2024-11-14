@@ -1,17 +1,26 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   services = {
     flatpak.enable = true;
   };
 
   systemd = let
-    description = "Update flatpak applications automatically once a day";
+    description = "daily flatpak update";
   in {
     services."flatpak-autoupdate" = {
       inherit description;
       serviceConfig = {
         Type = "oneshot";
       };
-      script = "${pkgs.flatpak}/bin/flatpak update --noninteractive --assumeyes";
+      script = let
+        flatpak = lib.getExe' pkgs.flatpak "flatpak";
+      in ''
+        ${flatpak} update --noninteractive --assumeyes
+        ${flatpak} uninstall --unused --noninteractive --assumeyes
+      '';
     };
 
     timers."flatpak-autoupdate" = {
