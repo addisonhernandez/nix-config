@@ -11,6 +11,7 @@
     ./git.nix
     ./nix-index.nix
     ./ranger.nix
+    ./ssh.nix
     ./starship.nix
     ./yazi.nix
     ./zellij.nix
