@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   imports = [
     ./hardware-configuration.nix
 
@@ -12,6 +12,7 @@
     ../common/optional/nix-ld.nix
     ../common/optional/pipewire.nix
     ../common/optional/printing.nix
+    ../common/optional/steam.nix
     ../common/optional/systemd-boot.nix
     ../common/optional/udisks.nix
     ../common/optional/xserver.nix
