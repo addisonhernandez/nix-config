@@ -1,23 +1,27 @@
 {...}: {
-  imports = [
-    ./hardware-configuration.nix
+  imports = let
+    optionalImports = map (name: ../common/optional/${name}.nix);
+  in
+    [
+      ./hardware-configuration.nix
 
-    ../common/global
-    ../common/users/addison
-    ../common/users/audrey
-
-    ../common/optional/docker.nix
-    ../common/optional/flatpak.nix
-    ../common/optional/kde.nix
-    ../common/optional/nix-ld.nix
-    ../common/optional/pipewire.nix
-    ../common/optional/printing.nix
-    ../common/optional/retroarch.nix
-    ../common/optional/steam.nix
-    ../common/optional/systemd-boot.nix
-    ../common/optional/udisks.nix
-    ../common/optional/xserver.nix
-  ];
+      ../common/global
+      ../common/users/addison
+      ../common/users/audrey
+    ]
+    ++ optionalImports [
+      "docker"
+      "flatpak"
+      "kde"
+      "nix-ld"
+      "pipewire"
+      "printing"
+      "retroarch"
+      "steam"
+      "systemd-boot"
+      "udisks"
+      "xserver"
+    ];
 
   networking = {
     hostName = "hedgehog";

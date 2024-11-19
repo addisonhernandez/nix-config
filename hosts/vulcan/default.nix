@@ -1,20 +1,24 @@
 {...}: {
-  imports = [
-    ./hardware-configuration.nix
+  imports = let
+    optionalImports = map (name: ../common/optional/${name}.nix);
+  in
+    [
+      ./hardware-configuration.nix
 
-    ../common/global
-    ../common/users/addison
-
-    ../common/optional/docker.nix
-    ../common/optional/flatpak.nix
-    ../common/optional/kde.nix
-    ../common/optional/nix-ld.nix
-    ../common/optional/pipewire.nix
-    ../common/optional/printing.nix
-    ../common/optional/systemd-boot.nix
-    ../common/optional/udisks.nix
-    ../common/optional/xserver.nix
-  ];
+      ../common/global
+      ../common/users/addison
+    ]
+    ++ optionalImports [
+      "docker"
+      "flatpak"
+      "kde"
+      "nix-ld"
+      "pipewire"
+      "printing"
+      "systemd-boot"
+      "udisks"
+      "xserver"
+    ];
 
   networking = {
     hostName = "vulcan";

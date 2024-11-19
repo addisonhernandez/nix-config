@@ -1,23 +1,25 @@
 {
-  imports = [
-    # TODO: tweaks for beelink | Alder Lake (12 gen) | N100 chipset
-    ./hardware-configuration.nix
-    ./intel-graphics-drivers.nix
+  imports = let
+    optionalImports = map (name: ../common/optional/${name}.nix);
+  in
+    [
+      ./hardware-configuration.nix
 
-    ./servarr
+      ./servarr
 
-    ../common/global
-    ../common/users/addison
-    ../common/users/audrey
-
-    ../common/optional/docker.nix
-    ../common/optional/flatpak.nix
-    ../common/optional/kde.nix
-    ../common/optional/pipewire.nix
-    ../common/optional/systemd-boot.nix
-    ../common/optional/udisks.nix
-    ../common/optional/xserver.nix
-  ];
+      ../common/global
+      ../common/users/addison
+      ../common/users/audrey
+    ]
+    ++ optionalImports [
+      "docker"
+      "flatpak"
+      "kde"
+      "pipewire"
+      "systemd-boot"
+      "udisks"
+      "xserver"
+    ];
 
   networking = {
     hostName = "jeeves";

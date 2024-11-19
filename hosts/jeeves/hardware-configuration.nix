@@ -6,6 +6,9 @@
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+
+    # TODO: tweaks for beelink | Alder Lake (12 gen) | N100 chipset
+    ./intel-graphics-drivers.nix
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
