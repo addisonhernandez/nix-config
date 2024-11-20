@@ -35,6 +35,7 @@
     forEachSystem = f: lib.genAttrs (import systems) (sys: f pkgsFor.${sys});
   in {
     inherit lib;
+    configRoot = ./.;
 
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;

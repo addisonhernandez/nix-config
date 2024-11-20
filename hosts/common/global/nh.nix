@@ -1,6 +1,6 @@
-{
+{outputs, ...}: {
   programs.nh = {
     enable = true;
-    flake = ../../..;
+    flake = outputs.configRoot;
   };
 }

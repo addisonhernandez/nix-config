@@ -1,8 +1,11 @@
 {
   pkgs,
   config,
+  outputs,
   ...
 }: let
+  inherit (outputs) configRoot;
+  hostName = config.networking.hostName;
   ifTheyExist = builtins.filter (group: builtins.hasAttr group config.users.groups);
 in {
   users = {
@@ -27,5 +30,5 @@ in {
     };
   };
 
-  home-manager.users.addison = import ../../../../home/addison/${config.networking.hostName}.nix;
+  home-manager.users.addison = import "${configRoot}/home/addison/${hostName}.nix";
 }
