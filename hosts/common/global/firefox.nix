@@ -4,11 +4,13 @@
 
     # See: https://mozilla.github.io/policy-templates/
     policies = {
+      DisableFeedbackCommands = true;
       DisableFirefoxScreenshots = true;
       DisableFirefoxStudies = true;
       DisablePocket = true;
       DisableSetDesktopBackground = true;
       DisableTelemetry = true;
+      NoDefaultBookmarks = true;
 
       FirefoxHome = {
         Pocket = false;
@@ -55,6 +57,11 @@
         };
       in {
         "extensions.pocket.enabled" = locked-false;
+        "browser.ml.enable" = locked-false;
+        "browser.ml.chat.enabled" = locked-false;
+        "browser.ml.chat.provider" = locked-empty;
+        "browser.newtabpage.activity-stream.showSponsored" = locked-false;
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = locked-false;
       };
     };
 
@@ -63,6 +70,13 @@
       "browser.aboutConfig.showWarning" = false;
       "browser.compactmode.show" = true;
       "browser.contentblocking.category" = "strict";
+      "browser.gesture.swipe.left" = "";
+      "browser.gesture.swipe.right" = "";
+      "browser.search.openintab" = true;
+      "browser.uidensity" = 1; # compact density
+
+      "extensions.formautofill.addresses.enabled" = false;
+      "extensions.formautofill.creditCards.enabled" = false;
     };
   };
 }
