@@ -17,8 +17,8 @@ in {
     settings = {
       # https://yazi-rs.github.io/docs/configuration/yazi
       manager = {
-        ratio = [1 3 4];
-        sort_by = "extension";
+        ratio = [1 4 5];
+        sort_by = "natural";
         sort_dir_first = true;
       };
       preview = {
