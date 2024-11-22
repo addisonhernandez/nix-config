@@ -61,7 +61,7 @@
     "/hdd" = {
       label = "btrhd";
       fsType = "btrfs";
-      options = ["subvol=@hdd2t" "autodefrag" "compress=zstd"];
+      options = ["subvol=@hdd2t" "autodefrag" "compress=zstd:15"];
     };
 
     "/hdd/backup" = {
@@ -73,13 +73,13 @@
     "/hdd/media" = {
       label = "btrhd";
       fsType = "btrfs";
-      options = ["subvol=@media" "autodefrag" "noatime" "compress=zstd"];
+      options = ["subvol=@media" "autodefrag" "noatime" "compress=zstd:15"];
     };
 
     "hdd/.temp" = {
       label = "btrhd";
       fsType = "btrfs";
-      options = ["subvol=@temp" "autodefrag" "noatime" "compress=zstd"];
+      options = ["subvol=@temp" "autodefrag" "noatime" "compress=zstd:15"];
     };
   };
 
