@@ -17,6 +17,8 @@
 
     ./nvidia-legacy-470.nix
     ./dual-monitors.nix
+
+    ../common/optional/btrfs.nix
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod"];

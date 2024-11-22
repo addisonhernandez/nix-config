@@ -15,6 +15,8 @@
     # iGPU      Intel HD Graphics 630
     # inputs.hardware.nixosModules.dell-xps-15-9560 # nvidia prime dGPU/iGPU
     inputs.hardware.nixosModules.dell-xps-15-9560-intel # iGPU only
+
+    ../common/optional/btrfs.nix
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
