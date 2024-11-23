@@ -24,10 +24,10 @@ in {
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than +5"; # keep last 5 generations
+      options = "--delete-older-than 14d";
     };
 
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+    nixPath = lib.mapAttrsToList (k: v: "${k}=${v.outPath}") flakeInputs;
   };
 }
