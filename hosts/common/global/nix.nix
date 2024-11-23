@@ -6,8 +6,6 @@
   flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
 in {
   nix = {
-    # package = pkgs.nixVersions.latest;
-
     settings = {
       auto-optimise-store = lib.mkDefault true;
       experimental-features = [
