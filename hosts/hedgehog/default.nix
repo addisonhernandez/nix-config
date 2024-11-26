@@ -17,6 +17,7 @@
       "pipewire"
       "printing"
       "retroarch"
+      "snapper"
       "steam"
       "systemd-boot"
       "udisks"
