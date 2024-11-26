@@ -12,6 +12,8 @@
   in {
     services."flatpak-autoupdate" = {
       inherit description;
+      after = ["network-online.target"];
+      requires = ["network-online.target"];
       serviceConfig = {
         Type = "oneshot";
       };
