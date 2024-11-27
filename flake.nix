@@ -33,9 +33,10 @@
         }
     );
     forEachSystem = f: lib.genAttrs (import systems) (sys: f pkgsFor.${sys});
+
+    configRoot = ./.;
   in {
     inherit lib;
-    configRoot = ./.;
 
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
@@ -50,25 +51,25 @@
       # Laptop (Dell XPS 9560)
       hedgehog = lib.nixosSystem {
         modules = [./hosts/hedgehog];
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {inherit inputs outputs configRoot;};
       };
 
       # Desktop
       vulcan = lib.nixosSystem {
         modules = [./hosts/vulcan];
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {inherit inputs outputs configRoot;};
       };
 
       # Mini Desktop (Beelink SER7)
       greenbeen = lib.nixosSystem {
         modules = [./hosts/greenbeen];
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {inherit inputs outputs configRoot;};
       };
 
       # Media Server (Beelink Mini S12 Pro)
       jeeves = lib.nixosSystem {
         modules = [./hosts/jeeves];
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {inherit inputs outputs configRoot;};
       };
     };
 

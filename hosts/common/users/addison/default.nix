@@ -1,10 +1,9 @@
 {
   pkgs,
   config,
-  outputs,
+  configRoot,
   ...
 }: let
-  inherit (outputs) configRoot;
   hostName = config.networking.hostName;
   ifTheyExist = builtins.filter (group: builtins.hasAttr group config.users.groups);
 in {
