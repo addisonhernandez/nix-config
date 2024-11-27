@@ -60,10 +60,10 @@
       };
 
       # Mini Desktop (Beelink SER7)
-      # simple-green = lib.nixosSystem {
-      #   modules = [./hosts/simple-green];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
+      greenbeen = lib.nixosSystem {
+        modules = [./hosts/greenbeen];
+        specialArgs = {inherit inputs outputs;};
+      };
 
       # Media Server (Beelink Mini S12 Pro)
       jeeves = lib.nixosSystem {
@@ -88,11 +88,11 @@
       };
 
       # Mini Desktop
-      # "addison@simple-green" = lib.homeManagerConfiguration {
-      #   modules = [./home/addison/simple-green.nix ./home/addison/nixpkgs.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
+      "addison@greenbeen" = lib.homeManagerConfiguration {
+        modules = [./home/addison/greenbeen.nix ./home/addison/nixpkgs.nix];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+      };
 
       # Media Server
       "addison@jeeves" = lib.homeManagerConfiguration {
