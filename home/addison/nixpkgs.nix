@@ -24,7 +24,7 @@ in {
   home.sessionVariables = {
     NIX_PATH = (
       lib.concatStringsSep ":" (
-        lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs
+        lib.mapAttrsToList (k: v: "${k}=${v.outPath}") flakeInputs
       )
     );
   };
