@@ -3,30 +3,34 @@
   lib,
   modulesPath,
   ...
-}: let
-  inherit (inputs) hardware systems;
-in {
-  imports = [
+}: {
+  imports = with inputs.hardware.nixosModules; [
     (modulesPath + "/installer/scan/not-detected.nix")
 
     # Hardware: (github.com/NixOS/nixos-hardware)
     # Platform  Beelink SER7
     # CPU       Ryzen 7 7840HS
     # iGPU      Radeon 780M
-    hardware.nixosModules.common-cpu-amd
-    hardware.nixosModules.common-cpu-amd-pstate
-    hardware.nixosModules.common-cpu-amd-raphael-igpu
-    hardware.nixosModules.common-cpu-amd-zenpower
-    # hardware.nixosModules.common-gpu-amd
-    hardware.nixosModules.common-pc
-    hardware.nixosModules.common-pc-ssd
+    common-cpu-amd
+    common-cpu-amd-pstate
+    common-cpu-amd-raphael-igpu
+    common-cpu-amd-zenpower
+    common-pc
+    common-pc-ssd
 
     ../common/optional/btrfs.nix
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "sd_mod"
+    "thunderbolt"
+    "usbhid"
+    "usb_storage"
+    "xhci_pci"
+  ];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
+  boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
   fileSystems = {
