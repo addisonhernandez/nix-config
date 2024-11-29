@@ -29,5 +29,9 @@
     networkmanager.enable = true;
   };
 
+  # Use XBOOTLDR partition to prevent filling the tiny MSFT EFI partition
+  boot.loader.efi.efiSysMountPoint = "/efi";
+  boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
+
   system.stateVersion = "24.05";
 }
