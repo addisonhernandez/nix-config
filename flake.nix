@@ -35,6 +35,21 @@
     forEachSystem = f: lib.genAttrs (import systems) (sys: f pkgsFor.${sys});
 
     configRoot = ./.;
+
+    hostnames = [
+      # Laptop (Dell XPS 9560)
+      "hedgehog"
+
+      # Desktop
+      "vulcan"
+
+      # Mini Desktop (Beelink SER7)
+      "greenbeen"
+
+      # Media Server (Beelink Mini S12 Pro)
+      "jeeves"
+    ];
+    forEachHost = lib.genAttrs hostnames;
   in {
     inherit lib;
 
@@ -47,60 +62,32 @@
     formatter = forEachSystem (pkgs: pkgs.alejandra);
     packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
 
-    nixosConfigurations = {
-      # Laptop (Dell XPS 9560)
-      hedgehog = lib.nixosSystem {
-        modules = [./hosts/hedgehog];
-        specialArgs = {inherit inputs outputs configRoot;};
+    nixosConfigurations = forEachHost (
+      host:
+        lib.nixosSystem {
+          modules = [./hosts/${host}];
+          specialArgs = {inherit inputs outputs configRoot;};
+        }
+    );
+
+    homeConfigurations = let
+      userHostPairs = lib.cartesianProduct {
+        # user = usernames; Audrey's profiles don't use home-manager yet
+        user = ["addison"];
+        host = hostnames;
       };
 
-      # Desktop
-      vulcan = lib.nixosSystem {
-        modules = [./hosts/vulcan];
-        specialArgs = {inherit inputs outputs configRoot;};
+      homeCfgFor = {
+        host,
+        user,
+      }: {
+        "${user}@${host}" = lib.homeManagerConfiguration {
+          modules = [./home/${user}/${host}.nix ./home/${user}/nixpkgs.nix];
+          pkgs = pkgsFor.x86_64-linux;
+          extraSpecialArgs = {inherit inputs outputs;};
+        };
       };
-
-      # Mini Desktop (Beelink SER7)
-      greenbeen = lib.nixosSystem {
-        modules = [./hosts/greenbeen];
-        specialArgs = {inherit inputs outputs configRoot;};
-      };
-
-      # Media Server (Beelink Mini S12 Pro)
-      jeeves = lib.nixosSystem {
-        modules = [./hosts/jeeves];
-        specialArgs = {inherit inputs outputs configRoot;};
-      };
-    };
-
-    homeConfigurations = {
-      # Laptop
-      "addison@hedgehog" = lib.homeManagerConfiguration {
-        modules = [./home/addison/hedgehog.nix ./home/addison/nixpkgs.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-
-      # Desktop
-      "addison@vulcan" = lib.homeManagerConfiguration {
-        modules = [./home/addison/vulcan.nix ./home/addison/nixpkgs.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-
-      # Mini Desktop
-      "addison@greenbeen" = lib.homeManagerConfiguration {
-        modules = [./home/addison/greenbeen.nix ./home/addison/nixpkgs.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-
-      # Media Server
-      "addison@jeeves" = lib.homeManagerConfiguration {
-        modules = [./home/addison/jeeves.nix ./home/addison/nixpkgs.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-    };
+    in
+      lib.mergeAttrsList (map homeCfgFor userHostPairs);
   };
 }
