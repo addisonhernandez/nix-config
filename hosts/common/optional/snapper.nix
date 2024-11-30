@@ -18,9 +18,11 @@
         EMPTY_PRE_POST_CLEANUP = "yes";
       };
     in {
-      home = snapperConfigDefaults // {
-        SUBVOLUME = config.fileSystems."/home".mountPoint;
-      };
+      home =
+        snapperConfigDefaults
+        // {
+          SUBVOLUME = config.fileSystems."/home".mountPoint;
+        };
     };
   };
 }
