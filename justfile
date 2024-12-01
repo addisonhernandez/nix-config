@@ -17,19 +17,19 @@ update:
 # build and activate the config, and make it the boot default
 [confirm('Build and switch to the new config?')]
 rebuild-switch host=hostname:
-    sudo nixos-rebuild switch --flake .#{{ host }}
+    nixos-rebuild switch --flake .#{{ host }} --use-remote-sudo
 
 [confirm('Build the new config and activate after reboot?')]
 rebuild-boot host=hostname:
-    sudo nixos-rebuild boot --flake .#{{ host }}
+    nixos-rebuild boot --flake .#{{ host }} --use-remote-sudo
 
 [confirm('Build new config and test it in this session?')]
 rebuild-test host=hostname:
-    sudo nixos-rebuild test --flake .#{{ host }}
+    nixos-rebuild test --flake .#{{ host }} --use-remote-sudo
 
 # build the config and show what would change
 dry-activate host=hostname:
-    sudo nixos-rebuild dry-activate --flake .#{{ host }}
+    nixos-rebuild dry-activate --flake .#{{ host }} --use-remote-sudo
 
 # build the config and link the derivation to ./result
 build host=hostname:
