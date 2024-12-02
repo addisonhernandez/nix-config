@@ -41,7 +41,7 @@ in {
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 2w";
+      options = "--delete-older-than 14d";
     };
 
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
