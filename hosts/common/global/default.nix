@@ -20,6 +20,8 @@
     ]
     ++ (builtins.attrValues outputs.nixosModules);
 
+  boot.tmp.cleanOnBoot = true;
+
   environment.systemPackages = with pkgs; [
     lunarvim
   ];
