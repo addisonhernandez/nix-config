@@ -21,6 +21,7 @@
       "steam"
       "systemd-boot"
       "udisks"
+      "virt-manager"
       "xserver"
     ];
 
