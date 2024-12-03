@@ -26,7 +26,7 @@
       SHELL = lib.getExe pkgs.fish;
       EDITOR = lib.getExe pkgs.lunarvim;
       VISUAL = lib.getExe pkgs.lunarvim;
-      # PAGER = lib.getExe pkgs.bat;
+      FLAKE = "${config.home.homeDirectory}/.config/nix-config";
     };
   };
 }
