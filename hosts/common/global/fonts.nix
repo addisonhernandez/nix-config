@@ -6,7 +6,7 @@
 
     packages = with pkgs; [
       # mono / programming
-      fira-code-nerdfont
+      nerd-fonts.fira-code
       jetbrains-mono
       monaspace
       source-code-pro

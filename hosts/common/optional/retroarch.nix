@@ -1,7 +1,7 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    (retroarch.override {
-      cores = with libretro; [
+{pkgs, ...}: let
+  retroarchWithCores = pkgs.retroarch.withCores (
+    cores:
+      with cores; [
         # Sega
         genesis-plus-gx
 
@@ -12,7 +12,8 @@
         # Nintendo
         snes9x
         bsnes-mercury-balanced
-      ];
-    })
-  ];
+      ]
+  );
+in {
+  environment.systemPackages = [retroarchWithCores];
 }
