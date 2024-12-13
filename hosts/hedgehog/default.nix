@@ -12,6 +12,7 @@
     ++ optionalImports [
       "docker"
       "flatpak"
+      "fwupd"
       "kde"
       "nix-ld"
       "pipewire"
