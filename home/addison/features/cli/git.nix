@@ -1,9 +1,4 @@
-let
-  catppuccinTheme = builtins.fetchurl {
-    url = "https://github.com/catppuccin/delta/raw/main/catppuccin.gitconfig";
-    sha256 = "sha256:0s36qb2yb3dx4krj3fv7zh4hdd30nr1ms7zm4s8njx8aa2bxw8d1";
-  };
-in {
+{inputs, ...}: {
   programs.git = {
     enable = true;
     userName = "Addison Hernandez";
@@ -34,7 +29,7 @@ in {
     };
     extraConfig = {
       include = {
-        path = "${catppuccinTheme}";
+        path = "${inputs.catppuccin-delta.outPath}/catppuccin.gitconfig";
       };
       commit.verbose = "true";
       diff.colorMoved = "default";

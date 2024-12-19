@@ -1,16 +1,8 @@
-{config, ...}: let
-  catppuccinMacchiatoToml = builtins.fetchurl {
-    url = "https://github.com/catppuccin/yazi/raw/refs/heads/main/themes/macchiato/catppuccin-macchiato-mauve.toml";
-    name = "yazi-theme_catppuccin-macchiato.toml";
-    sha256 = "sha256:1mdiksypkv0clf0rg25a88dhcxz1wzka37cv9wii21p8zxm385hm";
-  };
-  catppuccinMacchiatoTmTheme = builtins.fetchurl {
-    url = "https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Macchiato.tmTheme";
-    name = "bat-theme_Catppuccin-Macchiato";
-    sha256 = "sha256:1f31cx3jm0k3ndsmvd58slwj5nkmj8g2p42vmqcz93b0v47my1s1";
-  };
-  configDir = "${config.home.homeDirectory}/.config/yazi";
-in {
+{
+  config,
+  inputs,
+  ...
+}: {
   programs.yazi = {
     enable = true;
 
@@ -27,8 +19,12 @@ in {
     };
   };
 
-  home.file = {
-    "${configDir}/theme.toml".source = catppuccinMacchiatoToml;
-    "${configDir}/Catppuccin-macchiato.tmTheme".source = catppuccinMacchiatoTmTheme;
+  home.file = let
+    configDir = "${config.home.homeDirectory}/.config/yazi";
+    macchiatoMauveToml = "${inputs.catppuccin-yazi.outPath}/themes/macchiato/catppuccin-macchiato-mauve.toml";
+    macchiatoTmTheme = "${inputs.catppuccin-bat.outPath}/themes/Catppuccin Macchiato.tmTheme";
+  in {
+    "${configDir}/theme.toml".source = macchiatoMauveToml;
+    "${configDir}/Catppuccin-macchiato.tmTheme".source = macchiatoTmTheme;
   };
 }
