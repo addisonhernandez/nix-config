@@ -1,8 +1,4 @@
-{
-  config,
-  inputs,
-  ...
-}: {
+{inputs, ...}: {
   programs.yazi = {
     enable = true;
 
@@ -19,12 +15,11 @@
     };
   };
 
-  home.file = let
-    configDir = "${config.home.homeDirectory}/.config/yazi";
+  xdg.configFile = let
     macchiatoMauveToml = "${inputs.catppuccin-yazi.outPath}/themes/macchiato/catppuccin-macchiato-mauve.toml";
     macchiatoTmTheme = "${inputs.catppuccin-bat.outPath}/themes/Catppuccin Macchiato.tmTheme";
   in {
-    "${configDir}/theme.toml".source = macchiatoMauveToml;
-    "${configDir}/Catppuccin-macchiato.tmTheme".source = macchiatoTmTheme;
+    "yazi/theme.toml".source = macchiatoMauveToml;
+    "yazi/Catppuccin-macchiato.tmTheme".source = macchiatoTmTheme;
   };
 }
