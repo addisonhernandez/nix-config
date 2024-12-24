@@ -40,6 +40,7 @@
     # Nix / NixOS utilities
     alejandra # nix formatter
     nil # nix LSP written in Rust
+    nixfmt-rfc-style # new nix formatter
     nix-diff # detailed difftool
     nix-output-monitor # more output info while building (provides `nom`)
     nixd # nix LSP
