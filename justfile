@@ -1,9 +1,8 @@
 hostname := `uname -n`
-tmpdir := `mktemp --directory`
 
 # list just command runner recipes
 default:
-    @just --list --justfile {{ justfile() }}
+    @just --list --unsorted --justfile {{ justfile() }}
 
 # check whether the config flake evaluates
 check:
@@ -14,18 +13,13 @@ update:
     nix flake update
     git add flake.lock
 
-# build and activate the config, and make it the boot default
-[confirm('Build and switch to the new config?')]
-rebuild-switch host=hostname:
-    nixos-rebuild switch --flake .#{{ host }} --use-remote-sudo
+# collect nix store garbage and put logs in ./gc.log
+collect-garbage:
+    nix-collect-garbage 2>./gc.log &
 
-[confirm('Build the new config and activate after reboot?')]
-rebuild-boot host=hostname:
-    nixos-rebuild boot --flake .#{{ host }} --use-remote-sudo
-
-[confirm('Build new config and test it in this session?')]
-rebuild-test host=hostname:
-    nixos-rebuild test --flake .#{{ host }} --use-remote-sudo
+# use nh to more thoroughly clean the system and store
+nh-clean:
+    nh clean all --keep 3 --keep-since 14d
 
 # build the config and show what would change
 dry-activate host=hostname:
@@ -35,9 +29,24 @@ dry-activate host=hostname:
 build host=hostname:
     nixos-rebuild build --flake .#{{ host }}
 
-# diff the activated system and the system built in ./result
+# diff the activated system and a freshly built config
 diff-system prev="/nix/var/nix/profiles/system" final="./result": build
     nvd diff {{ prev }} {{ final }}
 
-collect-garbage:
-    nix-collect-garbage 2>./gc.log &
+# build and activate the config, and make it the boot default
+[confirm('Build and switch to the new config?')]
+rebuild-switch host=hostname:
+    @sudo true
+    nixos-rebuild switch --flake .#{{ host }} --use-remote-sudo
+
+# build the config, and activate it after a reboot
+[confirm('Build the new config and activate after reboot?')]
+rebuild-boot host=hostname:
+    @sudo true
+    nixos-rebuild boot --flake .#{{ host }} --use-remote-sudo
+
+# build the config and test it in the current session
+[confirm('Build new config and test it in this session?')]
+rebuild-test host=hostname:
+    @sudo true
+    nixos-rebuild test --flake .#{{ host }} --use-remote-sudo
