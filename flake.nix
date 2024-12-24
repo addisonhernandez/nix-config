@@ -26,6 +26,10 @@
       url = "github:catppuccin/bat";
       flake = false;
     };
+    catppuccin-btop = {
+      url = "github:catppuccin/btop";
+      flake = false;
+    };
   };
 
   outputs = {

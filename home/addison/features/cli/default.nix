@@ -5,6 +5,7 @@
     ./atuin.nix
     ./bash.nix
     ./bat.nix
+    ./btop.nix
     ./direnv.nix
     ./fish.nix
     ./fzf.nix
@@ -22,7 +23,6 @@
     distrobox
 
     # Utilities
-    btop # better top
     delta # diff tool
     eza # better ls
     fastfetch
@@ -39,8 +39,6 @@
 
     # Nix / NixOS utilities
     alejandra # nix formatter
-    # TODO: make a separate nh.nix config
-    # see: https://github.com/viperML/nh#nixos-module
     nil # nix LSP written in Rust
     nix-diff # detailed difftool
     nix-output-monitor # more output info while building (provides `nom`)
