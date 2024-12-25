@@ -1,8 +1,5 @@
-{inputs, ...}: {
-  programs.bat = {
-    enable = true;
-    config.theme = "Catppuccin Macchiato";
-  };
+{...}: {
+  programs.bat.enable = true;
 
-  xdg.configFile."bat/themes".source = "${inputs.catppuccin-bat.outPath}/themes";
+  catppuccin.bat.enable = true;
 }

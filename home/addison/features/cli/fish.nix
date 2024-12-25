@@ -60,4 +60,6 @@
       };
     };
   };
+
+  catppuccin.fish.enable = true;
 }

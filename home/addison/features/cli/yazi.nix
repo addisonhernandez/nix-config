@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{...}: {
   programs.yazi = {
     enable = true;
 
@@ -15,11 +15,5 @@
     };
   };
 
-  xdg.configFile = let
-    macchiatoMauveToml = "${inputs.catppuccin-yazi.outPath}/themes/macchiato/catppuccin-macchiato-mauve.toml";
-    macchiatoTmTheme = "${inputs.catppuccin-bat.outPath}/themes/Catppuccin Macchiato.tmTheme";
-  in {
-    "yazi/theme.toml".source = macchiatoMauveToml;
-    "yazi/Catppuccin-macchiato.tmTheme".source = macchiatoTmTheme;
-  };
+  catppuccin.yazi.enable = true;
 }

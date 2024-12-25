@@ -3,4 +3,6 @@
     enable = true;
     enableTransience = true;
   };
+
+  catppuccin.starship.enable = true;
 }

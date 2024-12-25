@@ -8,7 +8,6 @@
     settings = {
       default_shell = lib.getExe pkgs.fish;
       pane_frames = false;
-      theme = "catppuccin-macchiato";
 
       # on_force_close = "detach" | "quit";
       # simplified_ui = false | true;
@@ -24,4 +23,6 @@
       # styled_underlines = true | false;
     };
   };
+
+  catppuccin.zellij.enable = true;
 }

@@ -7,7 +7,9 @@
 }: {
   imports =
     [
+      inputs.catppuccin.nixosModules.catppuccin
       inputs.home-manager.nixosModules.home-manager
+      ./catppuccin.nix
       ./firefox.nix
       ./fish.nix
       ./fonts.nix

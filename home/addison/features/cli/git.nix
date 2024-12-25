@@ -1,4 +1,7 @@
-{inputs, ...}: {
+{...}: {
+  imports = [
+    ./delta.nix
+  ];
   programs.git = {
     enable = true;
     userName = "Addison Hernandez";
@@ -20,17 +23,7 @@
       ".*.swp"
       ".DS_Store"
     ];
-    delta = {
-      enable = true;
-      options = {
-        navigate = "true";
-        features = "catppuccin-macchiato";
-      };
-    };
     extraConfig = {
-      include = {
-        path = "${inputs.catppuccin-delta.outPath}/catppuccin.gitconfig";
-      };
       commit.verbose = "true";
       diff.colorMoved = "default";
       fetch.prune = "true";

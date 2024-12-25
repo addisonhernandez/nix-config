@@ -1,7 +1,6 @@
 {
   programs.kitty = {
     enable = true;
-    themeFile = "Catppuccin-Macchiato";
 
     settings = {
       enable_audio_bell = "no";
@@ -32,4 +31,6 @@
       font_features MonaspaceRadonVar_600wght_-11slnt +calt +liga
     '';
   };
+
+  catppuccin.kitty.enable = true;
 }

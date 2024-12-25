@@ -2,11 +2,15 @@
   lib,
   pkgs,
   config,
+  inputs,
   outputs,
   ...
 }: {
   imports =
     [
+      inputs.catppuccin.homeManagerModules.catppuccin
+      ./catppuccin.nix
+
       ../features/cli
       ../features/nvim
     ]
