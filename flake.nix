@@ -6,11 +6,11 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     systems.url = "github:nix-systems/x86_64-linux";
-    hardware.url = "github:nixos/nixos-hardware?rev=45348ad6fb8ac0e8415f6e5e96efe47dd7f39405";
+    hardware.url = "github:nixos/nixos-hardware";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    
+
     home-manager-stable.url = "github:nix-community/home-manager/release-24.11";
     home-manager-stable.inputs.nixpkgs.follows = "nixpkgs-stable";
 
