@@ -13,9 +13,9 @@ update:
     nix flake update
     git add flake.lock
 
-# collect nix store garbage and put logs in ./gc.log
-collect-garbage:
-    nix-collect-garbage 2>./gc.log &
+# format nix files with nixfmt
+nixfmt:
+    fd --extension "nix" --exec-batch nixfmt {}
 
 # use nh to more thoroughly clean the system and store
 nh-clean:
