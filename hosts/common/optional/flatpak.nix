@@ -1,11 +1,5 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
-  services = {
-    flatpak.enable = true;
-  };
+{pkgs, ...}: {
+  services.flatpak.enable = true;
 
   systemd = let
     description = "daily flatpak update";
@@ -17,16 +11,17 @@
       serviceConfig = {
         Type = "oneshot";
       };
-      script = let
-        flatpak = lib.getExe' pkgs.flatpak "flatpak";
-      in ''
-        ${flatpak} update --noninteractive --assumeyes
-        ${flatpak} uninstall --unused --noninteractive --assumeyes
+      path = [pkgs.flatpak];
+      script = ''
+        flatpak update --noninteractive --assumeyes
+        flatpak uninstall --unused --noninteractive --assumeyes
       '';
     };
 
     timers."flatpak-autoupdate" = {
       inherit description;
+      after = ["network-online.target"];
+      requires = ["network-online.target"];
       wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = "daily";
