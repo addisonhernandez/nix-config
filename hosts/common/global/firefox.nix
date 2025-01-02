@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.firefox = {
     enable = true;
 
@@ -42,27 +43,29 @@
         };
       };
 
-      Preferences = let
-        locked-false = {
-          Value = false;
-          Status = "locked";
+      Preferences =
+        let
+          locked-false = {
+            Value = false;
+            Status = "locked";
+          };
+          locked-true = {
+            Value = true;
+            Status = "locked";
+          };
+          locked-empty = {
+            Value = "";
+            Status = "locked";
+          };
+        in
+        {
+          "extensions.pocket.enabled" = locked-false;
+          "browser.ml.enable" = locked-false;
+          "browser.ml.chat.enabled" = locked-false;
+          "browser.ml.chat.provider" = locked-empty;
+          "browser.newtabpage.activity-stream.showSponsored" = locked-false;
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = locked-false;
         };
-        locked-true = {
-          Value = true;
-          Status = "locked";
-        };
-        locked-empty = {
-          Value = "";
-          Status = "locked";
-        };
-      in {
-        "extensions.pocket.enabled" = locked-false;
-        "browser.ml.enable" = locked-false;
-        "browser.ml.chat.enabled" = locked-false;
-        "browser.ml.chat.provider" = locked-empty;
-        "browser.newtabpage.activity-stream.showSponsored" = locked-false;
-        "browser.newtabpage.activity-stream.showSponsoredTopSites" = locked-false;
-      };
     };
 
     preferencesStatus = "default";

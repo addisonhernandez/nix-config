@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   time.timeZone = "America/New_York";
 
   i18n = {

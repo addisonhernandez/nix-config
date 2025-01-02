@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
@@ -9,8 +10,8 @@
 
   xdg.portal = {
     enable = true;
-    config.common.default = ["kde"];
+    config.common.default = [ "kde" ];
   };
 
-  environment.systemPackages = [pkgs.wl-clipboard-rs];
+  environment.systemPackages = [ pkgs.wl-clipboard-rs ];
 }

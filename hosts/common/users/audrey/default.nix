@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   ifTheyExist = builtins.filter (group: builtins.hasAttr group config.users.groups);
-in {
+in
+{
   users = {
     # mutableUsers = false;
     users.audrey = {

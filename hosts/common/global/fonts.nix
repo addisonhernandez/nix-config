@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Install some fonts
   fonts = {
     # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/config/fonts/packages.nix#L34
@@ -26,10 +27,18 @@
 
     fontconfig = {
       defaultFonts = {
-        monospace = ["FiraCode Nerd Font" "Source Code Pro" "Monospace"];
-        sansSerif = ["Inter" "Lato" "DejaVu Sans"];
-        serif = ["Noto Serif"];
-        emoji = ["Noto Color Emoji"];
+        monospace = [
+          "FiraCode Nerd Font"
+          "Source Code Pro"
+          "Monospace"
+        ];
+        sansSerif = [
+          "Inter"
+          "Lato"
+          "DejaVu Sans"
+        ];
+        serif = [ "Noto Serif" ];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };

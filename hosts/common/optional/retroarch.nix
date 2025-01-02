@@ -1,19 +1,20 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   retroarchWithCores = pkgs.retroarch.withCores (
-    cores:
-      with cores; [
-        # Sega
-        genesis-plus-gx
+    cores: with cores; [
+      # Sega
+      genesis-plus-gx
 
-        # Sony
-        beetle-psx
-        beetle-psx-hw
+      # Sony
+      beetle-psx
+      beetle-psx-hw
 
-        # Nintendo
-        snes9x
-        bsnes-mercury-balanced
-      ]
+      # Nintendo
+      snes9x
+      bsnes-mercury-balanced
+    ]
   );
-in {
-  environment.systemPackages = [retroarchWithCores];
+in
+{
+  environment.systemPackages = [ retroarchWithCores ];
 }

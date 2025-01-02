@@ -4,7 +4,8 @@
   lib,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
 
@@ -21,71 +22,112 @@
     ../common/optional/btrfs.nix
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = [
+    "ahci"
+    "ehci_pci"
+    "sd_mod"
+    "sr_mod"
+    "usbhid"
+    "usb_storage"
+    "xhci_pci"
+  ];
+  boot.kernelModules = [ "kvm-intel" ];
 
   fileSystems = {
     # Root SSD
     "/" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@" "compress=zstd"];
+      options = [
+        "subvol=@"
+        "compress=zstd"
+      ];
     };
 
     "/home" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@home" "compress=zstd"];
+      options = [
+        "subvol=@home"
+        "compress=zstd"
+      ];
     };
 
     "/nix" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@nix" "compress=zstd" "noatime"];
+      options = [
+        "subvol=@nix"
+        "compress=zstd"
+        "noatime"
+      ];
     };
 
     "/var/log" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@log" "compress=zstd"];
+      options = [
+        "subvol=@log"
+        "compress=zstd"
+      ];
     };
 
     # Boot EFI
     "/boot" = {
       device = "/dev/disk/by-label/boot";
       fsType = "vfat";
-      options = ["fmask=0077" "dmask=0077"];
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
     };
 
     # Interal HDD
     "/hdd" = {
       label = "btrhd";
       fsType = "btrfs";
-      options = ["subvol=@hdd2t" "autodefrag" "compress=zstd:15"];
+      options = [
+        "subvol=@hdd2t"
+        "autodefrag"
+        "compress=zstd:15"
+      ];
     };
 
     "/hdd/backup" = {
       label = "btrhd";
       fsType = "btrfs";
-      options = ["subvol=@backup" "autodefrag" "noatime" "compress=zstd:15"];
+      options = [
+        "subvol=@backup"
+        "autodefrag"
+        "noatime"
+        "compress=zstd:15"
+      ];
     };
 
     "/hdd/media" = {
       label = "btrhd";
       fsType = "btrfs";
-      options = ["subvol=@media" "autodefrag" "noatime" "compress=zstd:15"];
+      options = [
+        "subvol=@media"
+        "autodefrag"
+        "noatime"
+        "compress=zstd:15"
+      ];
     };
 
     "hdd/.temp" = {
       label = "btrhd";
       fsType = "btrfs";
-      options = ["subvol=@temp" "autodefrag" "noatime" "compress=zstd:15"];
+      options = [
+        "subvol=@temp"
+        "autodefrag"
+        "noatime"
+        "compress=zstd:15"
+      ];
     };
   };
 
-  swapDevices = [];
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

@@ -25,80 +25,89 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    systems,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      systems,
+      ...
+    }@inputs:
+    let
+      inherit (self) outputs;
 
-    lib = nixpkgs.lib // home-manager.lib;
+      lib = nixpkgs.lib // home-manager.lib;
 
-    pkgsFor = lib.genAttrs (import systems) (
-      system:
+      pkgsFor = lib.genAttrs (import systems) (
+        system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         }
-    );
-    forEachSystem = f: lib.genAttrs (import systems) (sys: f pkgsFor.${sys});
+      );
+      forEachSystem = f: lib.genAttrs (import systems) (sys: f pkgsFor.${sys});
 
-    configRoot = ./.;
+      configRoot = ./.;
 
-    hostnames = [
-      # Laptop (Dell XPS 9560)
-      "hedgehog"
+      hostnames = [
+        # Laptop (Dell XPS 9560)
+        "hedgehog"
 
-      # Desktop
-      "vulcan"
+        # Desktop
+        "vulcan"
 
-      # Mini Desktop (Beelink SER7)
-      "greenbeen"
+        # Mini Desktop (Beelink SER7)
+        "greenbeen"
 
-      # Media Server (Beelink Mini S12 Pro)
-      "jeeves"
-    ];
-    forEachHost = lib.genAttrs hostnames;
-  in {
-    inherit lib;
-
-    nixosModules = import ./modules/nixos;
-    homeManagerModules = import ./modules/home-manager;
-
-    overlays = import ./overlays {inherit inputs outputs;};
-
-    devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
-    formatter = forEachSystem (pkgs: pkgs.alejandra);
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
-
-    nixosConfigurations = forEachHost (
-      host:
-        lib.nixosSystem {
-          modules = [./hosts/${host}];
-          specialArgs = {inherit inputs outputs configRoot;};
-        }
-    );
-
-    homeConfigurations = let
-      userHostPairs = lib.cartesianProduct {
-        # user = usernames; Audrey's profiles don't use home-manager yet
-        user = ["addison"];
-        host = hostnames;
-      };
-
-      homeCfgFor = {
-        host,
-        user,
-      }: {
-        "${user}@${host}" = lib.homeManagerConfiguration {
-          modules = [./home/${user}/${host}.nix ./home/${user}/nixpkgs.nix];
-          pkgs = pkgsFor.x86_64-linux;
-          extraSpecialArgs = {inherit inputs outputs;};
-        };
-      };
+        # Media Server (Beelink Mini S12 Pro)
+        "jeeves"
+      ];
+      forEachHost = lib.genAttrs hostnames;
     in
-      lib.mergeAttrsList (map homeCfgFor userHostPairs);
-  };
+    {
+      inherit lib;
+
+      nixosModules = import ./modules/nixos;
+      homeManagerModules = import ./modules/home-manager;
+
+      overlays = import ./overlays { inherit inputs outputs; };
+
+      devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
+      formatter = forEachSystem (pkgs: pkgs.alejandra);
+      packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
+
+      nixosConfigurations = forEachHost (
+        host:
+        lib.nixosSystem {
+          modules = [ ./hosts/${host} ];
+          specialArgs = { inherit inputs outputs configRoot; };
+        }
+      );
+
+      homeConfigurations =
+        let
+          userHostPairs = lib.cartesianProduct {
+            # user = usernames; Audrey's profiles don't use home-manager yet
+            user = [ "addison" ];
+            host = hostnames;
+          };
+
+          homeCfgFor =
+            {
+              host,
+              user,
+            }:
+            {
+              "${user}@${host}" = lib.homeManagerConfiguration {
+                modules = [
+                  ./home/${user}/${host}.nix
+                  ./home/${user}/nixpkgs.nix
+                ];
+                pkgs = pkgsFor.x86_64-linux;
+                extraSpecialArgs = { inherit inputs outputs; };
+              };
+            };
+        in
+        lib.mergeAttrsList (map homeCfgFor userHostPairs);
+    };
 }

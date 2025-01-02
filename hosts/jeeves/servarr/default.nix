@@ -1,7 +1,6 @@
-{...}: {
-  imports = [
-    ./jellyfin.nix
-  ];
+{ ... }:
+{
+  imports = [ ./jellyfin.nix ];
 
   users.groups.media = {
     gid = 6969;

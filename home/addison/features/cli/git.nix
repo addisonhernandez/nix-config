@@ -1,7 +1,6 @@
-{...}: {
-  imports = [
-    ./delta.nix
-  ];
+{ ... }:
+{
+  imports = [ ./delta.nix ];
   programs.git = {
     enable = true;
     userName = "Addison Hernandez";

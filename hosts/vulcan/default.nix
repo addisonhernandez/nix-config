@@ -1,7 +1,9 @@
-{...}: {
-  imports = let
-    optionalImports = map (name: ../common/optional/${name}.nix);
-  in
+{ ... }:
+{
+  imports =
+    let
+      optionalImports = map (name: ../common/optional/${name}.nix);
+    in
     [
       ./hardware-configuration.nix
 

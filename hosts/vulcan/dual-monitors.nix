@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   # Configure dual monitors
   # HDMI: primary
   # DP: secondary on the left and rotated with left edge up

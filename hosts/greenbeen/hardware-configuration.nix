@@ -3,7 +3,8 @@
   lib,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = with inputs.hardware.nixosModules; [
     (modulesPath + "/installer/scan/not-detected.nix")
 
@@ -29,49 +30,66 @@
     "usb_storage"
     "xhci_pci"
   ];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd"];
-  boot.extraModulePackages = [];
+  boot.kernelModules = [ "kvm-amd" ];
 
   fileSystems = {
     "/" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@" "compress=zstd"];
+      options = [
+        "subvol=@"
+        "compress=zstd"
+      ];
     };
 
     "/home" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@home" "compress=zstd"];
+      options = [
+        "subvol=@home"
+        "compress=zstd"
+      ];
     };
 
     "/nix" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@nix" "compress=zstd" "noatime"];
+      options = [
+        "subvol=@nix"
+        "compress=zstd"
+        "noatime"
+      ];
     };
 
     "/var/log" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@log" "compress=zstd"];
+      options = [
+        "subvol=@log"
+        "compress=zstd"
+      ];
     };
 
     "/boot" = {
       device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
-      options = ["fmask=0077" "dmask=0077"];
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
     };
 
     "/efi" = {
       device = "/dev/disk/by-label/SYSTEM";
       fsType = "vfat";
-      options = ["fmask=0077" "dmask=0077"];
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
     };
   };
 
-  swapDevices = [];
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

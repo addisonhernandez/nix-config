@@ -3,10 +3,12 @@
   config,
   configRoot,
   ...
-}: let
+}:
+let
   hostName = config.networking.hostName;
   ifTheyExist = builtins.filter (group: builtins.hasAttr group config.users.groups);
-in {
+in
+{
   users = {
     # mutableUsers = false;
     users.addison = {
@@ -25,7 +27,7 @@ in {
         "wheel"
       ];
 
-      packages = [pkgs.home-manager];
+      packages = [ pkgs.home-manager ];
     };
   };
 

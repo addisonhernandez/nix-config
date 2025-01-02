@@ -3,5 +3,5 @@
     enable = true;
   };
 
-  networking.networkmanager.unmanaged = ["interface-name:docker*"];
+  networking.networkmanager.unmanaged = [ "interface-name:docker*" ];
 }

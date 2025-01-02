@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.git.delta = {
     enable = true;
     options.navigate = "true";

@@ -4,7 +4,8 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
 
@@ -19,49 +20,69 @@
     ../common/optional/btrfs.nix
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = [
+    "ahci"
+    "nvme"
+    "rtsx_pci_sdmmc"
+    "sd_mod"
+    "usbhid"
+    "usb_storage"
+    "xhci_pci"
+  ];
+  boot.kernelModules = [ "kvm-intel" ];
 
   fileSystems = {
     "/" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@" "compress=zstd"];
+      options = [
+        "subvol=@"
+        "compress=zstd"
+      ];
     };
 
     "/home" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@home" "compress=zstd"];
+      options = [
+        "subvol=@home"
+        "compress=zstd"
+      ];
     };
 
     "/nix" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@nix" "compress=zstd" "noatime"];
+      options = [
+        "subvol=@nix"
+        "compress=zstd"
+        "noatime"
+      ];
     };
 
     "/var/log" = {
       label = "nixos";
       fsType = "btrfs";
-      options = ["subvol=@log" "compress=zstd"];
+      options = [
+        "subvol=@log"
+        "compress=zstd"
+      ];
     };
 
     "/boot" = {
       device = "/dev/disk/by-label/boot";
       fsType = "vfat";
-      options = ["fmask=0077" "dmask=0077"];
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
     };
   };
 
-  swapDevices = [];
+  swapDevices = [ ];
 
   # Library to set fan modes and other BIOS settings
-  environment.systemPackages = [
-    pkgs.libsmbios
-  ];
+  environment.systemPackages = [ pkgs.libsmbios ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

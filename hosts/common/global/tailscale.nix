@@ -1,8 +1,9 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   services.tailscale = {
     enable = true;
     useRoutingFeatures = lib.mkDefault "client";
-    extraSetFlags = ["--ssh"];
+    extraSetFlags = [ "--ssh" ];
   };
 
   # Facilitate firewall punching

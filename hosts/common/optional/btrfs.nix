@@ -1,6 +1,7 @@
-{...}: {
+{ ... }:
+{
   services.btrfs.autoScrub = {
     enable = true;
-    fileSystems = ["/"];
+    fileSystems = [ "/" ];
   };
 }

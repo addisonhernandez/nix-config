@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.steam = {
     enable = true;
 
@@ -13,9 +14,7 @@
 
     protontricks.enable = true;
 
-    extraPackages = with pkgs; [
-      gamescope
-    ];
+    extraPackages = with pkgs; [ gamescope ];
 
     extraCompatPackages = with pkgs; [
       proton-ge-bin

@@ -1,9 +1,9 @@
 {
   programs.atuin = {
     enable = true;
-    flags = ["--disable-up-arrow"];
+    flags = [ "--disable-up-arrow" ];
     settings = {
-      cwd_filter = ["/\\.temp"];
+      cwd_filter = [ "/\\.temp" ];
       stats.common_subcommands = [
         "apt"
         "bw"
