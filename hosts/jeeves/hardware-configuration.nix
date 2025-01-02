@@ -1,14 +1,21 @@
 {
-  config,
+  inputs,
   lib,
   modulesPath,
   ...
 }:
 {
-  imports = [
+  imports = with inputs.hardware.nixosModules; [
     (modulesPath + "/installer/scan/not-detected.nix")
 
-    # TODO: tweaks for beelink | Alder Lake (12 gen) | N100 chipset
+    # Hardware: (github.com/NixOS/nixos-hardware)
+    # Platform  Beelink Mini S12
+    # CPU       Intel N100 (Alder Lake)
+    # iGPU      Intel UHD Graphics
+    common-cpu-intel-cpu-only
+    common-pc
+    common-pc-ssd
+
     ./intel-graphics-drivers.nix
 
     ../common/optional/btrfs.nix
@@ -105,9 +112,7 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.tailscale0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
