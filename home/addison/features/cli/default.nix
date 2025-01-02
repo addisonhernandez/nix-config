@@ -2,6 +2,7 @@
 {
   imports = [
     ./lvim
+    ./git
 
     ./atuin.nix
     ./bash.nix
@@ -10,7 +11,6 @@
     ./direnv.nix
     ./fish.nix
     ./fzf.nix
-    ./git.nix
     ./nix-index.nix
     ./ranger.nix
     ./ssh.nix

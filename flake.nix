@@ -63,6 +63,11 @@
         "jeeves"
       ];
       forEachHost = lib.genAttrs hostnames;
+
+      usernames = [
+        "addison"
+        "audrey"
+      ];
     in
     {
       inherit lib;
@@ -87,15 +92,14 @@
       homeConfigurations =
         let
           userHostPairs = lib.cartesianProduct {
-            # user = usernames; Audrey's profiles don't use home-manager yet
-            user = [ "addison" ];
+            user = usernames;
             host = hostnames;
           };
 
           homeCfgFor =
             {
-              host,
               user,
+              host,
             }:
             {
               "${user}@${host}" = lib.homeManagerConfiguration {
