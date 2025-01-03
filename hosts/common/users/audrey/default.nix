@@ -9,7 +9,6 @@ let
   ifTheyExist = builtins.filter (group: builtins.hasAttr group config.users.groups);
 in
 {
-
   users.users.audrey = {
     isNormalUser = true;
     description = "Audrey";

@@ -1,8 +1,6 @@
 { inputs, pkgs, ... }:
 {
-  imports = [
-    inputs.hardware.nixosModules.common-gpu-intel
-  ];
+  imports = [ inputs.hardware.nixosModules.common-gpu-intel ];
 
   hardware.intelgpu.vaapiDriver = "intel-media-driver";
   hardware.intelgpu.enableHybridCodec = true;

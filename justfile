@@ -15,7 +15,7 @@ update:
 
 # format nix files with nixfmt
 nixfmt:
-    fd --extension "nix" --exec-batch nixfmt {}
+    fd --extension "nix" --exec-batch nixfmt --strict {}
 
 # use nh to more thoroughly clean the system and store
 nh-clean:

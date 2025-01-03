@@ -1,15 +1,4 @@
-{
-  inputs,
-  outputs,
-  ...
-}:
-let
-  addPatches =
-    pkg: patches:
-    pkg.overrideAttrs (oldAttrs: {
-      patches = (oldAttrs.patches or [ ]) ++ patches;
-    });
-in
+{ inputs, ... }:
 {
   # For every flake input, aliases 'pkgs.inputs.${flake}' to
   # 'inputs.${flake}.packages.${pkgs.system}' or
@@ -26,7 +15,5 @@ in
   };
 
   # Adds pkgs.stable == inputs.nixpkgs-stable.legacyPackages.${pkgs.system}
-  stable = final: _: {
-    stable = inputs.nixpkgs-stable.legacyPackages.${final.system};
-  };
+  stable = final: _: { stable = inputs.nixpkgs-stable.legacyPackages.${final.system}; };
 }

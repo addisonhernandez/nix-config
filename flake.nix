@@ -97,10 +97,7 @@
           };
 
           homeCfgFor =
-            {
-              user,
-              host,
-            }:
+            { user, host }:
             {
               "${user}@${host}" = lib.homeManagerConfiguration {
                 modules = [
