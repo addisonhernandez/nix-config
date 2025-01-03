@@ -1,4 +1,1 @@
-{ ... }:
-{
-  xdg.configFile."lvim/config.lua".source = ./config.lua;
-}
+{ xdg.configFile."lvim/config.lua".source = ./config.lua; }

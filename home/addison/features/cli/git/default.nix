@@ -1,4 +1,3 @@
-{ ... }:
 {
   imports = [ ./delta.nix ];
   programs.git = {

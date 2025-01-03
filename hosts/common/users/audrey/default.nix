@@ -5,7 +5,7 @@
   ...
 }:
 let
-  hostName = config.networking.hostName;
+  inherit (config.networking) hostName;
   ifTheyExist = builtins.filter (group: builtins.hasAttr group config.users.groups);
 in
 {
