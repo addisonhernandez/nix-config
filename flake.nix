@@ -35,35 +35,18 @@
     }@inputs:
     let
       inherit (self) outputs;
+      inherit (lib) forEachSystem mkHomeConfig mkHostConfig;
 
-      lib = nixpkgs.lib // home-manager.lib;
-
-      pkgsFor = lib.genAttrs (import systems) (
-        system:
-        import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        }
-      );
-      forEachSystem = f: lib.genAttrs (import systems) (sys: f pkgsFor.${sys});
+      lib = import ./lib { inherit inputs outputs configRoot; };
 
       configRoot = ./.;
 
       hostnames = [
-        # Laptop (Dell XPS 9560)
-        "hedgehog"
-
-        # Desktop
-        "vulcan"
-
-        # Mini Desktop (Beelink SER7)
-        "greenbeen"
-
-        # Media Server (Beelink Mini S12 Pro)
-        "jeeves"
+        "hedgehog"   # Laptop (Dell XPS 9560)
+        "vulcan"     # Desktop
+        "greenbeen"  # Mini Desktop (Beelink SER7)
+        "jeeves"     # Media Server (Beelink Mini S12 Pro)
       ];
-      forEachHost = lib.genAttrs hostnames;
-
       usernames = [
         "addison"
         "audrey"
@@ -72,6 +55,9 @@
         user = usernames;
         host = hostnames;
       };
+
+      forEachHost = lib.genAttrs hostnames;
+      forEachHome = f: lib.mergeAttrsList (map f userHostPairs);
     in
     {
       inherit lib;
@@ -85,29 +71,7 @@
       formatter = forEachSystem (pkgs: pkgs.alejandra);
       # packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
 
-      nixosConfigurations = forEachHost (
-        host:
-        lib.nixosSystem {
-          modules = [ ./hosts/${host} ];
-          specialArgs = { inherit inputs outputs configRoot; };
-        }
-      );
-
-      homeConfigurations =
-        let
-          homeCfgFor =
-            { user, host }:
-            {
-              "${user}@${host}" = lib.homeManagerConfiguration {
-                modules = [
-                  ./home/${user}/${host}.nix
-                  ./home/${user}/nixpkgs.nix
-                ];
-                pkgs = pkgsFor.x86_64-linux;
-                extraSpecialArgs = { inherit inputs outputs; };
-              };
-            };
-        in
-        lib.mergeAttrsList (map homeCfgFor userHostPairs);
+      nixosConfigurations = forEachHost mkHostConfig;
+      homeConfigurations = forEachHome mkHomeConfig;
     };
 }
