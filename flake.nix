@@ -42,10 +42,10 @@
       configRoot = ./.;
 
       hostnames = [
-        "hedgehog"   # Laptop (Dell XPS 9560)
-        "vulcan"     # Desktop
-        "greenbeen"  # Mini Desktop (Beelink SER7)
-        "jeeves"     # Media Server (Beelink Mini S12 Pro)
+        "hedgehog" # Laptop (Dell XPS 9560)
+        "vulcan" # Desktop
+        "greenbeen" # Mini Desktop (Beelink SER7)
+        "jeeves" # Media Server (Beelink Mini S12 Pro)
       ];
       usernames = [
         "addison"

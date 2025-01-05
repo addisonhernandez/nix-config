@@ -1,0 +1,71 @@
+{ lib, ... }:
+{
+  programs.zed-editor = {
+    enable = true;
+
+    extensions = [
+      "just"
+      "nix"
+      "toml"
+    ];
+
+    # extraPackages = [];
+
+    userSettings = {
+      # Basics
+      base_keymap = "VSCode";
+      soft_wrap = "editor_width";
+      tab_size = 2;
+
+      # Vim
+      vim_mode = true;
+      vim = {
+        toggle_relative_line_numbers = true;
+        use_smarcase_find = true;
+      };
+
+      # Editor Look & Feel
+      buffer_font_family = "FiraCode Nerd Font";
+      buffer_font_features = {
+        calt = true;
+        liga = true;
+        zero = true;
+        cv16 = true;
+      };
+      buffer_font_fallbacks = [
+        "Monaspace Radon"
+        "Noto Color Emoji"
+      ];
+      buffer_font_size = 14;
+      wrap_guides = [
+        80
+        100
+      ];
+
+      # UI Look & Feel
+      outline_panel.dock = "right";
+      project_panel.dock = "right";
+      tabs = {
+        git_status = false;
+        file_icons = true;
+      };
+
+      # LSPs
+      lsp = lib.genAttrs [ "nil" "nixd" ] (_: {
+        settings.formatting.command = [
+          "nixfmt"
+          "--strict"
+        ];
+      });
+
+      # Miscellany
+      auto_update = false;
+      journal = {
+        path = "~/.local/state/zed/journal";
+        hour_format = "hour24";
+      };
+    };
+  };
+
+  catppuccin.zed.enable = true;
+}

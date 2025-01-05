@@ -11,6 +11,7 @@
     ./direnv.nix
     ./fish.nix
     ./fzf.nix
+    ./helix.nix
     ./nix-index.nix
     ./ranger.nix
     ./ssh.nix

@@ -23,7 +23,11 @@
 
   boot.tmp.cleanOnBoot = true;
 
-  environment.systemPackages = with pkgs; [ lunarvim ];
+  environment.systemPackages = with pkgs; [
+    helix
+    lunarvim
+    zed-editor
+  ];
 
   home-manager = {
     backupFileExtension = "bak";
