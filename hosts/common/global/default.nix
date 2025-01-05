@@ -19,7 +19,7 @@
     ./openssh.nix
     ./podman.nix
     ./tailscale.nix
-  ] ++ (builtins.attrValues outputs.nixosModules);
+  ] ++ (builtins.attrValues outputs.nixosModules or { });
 
   boot.tmp.cleanOnBoot = true;
 

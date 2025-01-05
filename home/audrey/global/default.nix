@@ -11,7 +11,7 @@
     ./catppuccin.nix
 
     ../features/cli
-  ] ++ (builtins.attrValues outputs.homeManagerModules);
+  ] ++ (builtins.attrValues outputs.homeManagerModules or { });
 
   programs = {
     home-manager.enable = true;

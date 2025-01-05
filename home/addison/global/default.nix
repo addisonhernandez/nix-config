@@ -13,7 +13,7 @@
 
     ../features/cli
     ../features/nvim
-  ] ++ (builtins.attrValues outputs.homeManagerModules);
+  ] ++ (builtins.attrValues outputs.homeManagerModules or { });
 
   programs = {
     home-manager.enable = true;

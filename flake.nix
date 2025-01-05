@@ -68,18 +68,22 @@
         "addison"
         "audrey"
       ];
+      userHostPairs = lib.cartesianProduct {
+        user = usernames;
+        host = hostnames;
+      };
     in
     {
       inherit lib;
 
-      nixosModules = import ./modules/nixos;
-      homeManagerModules = import ./modules/home-manager;
+      # nixosModules = import ./modules/nixos;
+      # homeManagerModules = import ./modules/home-manager;
 
       overlays = import ./overlays { inherit inputs outputs; };
 
       devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
       formatter = forEachSystem (pkgs: pkgs.alejandra);
-      packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
+      # packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
 
       nixosConfigurations = forEachHost (
         host:
@@ -91,11 +95,6 @@
 
       homeConfigurations =
         let
-          userHostPairs = lib.cartesianProduct {
-            user = usernames;
-            host = hostnames;
-          };
-
           homeCfgFor =
             { user, host }:
             {
