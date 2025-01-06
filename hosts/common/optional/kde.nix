@@ -13,5 +13,5 @@
     config.common.default = [ "kde" ];
   };
 
-  environment.systemPackages = [ pkgs.wl-clipboard-rs ];
+  environment.systemPackages = [ pkgs.wl-clipboard ];
 }
