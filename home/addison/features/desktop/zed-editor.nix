@@ -49,6 +49,10 @@
         git_status = false;
         file_icons = true;
       };
+      terminal = {
+        line_height = "standard";
+        toolbar.breadcrumbs = false;
+      };
 
       # LSPs
       lsp = lib.genAttrs [ "nil" "nixd" ] (_: {
