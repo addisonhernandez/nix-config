@@ -18,6 +18,7 @@
 
     ./intel-graphics-drivers.nix
 
+    ../common/optional/bluetooth.nix
     ../common/optional/btrfs.nix
   ];
 

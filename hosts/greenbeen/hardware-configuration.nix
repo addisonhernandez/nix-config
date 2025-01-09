@@ -19,6 +19,7 @@
     common-pc
     common-pc-ssd
 
+    ../common/optional/bluetooth.nix
     ../common/optional/btrfs.nix
   ];
 

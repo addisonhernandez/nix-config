@@ -17,6 +17,7 @@
     # inputs.hardware.nixosModules.dell-xps-15-9560 # nvidia prime dGPU/iGPU
     inputs.hardware.nixosModules.dell-xps-15-9560-intel # iGPU only
 
+    ../common/optional/bluetooth.nix
     ../common/optional/btrfs.nix
   ];
 
