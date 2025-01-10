@@ -68,6 +68,10 @@
         path = "~/.local/state/zed/journal";
         hour_format = "hour24";
       };
+      telemetry = {
+        diagnostics = false;
+        metrics = false;
+      };
     };
   };
 
