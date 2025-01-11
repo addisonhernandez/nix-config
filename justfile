@@ -17,6 +17,10 @@ update:
 nixfmt:
     fd --extension "nix" --exec-batch nixfmt --strict {}
 
+# lint nix files with statix
+lint:
+    nix run nixpkgs#statix -- check
+
 # use nh to more thoroughly clean the system and store
 nh-clean:
     nh clean all --keep 3 --keep-since 14d
