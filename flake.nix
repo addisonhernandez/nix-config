@@ -26,13 +26,7 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      systems,
-      ...
-    }@inputs:
+    { self, ... }@inputs:
     let
       inherit (self) outputs;
       inherit (lib) forEachSystem mkHomeConfig mkHostConfig;
