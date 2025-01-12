@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   inputs,
   outputs,
@@ -12,7 +11,6 @@
     ./catppuccin.nix
 
     ../features/cli
-    ../features/nvim
   ] ++ (builtins.attrValues outputs.homeManagerModules or { });
 
   programs = {
@@ -26,9 +24,6 @@
     stateVersion = lib.mkDefault "24.05";
     sessionPath = [ "$HOME/.local/bin" ];
     sessionVariables = {
-      SHELL = lib.getExe pkgs.fish;
-      EDITOR = lib.getExe pkgs.lunarvim;
-      VISUAL = lib.getExe pkgs.lunarvim;
       FLAKE = "${config.xdg.configHome}/nix-config";
     };
   };
