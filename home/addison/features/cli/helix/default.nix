@@ -1,7 +1,9 @@
 { pkgs, ... }:
 {
-  # TODO: cut this up into modules and import them
-
+  imports = [
+    ./languages.nix
+  ];
+  
   programs.helix = {
     enable = true;
 
@@ -30,45 +32,13 @@
           100
         ];
       };
-    };
 
-    languages = {
-      language = [
-        {
-          name = "fish";
-          language-servers = [ "fish-lsp" ];
-        }
-        {
-          name = "nix";
-          language-servers = [
-            "nixd"
-            "nil"
-          ];
-        }
-      ];
-
-      language-server.fish-lsp = {
-        command = "fish-lsp";
-        args = [ "start" ];
-      };
-      language-server.nil = {
-        command = "nil";
-        settings.formatting.command = [
-          "nixfmt"
-          "--strict"
-        ];
-      };
-      language-server.nixd = {
-        command = "nixd";
-        args = [
-          "--log=error"
-          "--inlay-hints"
-        ];
-        settings.formatting.command = [
-          "nixfmt"
-          "--strict"
-        ];
-      };
+      # TODO: customize keybinds
+      # keys = {
+      #   insert = {};
+      #   normal = {};
+      #   select = {};
+      # };
     };
 
     extraPackages = with pkgs; [
