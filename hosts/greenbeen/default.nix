@@ -17,6 +17,7 @@
       "nix-ld"
       "pipewire"
       "printing"
+      "razer"
       "retroarch"
       "snapper"
       "steam"
