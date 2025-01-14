@@ -1,11 +1,13 @@
 { pkgs, ... }:
 {
-  services.displayManager.sddm.enable = true;
+  imports = [ ./sddm.nix ];
+
   services.desktopManager.plasma6.enable = true;
 
   environment.plasma6.excludePackages = with pkgs; [
-    konsole # terminal
     elisa # music player
+    konsole # terminal
+    plasma-browser-integration
   ];
 
   xdg.portal = {

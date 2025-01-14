@@ -5,6 +5,9 @@
   outputs,
   ...
 }:
+let
+  waylandEnabled = (builtins.getEnv "XDG_SESSION_TYPE") == "wayland";
+in
 {
   imports = [
     inputs.catppuccin.homeManagerModules.catppuccin
@@ -25,6 +28,6 @@
     sessionPath = [ "$HOME/.local/bin" ];
     sessionVariables = {
       FLAKE = "${config.xdg.configHome}/nix-config";
-    };
+    } // lib.mkIf waylandEnabled { NIXOS_OZONE_WL = 1; };
   };
 }
