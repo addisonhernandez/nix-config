@@ -14,27 +14,29 @@
       }
     ];
 
-    language-server.fish-lsp = {
-      command = "fish-lsp";
-      args = [ "start" ];
-    };
-    language-server.nil = {
-      command = "nil";
-      settings.formatting.command = [
-        "nixfmt"
-        "--strict"
-      ];
-    };
-    language-server.nixd = {
-      command = "nixd";
-      args = [
-        "--log=error"
-        "--inlay-hints"
-      ];
-      settings.formatting.command = [
-        "nixfmt"
-        "--strict"
-      ];
+    language-server = {
+      fish-lsp = {
+        command = "fish-lsp";
+        args = [ "start" ];
+      };
+      nil = {
+        command = "nil";
+        settings.formatting.command = [
+          "nixfmt"
+          "--strict"
+        ];
+      };
+      nixd = {
+        command = "nixd";
+        args = [
+          "--log=error"
+          "--inlay-hints"
+        ];
+        settings.formatting.command = [
+          "nixfmt"
+          "--strict"
+        ];
+      };
     };
   };
 }

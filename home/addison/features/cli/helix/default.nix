@@ -1,9 +1,10 @@
-{ pkgs, ... }:
 {
   imports = [
+    ./dependencies.nix
+    ./keybinds.nix
     ./languages.nix
   ];
-  
+
   programs.helix = {
     enable = true;
 
@@ -17,12 +18,12 @@
           normal = "block";
           select = "underline";
         };
-        end-of-line-diagnostics = "error"; # error | warning | info | hint
+        # end-of-line-diagnostics = "warning"; # error | warning | info | hint
         indent-guides.render = true;
-        # inline-diagnostics = {
-        #   cursor-line = "error";
-        #   other-lines = "error";
-        # };
+        inline-diagnostics = {
+          cursor-line = "warning";
+          other-lines = "error";
+        };
         line-number = "relative";
         lsp.display-inlay-hints = true;
         preview-completion-insert = true;
@@ -32,37 +33,7 @@
           100
         ];
       };
-
-      # TODO: customize keybinds
-      # keys = {
-      #   insert = {};
-      #   normal = {};
-      #   select = {};
-      # };
     };
-
-    extraPackages = with pkgs; [
-      # LSPs
-      basedpyright # python
-      bash-language-server
-      docker-compose-language-service
-      fish-lsp
-      jq-lsp
-      lua-language-server
-      marksman # markdown
-      nil
-      nixd
-      taplo # toml
-      yaml-language-server
-
-      # Plugin dependencies
-      gcc
-      gnumake
-      unzip
-      wl-clipboard
-      xclip
-      xsel
-    ];
   };
   catppuccin.helix.enable = true;
 }
