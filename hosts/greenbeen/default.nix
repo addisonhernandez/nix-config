@@ -5,6 +5,7 @@
     in
     [
       ./hardware-configuration.nix
+      ./dual-monitors.nix
 
       ../common/global
       ../common/users/addison
@@ -17,7 +18,6 @@
       "nix-ld"
       "pipewire"
       "printing"
-      "razer"
       "retroarch"
       "snapper"
       "steam"
