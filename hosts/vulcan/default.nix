@@ -16,6 +16,7 @@
       "nix-ld"
       "pipewire"
       "printing"
+      "signal"
       "snapper"
       "systemd-boot"
       "udisks"

@@ -19,6 +19,7 @@
       "pipewire"
       "printing"
       "retroarch"
+      "signal"
       "snapper"
       "steam"
       "systemd-boot"
