@@ -17,6 +17,7 @@ in
       in
       {
         auto-optimise-store = lib.mkDefault true;
+        download-buffer-size = 1024 * 1024 * 1024;
         experimental-features = [
           "ca-derivations"
           "flakes"
