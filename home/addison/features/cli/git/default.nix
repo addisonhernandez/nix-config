@@ -9,6 +9,8 @@
       ci = "commit";
       civ = "commit --verbose";
       co = "checkout";
+      comp = "-c delta.side-by-side=true diff --ignore-space-change";
+      fest = "!fest() { git fetch $@; git st }; fest";
       ff = "merge --ff-only";
       freeze = "update-index --skip-worktree";
       thaw = "update-index --no-skip-worktree";
