@@ -11,18 +11,8 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager-stable.url = "github:nix-community/home-manager/release-24.11";
-    home-manager-stable.inputs.nixpkgs.follows = "nixpkgs-stable";
-
-    catppuccin = {
-      url = "github:catppuccin/nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs-stable";
-        home-manager.follows = "home-manager";
-        home-manager-stable.follows = "home-manager-stable";
-      };
-    };
+    catppuccin.url = "github:catppuccin/nix";
+    catppuccin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

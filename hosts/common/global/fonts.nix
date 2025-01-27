@@ -25,7 +25,7 @@
       # joypixels # requires manually accepting an unfree license
 
       # math
-      fira-math
+      # fira-math
       lmmath
 
       # CJK
