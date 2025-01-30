@@ -16,6 +16,7 @@
       "flatpak"
       "kde"
       "nix-ld"
+      "nix-ssh-serve"
       "pipewire"
       "printing"
       "retroarch"
