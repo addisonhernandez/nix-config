@@ -8,9 +8,8 @@ lvim.plugins = {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    priority = 1000
+    priority = 1000,
   },
 }
 lvim.transparent_window = true
 lvim.colorscheme = "catppuccin"
-

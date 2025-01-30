@@ -13,6 +13,9 @@
 
     catppuccin.url = "github:catppuccin/nix";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
+
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -42,6 +45,8 @@
 
       forEachHost = lib.genAttrs hostnames;
       forEachHome = f: lib.mergeAttrsList (map f userHostPairs);
+
+      treefmt = forEachSystem (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
       inherit lib;
@@ -51,8 +56,11 @@
 
       overlays = import ./overlays { inherit inputs outputs; };
 
+      checks = forEachSystem (pkgs: {
+        formatting = treefmt.${pkgs.system}.config.build.check self;
+      });
       devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
-      formatter = forEachSystem (pkgs: pkgs.alejandra);
+      formatter = forEachSystem (pkgs: treefmt.${pkgs.system}.config.build.wrapper);
       # packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
 
       nixosConfigurations = forEachHost mkHostConfig;
