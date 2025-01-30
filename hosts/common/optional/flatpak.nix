@@ -11,6 +11,7 @@
         inherit description;
         after = [ "network-online.target" ];
         requires = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
         serviceConfig = {
           Type = "oneshot";
         };
@@ -23,8 +24,6 @@
 
       timers."flatpak-autoupdate" = {
         inherit description;
-        after = [ "network-online.target" ];
-        requires = [ "network-online.target" ];
         wantedBy = [ "timers.target" ];
         timerConfig = {
           OnCalendar = "daily";
