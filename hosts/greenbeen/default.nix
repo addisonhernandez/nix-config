@@ -12,21 +12,15 @@
       ../common/users/audrey
     ]
     ++ optionalImports [
-      "docker"
-      "flatpak"
       "kde"
       "nix-ld"
       "nix-ssh-serve"
-      "pipewire"
       "printing"
       "retroarch"
       "signal"
       "snapper"
       "steam"
-      "systemd-boot"
-      "udisks"
       "virt-manager"
-      "xserver"
     ];
 
   networking = {

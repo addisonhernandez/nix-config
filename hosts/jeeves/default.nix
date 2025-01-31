@@ -13,13 +13,8 @@
       ../common/users/audrey
     ]
     ++ optionalImports [
-      "docker"
-      "flatpak"
       "kde"
-      "pipewire"
-      "systemd-boot"
-      "udisks"
-      "xserver"
+      "nix-ssh-serve"
     ];
 
   networking = {

@@ -10,17 +10,11 @@
       ../common/users/addison
     ]
     ++ optionalImports [
-      "docker"
-      "flatpak"
       "kde"
       "nix-ld"
-      "pipewire"
       "printing"
       "signal"
       "snapper"
-      "systemd-boot"
-      "udisks"
-      "xserver"
     ];
 
   networking = {

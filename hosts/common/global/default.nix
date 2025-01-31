@@ -10,15 +10,21 @@
     inputs.catppuccin.nixosModules.catppuccin
     inputs.home-manager.nixosModules.home-manager
     ./catppuccin.nix
+    ./docker.nix
     ./firefox.nix
     ./fish.nix
+    ./flatpak.nix
     ./fonts.nix
     ./locale.nix
-    ./nix.nix
     ./nh.nix
+    ./nix.nix
     ./openssh.nix
+    ./pipewire.nix
     ./podman.nix
+    ./systemd-boot.nix
     ./tailscale.nix
+    ./udisks.nix
+    ./xserver.nix
   ] ++ (builtins.attrValues outputs.nixosModules or { });
 
   boot.tmp.cleanOnBoot = true;
