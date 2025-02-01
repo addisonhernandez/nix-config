@@ -1,9 +1,12 @@
 {
   projectRootFile = "flake.nix";
-  settings.global.excludes = [
-    "LICENSE"
-    "*.example"
-  ];
+  settings.global = {
+    excludes = [
+      "LICENSE"
+      "*.example"
+    ];
+    on-unmatched = "info";
+  };
 
   # Nix
   programs.nixfmt.enable = true;
