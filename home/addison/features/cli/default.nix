@@ -17,6 +17,7 @@
     ./ranger.nix
     ./ssh.nix
     ./starship.nix
+    ./tldr.nix
     ./yazi.nix
     ./zellij.nix
   ];
@@ -43,7 +44,6 @@
     lsof # list open files and ports
     p7zip # archiver
     ripgrep # better grep (provides `rg`)
-    tealdeer # short manpage examples
     zoxide # better cd
 
     # Nix / NixOS utilities
