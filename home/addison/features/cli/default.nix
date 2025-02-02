@@ -20,6 +20,7 @@
     ./tldr.nix
     ./yazi.nix
     ./zellij.nix
+    ./zoxide.nix
   ];
 
   home.sessionVariables = {
@@ -44,7 +45,6 @@
     lsof # list open files and ports
     p7zip # archiver
     ripgrep # better grep (provides `rg`)
-    zoxide # better cd
 
     # Nix / NixOS utilities
     alejandra # nix formatter
