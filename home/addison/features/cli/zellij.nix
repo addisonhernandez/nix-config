@@ -1,8 +1,16 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  fishEnabled = config.programs.fish.enable;
+in
 {
   programs.zellij = {
     enable = true;
-    enableFishIntegration = true;
+    enableFishIntegration = fishEnabled;
     settings = {
       default_shell = lib.getExe pkgs.fish;
       pane_frames = false;
@@ -21,6 +29,13 @@
       # styled_underlines = true | false;
     };
   };
+
+  programs.fish.interactiveShellInit = lib.mkIf fishEnabled (
+    lib.mkOrder 1 ''
+      set --global --export ZELLIJ_AUTO_ATTACH true
+      set --global --export ZELLIJ_AUTO_EXIT true
+    ''
+  );
 
   catppuccin.zellij.enable = true;
 }
