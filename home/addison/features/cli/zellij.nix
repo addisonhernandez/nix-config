@@ -6,11 +6,17 @@
 }:
 let
   fishEnabled = config.programs.fish.enable;
+  zellijCompletions =
+    if fishEnabled then
+      pkgs.runCommand "zellij_completions" { } ''
+        ${lib.getExe pkgs.zellij} setup --generate-completion fish > $out
+      ''
+    else
+      "";
 in
 {
   programs.zellij = {
     enable = true;
-    enableFishIntegration = fishEnabled;
     settings = {
       default_shell = lib.getExe pkgs.fish;
       pane_frames = false;
@@ -30,12 +36,9 @@ in
     };
   };
 
-  programs.fish.interactiveShellInit = lib.mkIf fishEnabled (
-    lib.mkOrder 1 ''
-      set --global --export ZELLIJ_AUTO_ATTACH true
-      set --global --export ZELLIJ_AUTO_EXIT true
-    ''
-  );
+  xdg.configFile = lib.mkIf fishEnabled {
+    "fish/completions/zellij.fish".source = zellijCompletions;
+  };
 
   catppuccin.zellij.enable = true;
 }
