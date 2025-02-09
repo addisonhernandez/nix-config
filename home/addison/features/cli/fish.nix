@@ -49,6 +49,7 @@
         function = "multicd";
       };
       flatsearch = "flatpak search --columns=name:full,description:end,application:full";
+      hf = "hx (fzf)";
     };
   };
 

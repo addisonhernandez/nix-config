@@ -17,10 +17,12 @@ in
 {
   programs.zellij = {
     enable = true;
+    enableFishIntegration = false;
     settings = {
+      copy_command = lib.getExe' pkgs.wl-clipboard "wl-copy";
+      copy_on_select = false;
       default_shell = lib.getExe pkgs.fish;
       pane_frames = false;
-      copy_command = lib.getExe' pkgs.wl-clipboard "wl-copy";
 
       # on_force_close = "detach" | "quit";
       # simplified_ui = false | true;
@@ -28,7 +30,6 @@ in
       # default_mode = "normal" | "locked";
       # mouse_mode = true | false;
       # scroll_buffer_size = 10000; # (positive int)
-      # copy_on_select = true | false;
       # layout_dir = /path/to/layouts;
       # theme_dir = /path/to/themes;
       # auto_layout = true | false;
