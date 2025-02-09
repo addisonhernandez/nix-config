@@ -24,38 +24,6 @@ config.font = wezterm.font_with_fallback({
   },
   "Noto Color Emoji",
 })
-config.font_rules = {
-  -- FIXME: there's definitely a better way to do this
-  {
-    intensity = "Normal",
-    italic = true,
-    font = wezterm.font_with_fallback({
-      family = "Monaspace Radon Var",
-      harfbuzz_features = { "calt", "liga" },
-      style = "Italic",
-    }),
-  },
-  {
-    intensity = "Bold",
-    italic = true,
-    font = wezterm.font_with_fallback({
-      family = "Monaspace Radon Var",
-      harfbuzz_features = { "calt", "liga" },
-      style = "Italic",
-      weight = "Bold",
-    }),
-  },
-  {
-    intensity = "Half",
-    italic = true,
-    font = wezterm.font_with_fallback({
-      family = "Monaspace Radon Var",
-      harfbuzz_features = { "calt", "liga" },
-      style = "Italic",
-      weight = "DemiBold",
-    }),
-  },
-}
 -- Fix font rendering (https://github.com/wez/wezterm/issues/5990)
 config.front_end = "WebGpu"
 
