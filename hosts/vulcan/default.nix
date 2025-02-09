@@ -10,6 +10,7 @@
       ../common/users/addison
     ]
     ++ optionalImports [
+      "auto-upgrade"
       "kde"
       "nix-ld"
       "printing"
