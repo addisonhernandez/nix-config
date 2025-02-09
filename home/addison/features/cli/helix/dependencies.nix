@@ -2,7 +2,7 @@
 {
   programs.helix.extraPackages = with pkgs; [
     # LSPs
-    basedpyright # python
+    # basedpyright # python
     bash-language-server
     docker-compose-language-service
     fish-lsp
