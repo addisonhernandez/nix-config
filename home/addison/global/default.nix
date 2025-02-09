@@ -27,7 +27,8 @@ in
     stateVersion = lib.mkDefault "24.05";
     sessionPath = [ "$HOME/.local/bin" ];
     sessionVariables = {
-      FLAKE = "${config.xdg.configHome}/nix-config";
-    } // { NIXOS_OZONE_WL = if waylandEnabled then 1 else 0; };
+      FLAKE = "git+https://codeberg.org/addison/nix-config";
+      NIXOS_OZONE_WL = if waylandEnabled then 1 else 0;
+    };
   };
 }
