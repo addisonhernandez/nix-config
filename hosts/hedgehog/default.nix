@@ -11,7 +11,7 @@
       ../common/users/audrey
     ]
     ++ optionalImports [
-      "auto-upgrade"
+      # "auto-upgrade"
       "fwupd"
       "kde"
       "nix-ld"
