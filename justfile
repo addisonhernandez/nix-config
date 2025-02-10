@@ -31,7 +31,7 @@ dry-activate host=hostname:
 
 # build the config and link the derivation to ./result
 build host=hostname:
-    nixos-rebuild build --flake .#{{ host }}
+    nixos-rebuild build --flake .#{{ host }} --keep-going
 
 # diff the activated system and a freshly built config
 diff-system prev="/nix/var/nix/profiles/system" final="./result": build
