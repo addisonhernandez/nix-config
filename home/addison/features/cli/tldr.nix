@@ -1,15 +1,9 @@
 { lib, pkgs, ... }:
 {
-  programs.tealdeer = {
-    enable = true;
-    settings.updates = {
-      auto_update = true;
-      auto_update_interval_hours = 120;
-    };
-  };
+  programs.tealdeer.enable = true;
 
   systemd.user = {
-    services.tldr-update = {
+    services.tldr-cache-update = {
       Unit = {
         Description = "tldr cache update";
         After = "network-online.target";
@@ -21,7 +15,7 @@
       };
     };
 
-    timers.tldr-update = {
+    timers.tldr-cache-update = {
       Timer = {
         OnCalendar = "daily";
         Persistent = true;
