@@ -54,3 +54,8 @@ rebuild-boot host=hostname:
 rebuild-test host=hostname:
     @sudo true
     nixos-rebuild test --flake .#{{ host }} --use-remote-sudo
+
+# build the config for a host, then send it via ssh
+send-build host: (build host)
+    nix store info --store "ssh-ng://{{ host }}.lan"
+    nix copy --no-check-sigs --to "ssh-ng://{{ host }}.lan" ./result
