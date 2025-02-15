@@ -1,11 +1,8 @@
-{
-  inputs,
-  outputs,
-  configRoot,
-  ...
-}:
+{ inputs, outputs, ... }:
 let
   inherit (inputs) nixpkgs home-manager systems;
+
+  configRoot = ../.;
 
   lib = nixpkgs.lib // home-manager.lib;
 
@@ -31,17 +28,9 @@ let
           ../home/${user}/${host}.nix
           ../home/${user}/nixpkgs.nix
         ];
-        pkgs = pkgsFor.x86_64-linux;
+        pkgs = pkgsFor.x86_64-linux; # FIXME: make this architecture agnostic
         extraSpecialArgs = { inherit inputs outputs; };
       };
     };
 in
-lib
-// {
-  inherit
-    pkgsFor
-    forEachSystem
-    mkHostConfig
-    mkHomeConfig
-    ;
-}
+lib // { inherit forEachSystem mkHostConfig mkHomeConfig; }

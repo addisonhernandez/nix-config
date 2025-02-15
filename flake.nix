@@ -24,9 +24,7 @@
       inherit (self) outputs;
       inherit (lib) forEachSystem mkHomeConfig mkHostConfig;
 
-      lib = import ./lib { inherit inputs outputs configRoot; };
-
-      configRoot = ./.;
+      lib = import ./lib { inherit inputs outputs; };
 
       hostnames = [
         "hedgehog" # Laptop (Dell XPS 9560)
@@ -54,7 +52,7 @@
       # nixosModules = import ./modules/nixos;
       # homeManagerModules = import ./modules/home-manager;
 
-      overlays = import ./overlays { inherit inputs outputs; };
+      overlays = import ./overlays { inherit inputs; };
 
       checks = forEachSystem (pkgs: {
         formatting = treefmt.${pkgs.system}.config.build.check self;
