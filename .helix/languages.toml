@@ -1,0 +1,19 @@
+[[language]]
+name = "lua"
+auto-format = true
+formatter = { command = "stylua", args = [
+  "--indent-type",
+  "Spaces",
+  "--indent-width",
+  "2",
+  "-",
+] }
+
+[[language]]
+name = "yaml"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
+
+[language-server.yaml-language-server.config.yaml]
+completion = true
+validation = true

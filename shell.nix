@@ -13,5 +13,10 @@
       home-manager
       git
     ];
+    packages = with pkgs; [
+      nodePackages.prettier
+      stylua
+      yaml-language-server
+    ];
   };
 }
