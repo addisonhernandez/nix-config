@@ -57,5 +57,5 @@ rebuild-test host=hostname:
 
 # build the config for a host, then send it via ssh
 send-build host: (build host)
-    nix store info --store "ssh-ng://{{ host }}.lan"
+    @nix store info --store "ssh-ng://{{ host }}.lan" --quiet
     nix copy --no-check-sigs --to "ssh-ng://{{ host }}.lan" ./result
