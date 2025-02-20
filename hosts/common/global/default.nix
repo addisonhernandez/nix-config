@@ -19,6 +19,7 @@
     ./nh.nix
     ./nix.nix
     ./openssh.nix
+    ./pay-respects.nix
     ./pipewire.nix
     ./podman.nix
     ./systemd-boot.nix
