@@ -20,10 +20,10 @@ in
     enableFishIntegration = false;
     settings = {
       copy_command = lib.getExe' pkgs.wl-clipboard "wl-copy";
-      copy_on_select = false;
       default_shell = lib.getExe pkgs.fish;
       pane_frames = false;
 
+      # copy_on_select = true | false;
       # on_force_close = "detach" | "quit";
       # simplified_ui = false | true;
       # default_layout = name_of_layout in ~/.config/zellij/layouts/
