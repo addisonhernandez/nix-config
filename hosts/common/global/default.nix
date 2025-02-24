@@ -34,7 +34,7 @@
     helix
     lunarvim
     neovim
-    zed-editor
+    stable.zed-editor
   ];
 
   home-manager = {

@@ -1,7 +1,8 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   programs.zed-editor = {
     enable = true;
+    package = pkgs.stable.zed-editor;
 
     extensions = [
       "just"
