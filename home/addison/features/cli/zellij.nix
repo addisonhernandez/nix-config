@@ -18,6 +18,7 @@ in
   programs.zellij = {
     enable = true;
     enableFishIntegration = false;
+    enableBashIntegration = false;
     settings = {
       copy_command = lib.getExe' pkgs.wl-clipboard "wl-copy";
       default_shell = lib.getExe pkgs.fish;
