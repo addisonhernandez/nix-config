@@ -24,6 +24,8 @@
       "virt-manager"
     ];
 
+  services.displayManager.hiddenUsers = ["nixremote"];
+
   networking = {
     hostName = "greenbeen";
     networkmanager.enable = true;
