@@ -6,7 +6,11 @@
   ...
 }:
 let
-  waylandEnabled = (builtins.getEnv "XDG_SESSION_TYPE") == "wayland";
+  waylandEnabled =
+    true # FIXME: figure out a good way to detect wayland support from HM at build time
+    # || config.services.desktopManager.plasma6.enable
+    # || config.services.displayManager.defaultSession == "plasma"
+    || (builtins.getEnv "XDG_SESSION_TYPE") == "wayland";
 in
 {
   imports = [
