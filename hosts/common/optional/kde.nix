@@ -4,7 +4,7 @@
 
   services.desktopManager.plasma6.enable = true;
 
-  environment.plasma6.excludePackages = with pkgs; [
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa # music player
     konsole # terminal
     plasma-browser-integration
