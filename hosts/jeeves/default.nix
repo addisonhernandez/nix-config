@@ -5,6 +5,7 @@
     in
     [
       ./hardware-configuration.nix
+      ./interactive-login.nix
       ./sddm-4k-scaling.nix
 
       ./servarr
