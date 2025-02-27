@@ -14,7 +14,9 @@
     ]
     ++ optionalImports [
       "kde"
+      "nix-ld"
       "nix-ssh-serve"
+      "steam"
     ];
 
   networking = {
