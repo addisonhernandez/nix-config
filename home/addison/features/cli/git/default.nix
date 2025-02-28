@@ -24,12 +24,31 @@
       ".DS_Store"
     ];
     extraConfig = {
+      branch.sort = "-committerdate";
+      column.ui = "auto";
       commit.verbose = "true";
-      diff.colorMoved = "default";
+      # core.untrackedCache = "true";
+      diff = {
+        algorithm = "histogram";
+        colorMoved = "plain";
+        mnemonicPrefix = "true";
+        renames = "true";
+      };
       fetch.prune = "true";
-      help.autocorrect = "50";
+      fetch.pruneTags = "true";
+      help.autocorrect = "prompt";
       init.defaultBranch = "main";
-      merge.conflictStyle = "diff3";
+      merge.conflictStyle = "zdiff3";
+      # pull.rebase = "true";
+      push.autoSetupRemote = "true";
+      rebase = {
+        autoSquash = "true";
+        autoStash = "true";
+        updateRefs = "true";
+      };
+      rerere.enabled = "true";
+      rerere.autoUpdate = "true";
+      tag.sort = "version:refname";
     };
   };
 }
