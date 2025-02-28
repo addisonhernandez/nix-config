@@ -31,10 +31,12 @@
   boot.tmp.cleanOnBoot = true;
 
   environment.systemPackages = with pkgs; [
+    librewolf
+
     helix
     lunarvim
     neovim
-    stable.zed-editor
+    zed-editor
   ];
 
   home-manager = {
