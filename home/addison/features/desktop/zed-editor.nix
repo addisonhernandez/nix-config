@@ -2,7 +2,7 @@
 {
   programs.zed-editor = {
     enable = true;
-    package = pkgs.stable.zed-editor;
+    package = pkgs.zed-editor;
 
     extensions = [
       "just"
