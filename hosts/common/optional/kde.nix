@@ -10,6 +10,8 @@
     plasma-browser-integration
   ];
 
+  systemd.services."drkonqi-coredump-pickup".enable = false;
+
   xdg.portal = {
     enable = true;
     config.common.default = [ "kde" ];
