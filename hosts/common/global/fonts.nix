@@ -12,7 +12,7 @@
     packages = with pkgs; [
       # mono / programming
       nerd-fonts.fira-code
-      jetbrains-mono
+      maple-mono
       monaspace
       source-code-pro
 
@@ -25,7 +25,7 @@
       # joypixels # requires manually accepting an unfree license
 
       # math
-      # fira-math
+      fira-math
       lmmath
 
       # CJK
