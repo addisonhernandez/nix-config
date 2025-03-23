@@ -10,8 +10,9 @@
       civ = "commit --verbose";
       co = "checkout";
       comp = "-c delta.side-by-side=true diff --ignore-space-change";
-      fest = "!fest() { git fetch; git st; }; fest";
+      fest = "!_git_fest() { git fetch; git st; }; _git_fest";
       ff = "merge --ff-only";
+      fog = "!_git_fog() { git fetch; git logadog main^..origin/main; }; _git_fog";
       freeze = "update-index --skip-worktree";
       thaw = "update-index --no-skip-worktree";
       logadog = "log --all --decorate --oneline --graph";
