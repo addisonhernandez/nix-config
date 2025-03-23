@@ -1,12 +1,19 @@
-{ inputs, lib, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 let
   flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
 in
 {
   nix = {
+    package = pkgs.lix;
+
     settings = {
       auto-optimise-store = lib.mkDefault true;
-      download-buffer-size = 1024 * 1024 * 1024;
+      # download-buffer-size = 1024 * 1024 * 1024;
       experimental-features = [
         "ca-derivations"
         "flakes"
