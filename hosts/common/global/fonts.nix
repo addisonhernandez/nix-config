@@ -12,7 +12,7 @@
     packages = with pkgs; [
       # mono / programming
       nerd-fonts.fira-code
-      maple-mono
+      maple-mono.NF
       monaspace
       source-code-pro
 
