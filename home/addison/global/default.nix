@@ -14,7 +14,7 @@ let
 in
 {
   imports = [
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
     ./catppuccin.nix
 
     ../features/cli
