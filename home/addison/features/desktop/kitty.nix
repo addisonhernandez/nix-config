@@ -19,16 +19,11 @@
     };
 
     extraConfig = ''
-      font_family      FiraCode Nerd Font Reg
-      bold_font        FiraCode Nerd Font SemBd
-      italic_font      Monaspace Radon Var Italic
-      bold_italic_font Monaspace Radon Var SemiBold Italic
+      font_family      family='Maple Mono NF' features='+calt +cv03 +ss03'
+      bold_font        auto
+      italic_font      auto
+      bold_italic_font auto
       font_size        11.0
-
-      font_features FiraCodeNF-Reg                    +calt +zero +cv16
-      font_features FiraCodeNF-SemBd                  +calt +zero +cv16
-      font_features MonaspaceRadonVar_400wght_-11slnt +calt +liga
-      font_features MonaspaceRadonVar_600wght_-11slnt +calt +liga
     '';
   };
 
