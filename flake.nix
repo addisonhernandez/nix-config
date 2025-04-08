@@ -50,7 +50,7 @@
       inherit lib;
 
       nixosModules = import ./modules/nixos;
-      # homeManagerModules = import ./modules/home-manager;
+      # homeModules = import ./modules/home-manager;
 
       overlays = import ./overlays { inherit inputs; };
 
