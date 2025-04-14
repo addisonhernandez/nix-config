@@ -59,3 +59,4 @@ rebuild-test host=hostname:
 send-build host: (build host)
     @nix store info --store "ssh-ng://{{ host }}.lan" --quiet
     nix copy --no-check-sigs --to "ssh-ng://{{ host }}.lan" ./result
+    @rm --dir result
