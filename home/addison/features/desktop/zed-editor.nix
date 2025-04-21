@@ -19,21 +19,21 @@
       tab_size = 2;
 
       # Vim
-      vim_mode = true;
+      vim_mode = false;
       vim = {
         toggle_relative_line_numbers = true;
         use_smarcase_find = true;
       };
 
       # Editor Look & Feel
-      buffer_font_family = "FiraCode Nerd Font";
+      buffer_font_family = "Maple Mono NF";
       buffer_font_features = {
         calt = true;
-        liga = true;
-        zero = true;
-        cv16 = true;
+        cv03 = true;
+        ss03 = true;
       };
       buffer_font_fallbacks = [
+        "FiraCode Nerd Font"
         "Monaspace Radon"
         "Noto Color Emoji"
       ];
