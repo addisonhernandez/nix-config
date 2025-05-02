@@ -23,7 +23,7 @@ config.font = wezterm.font_with_fallback({
     harfbuzz_features = {
       -- see: https://font.subf.dev/en/playground/
       "calt",
-      "cv03", -- alternate `i`
+      "cv06", -- alternate `i`
       "ss03", -- [todo], [info], [fixme]
     },
   },

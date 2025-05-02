@@ -29,7 +29,7 @@
       buffer_font_family = "Maple Mono NF";
       buffer_font_features = {
         calt = true;
-        cv03 = true;
+        cv06 = true;
         ss03 = true;
       };
       buffer_font_fallbacks = [
