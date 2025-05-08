@@ -13,6 +13,7 @@
     ./direnv.nix
     ./fish.nix
     ./fzf.nix
+    ./nh.nix
     ./nix-index.nix
     ./ranger.nix
     ./ssh.nix
@@ -48,6 +49,7 @@
 
     # Nix / NixOS utilities
     alejandra # nix formatter
+    nh # nix CLI helper
     nil # nix LSP written in Rust
     nix-diff # detailed difftool
     nix-output-monitor # more output info while building (provides `nom`)

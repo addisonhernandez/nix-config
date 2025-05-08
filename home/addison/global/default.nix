@@ -11,6 +11,8 @@ let
     # || config.services.desktopManager.plasma6.enable
     # || config.services.displayManager.defaultSession == "plasma"
     || (builtins.getEnv "XDG_SESSION_TYPE") == "wayland";
+
+  nhEnabled = config.programs.nh.enable;
 in
 {
   imports = [
@@ -30,9 +32,9 @@ in
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "24.05";
     sessionPath = [ "$HOME/.local/bin" ];
-    sessionVariables = {
-      FLAKE = "git+https://codeberg.org/addison/nix-config";
-      NIXOS_OZONE_WL = if waylandEnabled then 1 else 0;
-    };
+    sessionVariables =
+      { }
+      // lib.mkIf waylandEnabled { NIXOS_OZONE_WL = 1; }
+      // lib.mkIf nhEnabled { NH_FLAKE = "git+https://codeberg.org/addison/nix-config"; };
   };
 }
