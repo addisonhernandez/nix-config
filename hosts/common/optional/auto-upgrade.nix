@@ -1,6 +1,6 @@
 let
   defaultStr = default: maybeStr: if maybeStr != "" then maybeStr else default;
-  flake = defaultStr "git+https://codeberg.org/addison/nix-config" (builtins.getEnv "FLAKE");
+  flake = defaultStr "git+https://codeberg.org/addison/nix-config" (builtins.getEnv "NH_FLAKE");
 in
 {
   system.autoUpgrade = {
