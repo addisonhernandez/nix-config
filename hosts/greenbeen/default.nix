@@ -22,6 +22,7 @@
       "snapper"
       "steam"
       "virt-manager"
+      "wine"
     ];
 
   services.displayManager.hiddenUsers = [ "nixremote" ];
