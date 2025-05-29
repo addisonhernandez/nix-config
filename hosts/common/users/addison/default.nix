@@ -15,6 +15,8 @@ in
     shell = pkgs.fish;
     extraGroups = ifTheyExist [
       "docker"
+      "flatpak"
+      "gamemode"
       "git"
       "jellyfin"
       "libvirtd"
