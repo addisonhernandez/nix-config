@@ -15,7 +15,6 @@
     ./fzf.nix
     ./nh.nix
     ./nix-index.nix
-    ./ranger.nix
     ./ssh.nix
     ./starship.nix
     ./tldr.nix
@@ -42,7 +41,6 @@
     glow # render markdown in the terminal
     jq # JSON CLI tool
     just # command runner
-    lf # TUI file manager
     lsof # list open files and ports
     p7zip # archiver
     ripgrep # better grep (provides `rg`)
