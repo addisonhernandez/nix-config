@@ -1,10 +1,18 @@
 {
+  imports = [
+    ./plugins/chmod.yazi.nix
+    ./plugins/git.yazi.nix
+    ./plugins/glow.yazi.nix
+    ./plugins/rsync.yazi.nix
+    ./plugins/starship.yazi.nix
+  ];
+
   programs.yazi = {
     enable = true;
 
     settings = {
       # https://yazi-rs.github.io/docs/configuration/yazi
-      manager = {
+      mgr = {
         ratio = [
           1
           4

@@ -1,10 +1,11 @@
 { lib, pkgs, ... }:
 {
   imports = [
+    ./git
     ./helix
     ./lvim
     ./nvim
-    ./git
+    ./yazi
 
     ./atuin.nix
     ./bash.nix
@@ -18,7 +19,6 @@
     ./ssh.nix
     ./starship.nix
     ./tldr.nix
-    ./yazi.nix
     ./zellij.nix
     ./zoxide.nix
   ];
