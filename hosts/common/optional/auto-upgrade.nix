@@ -1,12 +1,9 @@
-let
-  defaultStr = default: maybeStr: if maybeStr != "" then maybeStr else default;
-  flake = defaultStr "git+https://codeberg.org/addison/nix-config" (builtins.getEnv "NH_FLAKE");
-in
+{ lib, ... }:
 {
   system.autoUpgrade = {
     enable = true;
 
-    inherit flake;
+    flake = lib.defaultStr "git+https://codeberg.org/addison/nix-config" (builtins.getEnv "NH_FLAKE");
     allowReboot = true;
     dates = "daily";
     operation = "boot";

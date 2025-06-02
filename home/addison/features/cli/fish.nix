@@ -8,7 +8,9 @@
       lx = {
         description = "List contents of a directory, including hidden, in long format with classification indicators";
         wraps = "eza";
-        body = ''
+        body =
+        # fish
+        ''
           eza \
             --all \
             --classify \
@@ -33,7 +35,9 @@
       tkdir = {
         description = "Create a new directory and cd into it";
         argumentNames = "dirname";
-        body = ''
+        body =
+        #fish
+        ''
           set --function dirname (path resolve $dirname)
           mkdir --parents $dirname
           and cd $dirname

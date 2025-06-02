@@ -18,13 +18,15 @@
       tab_powerline_style = "slanted";
     };
 
-    extraConfig = ''
-      font_family      family='Maple Mono NF' features='+calt +cv06 +ss03'
-      bold_font        auto
-      italic_font      auto
-      bold_italic_font auto
-      font_size        11.0
-    '';
+    extraConfig =
+      # ini
+      ''
+        font_family      family='Maple Mono NF' features='+calt +cv06 +ss03'
+        bold_font        auto
+        italic_font      auto
+        bold_italic_font auto
+        font_size        11.0
+      '';
   };
 
   catppuccin.kitty.enable = true;

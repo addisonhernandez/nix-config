@@ -13,7 +13,11 @@ let
       config.allowUnfree = true;
     }
   );
+in
+lib
+// {
   forEachSystem = f: lib.genAttrs (import systems) (sys: f pkgsFor.${sys});
+
   mkHostConfig =
     host:
     lib.nixosSystem {
@@ -32,5 +36,6 @@ let
         extraSpecialArgs = { inherit inputs outputs; };
       };
     };
-in
-lib // { inherit forEachSystem mkHostConfig mkHomeConfig; }
+
+  defaultStr = default: maybeStr: if (builtins.toString maybeStr) != "" then maybeStr else default;
+}
