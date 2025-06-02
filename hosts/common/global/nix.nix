@@ -18,6 +18,7 @@ in
         "ca-derivations"
         "flakes"
         "nix-command"
+        "repl-flake"
       ];
       extra-substituters = [ "https://nix-community.cachix.org" ];
       extra-trusted-public-keys = [
