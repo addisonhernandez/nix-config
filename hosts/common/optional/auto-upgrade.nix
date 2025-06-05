@@ -1,9 +1,12 @@
-{ lib, ... }:
+{ outputs, ... }:
+let
+  inherit (outputs.lib) defaultStr;
+in
 {
   system.autoUpgrade = {
     enable = true;
 
-    flake = lib.defaultStr "git+https://codeberg.org/addison/nix-config" (builtins.getEnv "NH_FLAKE");
+    flake = defaultStr "git+https://codeberg.org/addison/nix-config" (builtins.getEnv "NH_FLAKE");
     allowReboot = true;
     dates = "daily";
     operation = "boot";
