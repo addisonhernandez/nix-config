@@ -13,9 +13,6 @@ let
       config.allowUnfree = true;
     }
   );
-in
-lib
-// {
   forEachSystem = f: lib.genAttrs (import systems) (sys: f pkgsFor.${sys});
 
   mkHostConfig =
@@ -38,4 +35,13 @@ lib
     };
 
   defaultStr = default: maybeStr: if (builtins.toString maybeStr) != "" then maybeStr else default;
+in
+lib
+// {
+  inherit
+    defaultStr
+    forEachSystem
+    mkHomeConfig
+    mkHostConfig
+    ;
 }
