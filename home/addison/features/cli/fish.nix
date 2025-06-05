@@ -9,21 +9,21 @@
         description = "List contents of a directory, including hidden, in long format with classification indicators";
         wraps = "eza";
         body =
-        # fish
-        ''
-          eza \
-            --all \
-            --classify \
-            --git \
-            --group \
-            --group-directories-first \
-            --header \
-            --icons \
-            --long \
-            --smart-group \
-            --sort=type \
-            $argv
-        '';
+          # fish
+          ''
+            eza \
+              --all \
+              --classify \
+              --git \
+              --group \
+              --group-directories-first \
+              --header \
+              --icons \
+              --long \
+              --smart-group \
+              --sort=type \
+              $argv
+          '';
       };
 
       lt = {
@@ -36,12 +36,12 @@
         description = "Create a new directory and cd into it";
         argumentNames = "dirname";
         body =
-        #fish
-        ''
-          set --function dirname (path resolve $dirname)
-          mkdir --parents $dirname
-          and cd $dirname
-        '';
+          #fish
+          ''
+            set --function dirname (path resolve $dirname)
+            mkdir --parents $dirname
+            and cd $dirname
+          '';
       };
 
       multicd = "echo cd (string repeat --count (math (string length -- $argv[1]) -1) ../)";
