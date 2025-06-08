@@ -11,13 +11,12 @@ let
 in
 {
   nix = {
-    package = lib.mkDefault pkgs.lix;
+    package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
     settings = {
       experimental-features = [
         "ca-derivations"
         "flakes"
         "nix-command"
-        "repl-flake"
       ];
       flake-registry = ""; # Disable global flake registry
     };

@@ -9,7 +9,7 @@ let
 in
 {
   nix = {
-    package = pkgs.lix;
+    package = pkgs.lixPackageSets.latest.lix;
 
     settings = {
       auto-optimise-store = lib.mkDefault true;
@@ -18,7 +18,6 @@ in
         "ca-derivations"
         "flakes"
         "nix-command"
-        "repl-flake"
       ];
       extra-substituters = [ "https://nix-community.cachix.org" ];
       extra-trusted-public-keys = [
