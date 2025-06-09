@@ -14,7 +14,6 @@
     ./direnv.nix
     ./fish.nix
     ./fzf.nix
-    ./nh.nix
     ./nix-index.nix
     ./ssh.nix
     ./starship.nix

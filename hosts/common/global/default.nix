@@ -16,6 +16,7 @@
     ./flatpak.nix
     ./fonts.nix
     ./locale.nix
+    ./nh.nix
     ./nix.nix
     ./openssh.nix
     ./pay-respects.nix
