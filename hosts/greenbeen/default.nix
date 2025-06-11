@@ -12,7 +12,6 @@
       ../common/users/audrey
     ]
     ++ optionalImports [
-      "auto-upgrade"
       "kde"
       "nix-ld"
       "nix-ssh-serve"
