@@ -56,7 +56,10 @@ rebuild-test host=hostname:
     nixos-rebuild test --flake .#{{ host }} --use-remote-sudo
 
 # build the config for a host, then send it via ssh
-send-build host: (build host)
-    @nix store info --store "ssh-ng://{{ host }}.lan" --quiet
+send-build host: (test-store host) (build host)
     nix copy --no-check-sigs --to "ssh-ng://{{ host }}.lan" ./result
     @rm --dir result
+
+# test connection to a remote nix store
+test-store host:
+    @nix store info --store "ssh-ng://{{ host }}.lan" --quiet
