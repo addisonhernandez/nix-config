@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   pam_succeed_if = "${pkgs.linux-pam}/lib/security/pam_succeed_if.so";
   pam_kwallet = "${pkgs.kdePackages.kwallet-pam}/lib/security/pam_kwallet.so";
@@ -21,5 +26,8 @@ in
     login.kwallet.forceRun = true;
   };
 
-  users.groups.nopasswdlogin.members = [ "addison" ];
+  users.groups.nopasswdlogin.members = with config.users.users; [
+    addison.name
+    audrey.name
+  ];
 }
