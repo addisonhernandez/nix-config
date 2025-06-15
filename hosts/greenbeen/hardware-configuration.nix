@@ -88,6 +88,28 @@
         "dmask=0077"
       ];
     };
+
+    "downloads" = {
+      label = "aux";
+      fsType = "btrfs";
+      depends = [ "/home" ];
+      mountPoint = "/home/addison/Downloads";
+      options = [
+        "subvol=@downloads"
+        "compress=zstd:15"
+      ];
+    };
+
+    "games" = {
+      label = "aux";
+      fsType = "btrfs";
+      depends = [ "/home" ];
+      mountPoint = "/home/addison/Games";
+      options = [
+        "subvol=@games"
+        "compress=zstd:15"
+      ];
+    };
   };
 
   swapDevices = [ ];
