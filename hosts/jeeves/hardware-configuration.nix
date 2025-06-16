@@ -77,7 +77,7 @@
       ];
     };
 
-    "/mnt/Passport" = {
+    "/homelab/data" = {
       device = "/dev/disk/by-label/Passport4TB";
       fsType = "ntfs3";
       options = [
@@ -90,18 +90,6 @@
         "gid=6969" # media
         "nofail"
       ];
-    };
-
-    "/homelab/data/media" = {
-      depends = [ "/mnt/Passport" ];
-      device = "/mnt/Passport/media";
-      options = [ "bind" ];
-    };
-
-    "/homelab/data/torrents" = {
-      depends = [ "/mnt/Passport" ];
-      device = "/mnt/Passport/torrents";
-      options = [ "bind" ];
     };
   };
 
