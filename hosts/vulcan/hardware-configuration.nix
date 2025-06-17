@@ -17,7 +17,6 @@
     inputs.hardware.nixosModules.common-gpu-nvidia-nonprime
 
     ./nvidia-legacy-470.nix
-    ./dual-monitors.nix
 
     ../common/optional/btrfs.nix
   ];
@@ -83,19 +82,10 @@
     };
 
     # Interal HDD
-    "/hdd" = {
-      label = "btrhd";
+    "backup" = {
+      label = "aux";
       fsType = "btrfs";
-      options = [
-        "subvol=@hdd2t"
-        "autodefrag"
-        "compress=zstd:15"
-      ];
-    };
-
-    "/hdd/backup" = {
-      label = "btrhd";
-      fsType = "btrfs";
+      mountPoint = "/home/addison/Documents/backup";
       options = [
         "subvol=@backup"
         "autodefrag"
@@ -104,20 +94,21 @@
       ];
     };
 
-    "/hdd/media" = {
-      label = "btrhd";
+    "games" = {
+      label = "aux";
       fsType = "btrfs";
+      mountPoint = "/home/addison/Games";
       options = [
-        "subvol=@media"
+        "subvol=@games"
         "autodefrag"
-        "noatime"
         "compress=zstd:15"
       ];
     };
 
-    "hdd/.temp" = {
-      label = "btrhd";
+    "temp" = {
+      label = "aux";
       fsType = "btrfs";
+      mountPoint = "/home/addison/Downloads/.temp";
       options = [
         "subvol=@temp"
         "autodefrag"
