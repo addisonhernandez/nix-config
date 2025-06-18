@@ -33,6 +33,16 @@ dry-activate host=hostname:
 build host=hostname:
     nixos-rebuild build --flake .#{{ host }} --keep-going
 
+# build all hosts
+build-all:
+    nix flake show --json . \
+        | jq '.nixosConfigurations | keys[]' \
+        | xargs -I {} echo .#nixosConfigurations.{}.config.system.build.toplevel \
+        | xargs nix build
+    # nix flake show --json . \
+    #     | jq '.nixosConfigurations | keys[]' \
+    #     | xargs -I {} nix build .#nixosConfigurations.{}.config.system.build.toplevel --out-link result-{}
+
 # diff the activated system and a freshly built config
 diff-system prev="/nix/var/nix/profiles/system" final="./result": build
     @test -r {{ prev }}
