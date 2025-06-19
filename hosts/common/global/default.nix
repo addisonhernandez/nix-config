@@ -11,6 +11,7 @@
     inputs.home-manager.nixosModules.home-manager
     ./catppuccin.nix
     ./docker.nix
+    ./editors.nix
     ./firefox.nix
     ./fish.nix
     ./flatpak.nix
@@ -30,13 +31,7 @@
 
   boot.tmp.cleanOnBoot = true;
 
-  environment.systemPackages = with pkgs; [
-    librewolf
-
-    helix
-    lunarvim
-    neovim
-  ];
+  environment.systemPackages = [ pkgs.librewolf ];
 
   home-manager = {
     backupFileExtension = "bak";
