@@ -35,13 +35,14 @@ build host=hostname:
 
 # build all hosts
 build-all:
-    nix flake show --json . \
-        | jq '.nixosConfigurations | keys[]' \
-        | xargs -I {} echo .#nixosConfigurations.{}.config.system.build.toplevel \
-        | xargs nix build
-    # nix flake show --json . \
-    #     | jq '.nixosConfigurations | keys[]' \
-    #     | xargs -I {} nix build .#nixosConfigurations.{}.config.system.build.toplevel --out-link result-{}
+    nix eval .#nixosConfigurations --raw --apply '\
+        configs: \
+        let \
+            hostnames = builtins.attrNames configs; \
+            mkInstallable = host: "${toString ./.}#nixosConfigurations.${host}.config.system.build.toplevel"; \
+        in \
+            builtins.concatStringsSep " " (map mkInstallable hostnames)' \
+        | nix build --stdin
 
 # diff the activated system and a freshly built config
 diff-system prev="/nix/var/nix/profiles/system" final="./result": build
