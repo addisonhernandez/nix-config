@@ -42,7 +42,7 @@ build-all:
             mkInstallable = host: "${toString ./.}#nixosConfigurations.${host}.config.system.build.toplevel"; \
         in \
             builtins.concatStringsSep " " (map mkInstallable hostnames)' \
-        | nix build --stdin
+        | nix build --no-link --stdin
 
 # diff the activated system and a freshly built config
 diff-system prev="/nix/var/nix/profiles/system" final="./result": build
