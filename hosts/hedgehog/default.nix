@@ -1,8 +1,5 @@
 {
   imports =
-    let
-      optionalImports = map (name: ../common/optional/${name}.nix);
-    in
     [
       ./hardware-configuration.nix
 
@@ -10,7 +7,8 @@
       ../common/users/addison
       ../common/users/audrey
     ]
-    ++ optionalImports [
+    ++ map (moduleName: ../common/optional/${moduleName}.nix) [
+      "docker"
       "fwupd"
       "kde"
       "nix-ld"

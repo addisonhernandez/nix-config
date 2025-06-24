@@ -10,7 +10,6 @@
     inputs.catppuccin.nixosModules.catppuccin
     inputs.home-manager.nixosModules.home-manager
     ./catppuccin.nix
-    ./docker.nix
     ./editors.nix
     ./firefox.nix
     ./fish.nix
