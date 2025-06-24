@@ -1,6 +1,22 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   services.flatpak.enable = true;
+  xdg.portal.enable = lib.mkDefault true;
+
+  # Prevent repeat authorization prompts when managing flatpak installs remotely
+  security.polkit.extraConfig =
+    # javascript
+    ''
+      polkit.addRule(function (action, subject) {
+        if (
+          action.id.startsWith("org.freedesktop.Flatpak.") &&
+          (subject.isInGroup("wheel") || subject.isInGroup("flatpak"))
+        ) {
+          return polkit.Result.YES;
+        }
+        return polkit.Result.NOT_HANDLED;
+      });
+    '';
 
   systemd =
     let
