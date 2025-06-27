@@ -14,9 +14,8 @@ in
     package = lib.mkDefault pkgs.nix;
     settings = {
       experimental-features = [
-        "nix-command"
         "flakes"
-        "ca-derivations"
+        "nix-command"
       ];
       flake-registry = ""; # Disable global flake registry
     };

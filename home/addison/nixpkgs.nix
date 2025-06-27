@@ -14,7 +14,6 @@ in
     package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
     settings = {
       experimental-features = [
-        "ca-derivations"
         "flakes"
         "nix-command"
       ];
