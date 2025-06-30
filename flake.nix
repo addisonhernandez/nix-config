@@ -2,8 +2,12 @@
   description = "NixOS and Home Manager Config Entrypoint";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.follows = "nixpkgs-unstable";
+
+    lix-module.url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
+    lix-module.inputs.nixpkgs.follows = "nixpkgs";
 
     systems.url = "github:nix-systems/x86_64-linux";
     hardware.url = "github:nixos/nixos-hardware";

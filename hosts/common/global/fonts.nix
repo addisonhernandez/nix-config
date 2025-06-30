@@ -35,6 +35,7 @@
 
     fontconfig.defaultFonts = {
       monospace = [
+        "Maple Mono NF"
         "FiraCode Nerd Font"
         "Source Code Pro"
       ];

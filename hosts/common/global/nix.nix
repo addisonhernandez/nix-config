@@ -9,7 +9,7 @@ let
 in
 {
   nix = {
-    package = pkgs.lixPackageSets.latest.lix;
+    # package = pkgs.lixPackageSets.latest.lix;
 
     settings = {
       auto-optimise-store = lib.mkDefault true;
