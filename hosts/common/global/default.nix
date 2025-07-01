@@ -9,7 +9,6 @@
   imports = [
     inputs.catppuccin.nixosModules.catppuccin
     inputs.home-manager.nixosModules.home-manager
-    inputs.lix-module.nixosModules.default
     ./catppuccin.nix
     ./editors.nix
     ./firefox.nix
