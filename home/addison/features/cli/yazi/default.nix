@@ -2,7 +2,7 @@
   imports = [
     ./plugins/chmod.yazi.nix
     ./plugins/git.yazi.nix
-    ./plugins/glow.yazi.nix
+    ./plugins/piper.yazi.nix
     ./plugins/rsync.yazi.nix
     ./plugins/starship.yazi.nix
   ];
