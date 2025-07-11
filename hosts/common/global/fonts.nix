@@ -50,5 +50,6 @@
       ];
       emoji = [ "Noto Color Emoji" ];
     };
+    fontconfig.useEmbeddedBitmaps = true;
   };
 }
