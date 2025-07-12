@@ -1,18 +1,14 @@
 {
-  pkgs,
   config,
-  configRoot,
+  inputs,
+  pkgs,
   ...
 }:
-let
-  inherit (config.networking) hostName;
-  ifTheyExist = builtins.filter (group: builtins.hasAttr group config.users.groups);
-in
 {
   users.users.audrey = {
     isNormalUser = true;
     description = "Audrey";
-    extraGroups = ifTheyExist [
+    extraGroups = builtins.filter (g: builtins.hasAttr g config.users.groups) [
       "git"
       "networkmanager"
       "media"
@@ -28,5 +24,7 @@ in
     ];
   };
 
-  home-manager.users.audrey = import "${configRoot}/home/audrey/${hostName}.nix";
+  home-manager.users = {
+    audrey = import "${inputs.self}/home/audrey/${config.networking.hostName}.nix";
+  };
 }

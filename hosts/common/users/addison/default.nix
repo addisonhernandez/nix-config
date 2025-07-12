@@ -1,19 +1,15 @@
 {
-  pkgs,
   config,
-  configRoot,
+  inputs,
+  pkgs,
   ...
 }:
-let
-  inherit (config.networking) hostName;
-  ifTheyExist = builtins.filter (group: builtins.hasAttr group config.users.groups);
-in
 {
   users.users.addison = {
     isNormalUser = true;
     description = "Addison";
     shell = pkgs.fish;
-    extraGroups = ifTheyExist [
+    extraGroups = builtins.filter (g: builtins.hasAttr g config.users.groups) [
       "audiobookshelf"
       "caddy"
       "docker"
@@ -32,5 +28,7 @@ in
     packages = [ pkgs.home-manager ];
   };
 
-  home-manager.users.addison = import "${configRoot}/home/addison/${hostName}.nix";
+  home-manager.users = {
+    addison = import "${inputs.self}/home/addison/${config.networking.hostName}.nix";
+  };
 }

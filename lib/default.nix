@@ -2,8 +2,6 @@
 let
   inherit (inputs) nixpkgs home-manager systems;
 
-  configRoot = ../.;
-
   lib = nixpkgs.lib // home-manager.lib;
 
   pkgsFor = lib.genAttrs (import systems) (
@@ -19,7 +17,7 @@ let
     host:
     lib.nixosSystem {
       modules = [ ../hosts/${host} ];
-      specialArgs = { inherit inputs outputs configRoot; };
+      specialArgs = { inherit inputs outputs; };
     };
   mkHomeConfig =
     { user, host }:
