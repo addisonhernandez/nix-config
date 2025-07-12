@@ -14,6 +14,7 @@ in
     description = "Addison";
     shell = pkgs.fish;
     extraGroups = ifTheyExist [
+      "caddy"
       "docker"
       "flatpak"
       "gamemode"

@@ -24,16 +24,6 @@ services:
     healthcheck:
       test: curl -fsL http://localhost:8096/health || exit 1
 
-  caddy:
-    container_name: caddy
-    image: ghcr.io/hotio/caddy:latest
-    ports:
-      - "8443:8443"
-    env_file:
-      - .env.base
-    volumes:
-      - /homelab/config/caddy:/config
-
   dashboard:
     container_name: dashy
     image: ghcr.io/lissy93/dashy:latest
@@ -131,4 +121,3 @@ services:
     depends_on:
       vpn:
         condition: service_healthy
-

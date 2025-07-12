@@ -17,4 +17,15 @@
 
     jellyfin-media-player
   ];
+
+  services.caddy.virtualHosts.jellyfin = {
+    extraConfig =
+      # Caddyfile
+      ''
+        bind tailscale/jellyfin tailscale/media
+        reverse_proxy :8096
+      '';
+    hostName = "jellyfin.beefalo-spica.ts.net";
+    serverAliases = [ "media.beefalo-spica.ts.net" ];
+  };
 }

@@ -1,14 +1,17 @@
+{ config, inputs, ... }:
 {
   imports = [
+    "${inputs.self}/hosts/common/optional/caddy.nix"
+
     ./jellyfin.nix
     ./lubelogger.nix
   ];
 
   users.groups.media = {
     gid = 6969;
-    members = [
+    members = builtins.filter (user: builtins.hasAttr user config.users.users) [
       "hotio"
-      # "jellyfin"
+      "jellyfin"
     ];
   };
 }
