@@ -60,7 +60,7 @@
       });
       devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
       formatter = forEachSystem (pkgs: treefmt.${pkgs.system}.config.build.wrapper);
-      # packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
+      packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
 
       nixosConfigurations = forEachHost mkHostConfig;
       homeConfigurations = forEachHome mkHomeConfig;
