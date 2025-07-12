@@ -24,19 +24,6 @@ services:
     healthcheck:
       test: curl -fsL http://localhost:8096/health || exit 1
 
-  dashboard:
-    container_name: dashy
-    image: ghcr.io/lissy93/dashy:latest
-    ports:
-      - "4000:8080"  # 8080 used by qbittorrent WebUI
-    env_file:
-      - .env.base
-    environment:
-      - NODE_ENV=production
-    volumes:
-      - /homelab/config/dashy/conf.yml:/app/user-data/conf.yml
-      - /homelab/config/dashy/assets/item-icons:/app/public/item-icons
-
   requests:
     container_name: jellyseerr
     image: ghcr.io/hotio/jellyseerr:latest

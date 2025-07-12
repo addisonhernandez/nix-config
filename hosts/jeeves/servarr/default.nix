@@ -3,6 +3,7 @@
   imports = [
     "${inputs.self}/hosts/common/optional/caddy.nix"
 
+    ./homepage.nix
     ./jellyfin.nix
     ./lubelogger.nix
   ];
