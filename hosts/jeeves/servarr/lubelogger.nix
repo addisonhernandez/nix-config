@@ -1,4 +1,12 @@
-{ pkgs, ... }:
+{
+  config,
+  outputs,
+  pkgs,
+  ...
+}:
+let
+  mkTailnetNode = outputs.lib.mkTailnetNode config;
+in
 {
   services = {
     lubelogger.enable = true;
@@ -49,14 +57,6 @@
       }
     ) { };
 
-    caddy.virtualHosts.lubelogger = {
-      extraConfig =
-        # Caddyfile
-        ''
-          bind tailscale/lubelogger
-          reverse_proxy :5000
-        '';
-      hostName = "lubelogger.beefalo-spica.ts.net";
-    };
+    caddy.virtualHosts.lubelogger = mkTailnetNode "lubelogger";
   };
 }

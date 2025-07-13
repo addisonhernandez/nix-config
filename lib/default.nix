@@ -33,6 +33,22 @@ let
     };
 
   defaultStr = default: maybeStr: if (builtins.toString maybeStr) != "" then maybeStr else default;
+
+  mkTailnetNode =
+    config: service:
+    let
+      inherit (config.myUtils.tailnet) networkMap;
+    in
+    {
+      extraConfig =
+        # Caddyfile
+        ''
+          bind ${networkMap.${service}.bindHosts}
+          reverse_proxy :${toString networkMap.${service}.proxiedPort}
+        '';
+      hostName = builtins.head networkMap.${service}.FQDNs;
+      serverAliases = builtins.tail networkMap.${service}.FQDNs;
+    };
 in
 lib
 // {
@@ -41,5 +57,6 @@ lib
     forEachSystem
     mkHomeConfig
     mkHostConfig
+    mkTailnetNode
     ;
 }

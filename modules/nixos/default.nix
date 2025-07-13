@@ -1,1 +1,4 @@
-{ lubelogger = import ./lubelogger.nix; }
+{
+  lubelogger = ./lubelogger.nix;
+  myUtils = ./utils;
+}

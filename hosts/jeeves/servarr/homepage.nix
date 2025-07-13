@@ -1,19 +1,21 @@
-{ config, ... }:
+{ config, outputs, ... }:
 let
-  magicDNSSuffix = "beefalo-spica.ts.net";
-  mkSubdomainLink = subdomain: "https://${subdomain}.${magicDNSSuffix}";
+  inherit (config.myUtils) tailnet;
+  mkSubdomainLink = subdomain: "https://${subdomain}.${tailnet.magicDNSSuffix}";
+  mkTailnetNode = outputs.lib.mkTailnetNode config;
 in
 {
   services.homepage-dashboard = {
     enable = true;
 
-    # [TODO] clean up allowedHosts with module snippets
-    allowedHosts = builtins.concatStringsSep "," [
-      "homelab.addisonhernandez.com"
-      "jeeves.${magicDNSSuffix}"
-      "jeeves.${magicDNSSuffix}:8082"
-      config.services.caddy.virtualHosts."home".hostName
-    ];
+    allowedHosts = builtins.concatStringsSep "," (
+      [
+        "homelab.addisonhernandez.com"
+        "jeeves.${tailnet.magicDNSSuffix}"
+        "jeeves.${tailnet.magicDNSSuffix}:8082"
+      ]
+      ++ tailnet.networkMap.homepage.FQDNs
+    );
 
     bookmarks = [
       {
@@ -156,13 +158,5 @@ in
     ];
   };
 
-  services.caddy.virtualHosts.home = {
-    extraConfig =
-      # Caddyfile
-      ''
-        bind tailscale/home
-        reverse_proxy :8082
-      '';
-    hostName = "home.beefalo-spica.ts.net";
-  };
+  services.caddy.virtualHosts.home = mkTailnetNode "homepage";
 }
