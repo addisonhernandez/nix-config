@@ -28,7 +28,11 @@
     };
   };
 
-  age.secrets.caddyNixosAuthkey.file = "${inputs.secrets}/services/caddy/nixos-authkey.age";
+  age.secrets.caddyNixosAuthkey = {
+    file = "${inputs.secrets}/services/caddy/nixos-authkey.age";
+    owner = config.users.users.caddy.name;
+    group = config.users.groups.caddy.name;
+  };
 
   services.tailscale.permitCertUid = toString config.users.users.caddy.uid;
 
