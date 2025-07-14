@@ -1,14 +1,15 @@
+{ config, ... }:
 {
-  config,
-  inputs,
-  pkgs,
-  ...
-}:
-{
+  imports = [
+    ./home-manager.nix
+    ./secrets.nix
+  ];
+
   users.users.addison = {
     isNormalUser = true;
     description = "Addison";
-    shell = pkgs.fish;
+    shell =
+      if config.programs.fish.enable then config.programs.fish.package else config.users.defaultUserShell;
     extraGroups = builtins.filter (g: builtins.hasAttr g config.users.groups) [
       "audiobookshelf"
       "caddy"
@@ -24,11 +25,5 @@
       "podman"
       "wheel"
     ];
-
-    packages = [ pkgs.home-manager ];
-  };
-
-  home-manager.users = {
-    addison = import "${inputs.self}/home/addison/${config.networking.hostName}.nix";
   };
 }

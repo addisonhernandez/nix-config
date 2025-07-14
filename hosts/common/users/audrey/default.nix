@@ -18,9 +18,9 @@
     home = "/home/audrey";
     initialHashedPassword = "$y$j9T$/Ykp57kEluftnhkpGhKYZ/$4zBK6y1/WGlbG/lrF.G3u5bdn5XdgAbV6SAH5Q.f1W/";
 
-    packages = with pkgs; [
-      home-manager
-      onlyoffice-desktopeditors
+    packages = [
+      pkgs.inputs.home-manager.default
+      pkgs.onlyoffice-desktopeditors
     ];
   };
 
