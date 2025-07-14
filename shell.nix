@@ -9,9 +9,11 @@
   default = pkgs.mkShell {
     NIX_CONFIG = "extra-experimental-features = nix-command flakes";
     nativeBuildInputs = with pkgs; [
-      nix
-      home-manager
+      age
       git
+      home-manager
+      lixPackageSets.latest.lix
+      nh
     ];
     packages = with pkgs; [
       nodePackages.prettier

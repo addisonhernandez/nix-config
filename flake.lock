@@ -1,5 +1,32 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "darwin": [],
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1750173260,
+        "narHash": "sha256-9P1FziAwl5+3edkfFcr5HeGtQUtrSdk/MksX39GieoA=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "531beac616433bac6f9e2a19feb8e99a22a66baf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": [
@@ -89,6 +116,7 @@
     },
     "root": {
       "inputs": {
+        "agenix": "agenix",
         "catppuccin": "catppuccin",
         "hardware": "hardware",
         "home-manager": "home-manager",
@@ -97,8 +125,29 @@
         ],
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "secrets": "secrets",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix"
+      }
+    },
+    "secrets": {
+      "inputs": {
+        "agenix": []
+      },
+      "locked": {
+        "lastModified": 1752502399,
+        "narHash": "sha256-wYaNHRssqoUJhQwdIAQCyK82FylxuEHRZBSPHncZbF8=",
+        "ref": "main",
+        "rev": "eead7738ca499a84f9c7bcb7ac65f67e79c8f826",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/addison/secrets.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/addison/secrets.git"
       }
     },
     "systems": {

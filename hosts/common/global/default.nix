@@ -7,8 +7,9 @@
 }:
 {
   imports = [
-    inputs.catppuccin.nixosModules.catppuccin
-    inputs.home-manager.nixosModules.home-manager
+    inputs.agenix.nixosModules.default
+    inputs.catppuccin.nixosModules.default
+    inputs.home-manager.nixosModules.default
     ./catppuccin.nix
     ./editors.nix
     ./firefox.nix

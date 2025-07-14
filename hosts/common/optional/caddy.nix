@@ -1,10 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   services.caddy = {
     enable = true;
 
-    # [TODO] use sops module to set enenvironmentFile path
-    environmentFile = "/run/secrets/caddy.env";
+    environmentFile = config.age.secrets.caddyNixosAuthkey.path;
 
     globalConfig =
       # Caddyfile
@@ -23,6 +27,8 @@
       hash = [ "sha256-K4K3qxN1TQ1Ia3yVLNfIOESXzC/d6HhzgWpC1qkT22k=" ];
     };
   };
+
+  age.secrets.caddyNixosAuthkey.file = "${inputs.secrets}/services/caddy/nixos-authkey.age";
 
   services.tailscale.permitCertUid = toString config.users.users.caddy.uid;
 

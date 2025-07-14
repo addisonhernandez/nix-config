@@ -1,10 +1,14 @@
-{ config, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 {
   services.tailscale = {
     enable = true;
 
-    # [TODO] use sops module to generate authKeyFile path
-    authKeyFile = "/run/secrets/services/tailscale/nixos-authkey";
+    authKeyFile = config.age.secrets.tailscaleNixosAuthkey.path;
 
     extraUpFlags = [ "--ssh" ];
     openFirewall = true;
@@ -13,6 +17,8 @@
     # server | both => enable IP forwarding
     useRoutingFeatures = lib.mkDefault "client";
   };
+
+  age.secrets.tailscaleNixosAuthkey.file = "${inputs.secrets}/services/tailscale/nixos-authkey.age";
 
   networking.firewall.trustedInterfaces = [ config.services.tailscale.interfaceName ];
 }
