@@ -1,0 +1,24 @@
+{
+  programs.ghostty = {
+    enable = true;
+
+    settings = {
+      font-family = "Maple Mono NF";
+      font-feature = builtins.concatStringsSep "," [
+        "calt" # ligatures
+        "cv06" # alternate `i`
+        "ss03" # [todo] [info] [fixme]
+      ];
+      # mouse-scroll-multiplier = 3;
+      background-opacity = 0.95;
+      background-blur = true;
+      # keybind = [ "ctrl+shift+arrow_left=previous_tab" ];
+      window-padding-balance = true;
+      window-decoration = "none";
+      window-height = 36;
+      window-width = 100;
+    };
+  };
+
+  catppuccin.ghostty.enable = true;
+}
