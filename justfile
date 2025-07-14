@@ -75,4 +75,4 @@ send-build host: (test-store host) (build host)
 
 # test connection to a remote nix store
 test-store host:
-    @nix store info --store "ssh-ng://{{ host }}.lan" --quiet
+    @nix store ping --store "ssh-ng://{{ host }}.lan" --quiet
