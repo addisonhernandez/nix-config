@@ -1,4 +1,8 @@
 [[language]]
+language-servers = ["fish-lsp"]
+name = "fish"
+
+[[language]]
 name = "lua"
 auto-format = true
 formatter = { command = "stylua", args = [
@@ -10,9 +14,30 @@ formatter = { command = "stylua", args = [
 ] }
 
 [[language]]
+language-servers = ["nixd", "nil"]
+name = "nix"
+
+[[language]]
 name = "yaml"
 auto-format = true
 formatter = { command = "prettier", args = ["--parser", "yaml"] }
+
+[language-server.fish-lsp]
+args = ["start"]
+command = "fish-lsp"
+
+[language-server.nil]
+command = "nil"
+
+[language-server.nil.settings.formatting]
+command = ["nixfmt", "--strict"]
+
+[language-server.nixd]
+args = ["--log=error", "--inlay-hints"]
+command = "nixd"
+
+[language-server.nixd.settings.formatting]
+command = ["nixfmt", "--strict"]
 
 [language-server.yaml-language-server.config.yaml]
 completion = true
