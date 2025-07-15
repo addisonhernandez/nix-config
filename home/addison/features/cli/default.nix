@@ -3,7 +3,6 @@
   imports = [
     ./git
     ./helix
-    ./lvim
     ./nvim
     ./yazi
 
