@@ -16,13 +16,15 @@
     ];
     createHome = true;
     home = "/home/audrey";
-    initialHashedPassword = "$y$j9T$/Ykp57kEluftnhkpGhKYZ/$4zBK6y1/WGlbG/lrF.G3u5bdn5XdgAbV6SAH5Q.f1W/";
+    hashedPasswordFile = config.age.secrets.audreyPasswordsNixOS.path;
 
     packages = [
       pkgs.inputs.home-manager.default
       pkgs.onlyoffice-desktopeditors
     ];
   };
+
+  age.secrets.audreyPasswordsNixOS.file = "${inputs.secrets}/users/audrey/passwords/nixos.age";
 
   home-manager.users = {
     audrey = import "${inputs.self}/home/audrey/${config.networking.hostName}.nix";
