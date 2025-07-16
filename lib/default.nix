@@ -1,6 +1,11 @@
-{ inputs, outputs, ... }:
+{ inputs, outputs }:
 let
-  inherit (inputs) nixpkgs home-manager systems;
+  inherit (inputs)
+    home-manager
+    nixpkgs
+    self
+    systems
+    ;
 
   lib = nixpkgs.lib // home-manager.lib;
 
@@ -16,7 +21,7 @@ let
   mkHostConfig =
     host:
     lib.nixosSystem {
-      modules = [ ../hosts/${host} ];
+      modules = [ "${self}/hosts/${host}" ];
       specialArgs = { inherit inputs outputs; };
     };
   mkHomeConfig =
@@ -24,8 +29,8 @@ let
     {
       "${user}@${host}" = lib.homeManagerConfiguration {
         modules = [
-          ../home/${user}/${host}.nix
-          ../home/${user}/nixpkgs.nix
+          "${self}/home/${user}/${host}.nix"
+          "${self}/home/${user}/features/nixpkgs.nix"
         ];
         pkgs = pkgsFor.x86_64-linux; # FIXME: make this architecture agnostic
         extraSpecialArgs = { inherit inputs outputs; };
