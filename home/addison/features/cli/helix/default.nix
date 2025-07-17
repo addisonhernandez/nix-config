@@ -20,10 +20,7 @@
         };
         # end-of-line-diagnostics = "warning"; # error | warning | info | hint
         indent-guides.render = true;
-        inline-diagnostics = {
-          cursor-line = "warning";
-          other-lines = "error";
-        };
+        # inline-diagnostics = { cursor-line = "warning"; other-lines = "error"; };
         line-number = "relative";
         lsp.display-inlay-hints = true;
         preview-completion-insert = true;
