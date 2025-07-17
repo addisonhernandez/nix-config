@@ -1,6 +1,8 @@
+{ config, ... }:
 {
   services.openssh = {
     enable = true;
+    inherit (config.myUtils.ssh) knownHosts;
     settings = {
       PermitRootLogin = "no";
 
