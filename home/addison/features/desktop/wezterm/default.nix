@@ -18,6 +18,10 @@
 
         config.hide_tab_bar_if_only_one_tab = true
         config.window_background_opacity = 0.95
+        config.kde_window_background_blur = true
+
+        config.initial_cols = 100
+        config.initial_rows = 36
 
         -- -------------------- --
         -- Fonts & Font Shaping --
