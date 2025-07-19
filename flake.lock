@@ -135,10 +135,10 @@
         "agenix": []
       },
       "locked": {
-        "lastModified": 1752856180,
-        "narHash": "sha256-OZlMVgNjBb4JC4CSfvYXdUGTHRQ48ZYX/Pyw+L2KigM=",
+        "lastModified": 1752857635,
+        "narHash": "sha256-NUrveHM7SeYd8lbtZCAreFc7yxKh+ciXQWwWev6qups=",
         "ref": "main",
-        "rev": "bc8d319ec15380584f32aaf342c2aaf38e84faad",
+        "rev": "368440f8f98886a3821ea6c95b68b96264c9ad0d",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@codeberg.org/addison/secrets.git"
@@ -172,11 +172,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752055615,
-        "narHash": "sha256-19m7P4O/Aw/6+CzncWMAJu89JaKeMh3aMle1CNQSIwM=",
+        "lastModified": 1752909129,
+        "narHash": "sha256-Eh8FkMvGRaY71BU/oyZTTzt9RsBIq2E6j0r3eLZ/2kY=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "c9d477b5d5bd7f26adddd3f96cfd6a904768d4f9",
+        "rev": "0043b95d80b5bf6d61e84d237e2007727f4dd38d",
         "type": "github"
       },
       "original": {
