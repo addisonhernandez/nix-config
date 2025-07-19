@@ -11,7 +11,7 @@ let
 in
 {
   nix = {
-    package = lib.mkDefault pkgs.nix;
+    package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
     settings = {
       experimental-features = [
         "flakes"
