@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./git
@@ -11,6 +16,7 @@
     ./bat.nix
     ./btop.nix
     ./direnv.nix
+    ./distrobox.nix
     ./fish.nix
     ./fzf.nix
     ./nix-index.nix
@@ -22,15 +28,17 @@
   ];
 
   home.sessionVariables = {
-    SHELL = lib.getExe pkgs.fish;
+    SHELL = lib.getExe (
+      let
+        inherit (config.programs) fish bash;
+      in
+      if fish.enable then fish.package else bash.package
+    );
     EDITOR = lib.getExe pkgs.helix;
     VISUAL = lib.getExe pkgs.helix;
   };
 
   home.packages = with pkgs; [
-    # Escape hatch
-    distrobox
-
     # Utilities
     delta # diff tool
     eza # better ls
@@ -44,7 +52,6 @@
     ripgrep # better grep (provides `rg`)
 
     # Nix / NixOS utilities
-    alejandra # nix formatter
     nh # nix CLI helper
     nil # nix LSP written in Rust
     nix-diff # detailed difftool

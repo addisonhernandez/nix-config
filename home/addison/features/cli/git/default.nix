@@ -5,9 +5,7 @@
     userName = "Addison Hernandez";
     userEmail = "addison.hernandez@gmail.com";
     aliases = {
-      br = "branch";
       ci = "commit";
-      civ = "commit --verbose";
       co = "checkout";
       comp = "-c delta.side-by-side=true diff --ignore-space-change";
       fest = "!_git_fest() { git fetch; git st; }; _git_fest";
