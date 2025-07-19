@@ -1,6 +1,7 @@
+{ inputs, ... }:
 {
-  catppuccin = {
-    flavor = "macchiato";
-    accent = "mauve";
-  };
+  imports = [ inputs.catppuccin.homeModules.default ];
+
+  catppuccin.flavor = "macchiato";
+  catppuccin.accent = "mauve";
 }

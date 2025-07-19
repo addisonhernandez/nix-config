@@ -1,15 +1,12 @@
 {
   lib,
   config,
-  inputs,
   outputs,
   ...
 }:
 {
   imports = [
-    inputs.catppuccin.homeModules.catppuccin
     ./catppuccin.nix
-
     ../features/cli
   ] ++ (builtins.attrValues outputs.homeModules or { });
 
