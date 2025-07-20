@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./git
@@ -11,6 +16,7 @@
     ./bat.nix
     ./btop.nix
     ./direnv.nix
+    ./fish.nix
     ./fzf.nix
     ./nix-index.nix
     ./ssh.nix
@@ -21,7 +27,12 @@
   ];
 
   home.sessionVariables = {
-    SHELL = lib.getExe pkgs.bash;
+    SHELL = lib.getExe (
+      let
+        inherit (config.programs) bash fish;
+      in
+      if fish.enable then fish.package else bash.package
+    );
     EDITOR = lib.getExe pkgs.helix;
     VISUAL = lib.getExe pkgs.helix;
   };

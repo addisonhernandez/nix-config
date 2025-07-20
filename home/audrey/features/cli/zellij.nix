@@ -21,6 +21,7 @@ in
     enableBashIntegration = false;
     settings = {
       copy_command = lib.getExe' pkgs.wl-clipboard "wl-copy";
+      default_shell = lib.getExe config.programs.fish.package;
       pane_frames = false;
 
       # copy_on_select = true | false;
