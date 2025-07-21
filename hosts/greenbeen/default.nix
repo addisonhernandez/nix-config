@@ -14,6 +14,7 @@
       "nix-ld"
       "nix-ssh-serve"
       "printing"
+      "quickemu"
       "retroarch"
       "signal"
       "snapper"
