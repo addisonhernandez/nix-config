@@ -7,4 +7,5 @@
 }:
 {
   audiobook-organizer = pkgs.callPackage ./audiobook-organizer { };
+  mmt = pkgs.callPackage ./mmt { };
 }

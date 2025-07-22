@@ -10,6 +10,7 @@
   ++ map (moduleName: ../common/optional/${moduleName}.nix) [
     "docker"
     "kde"
+    "mmt"
     "nix-ld"
     "nix-ssh-serve"
     "printing"
