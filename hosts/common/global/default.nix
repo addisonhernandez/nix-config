@@ -26,7 +26,8 @@
     ./tailscale.nix
     ./udisks.nix
     ./xserver.nix
-  ] ++ (builtins.attrValues outputs.nixosModules or { });
+  ]
+  ++ (builtins.attrValues outputs.nixosModules or { });
 
   boot.tmp.cleanOnBoot = true;
 

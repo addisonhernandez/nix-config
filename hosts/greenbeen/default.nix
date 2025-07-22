@@ -1,27 +1,26 @@
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./dual-monitors.nix
+  imports = [
+    ./hardware-configuration.nix
+    ./dual-monitors.nix
 
-      ../common/global
-      ../common/users/addison
-      ../common/users/audrey
-    ]
-    ++ map (moduleName: ../common/optional/${moduleName}.nix) [
-      "docker"
-      "kde"
-      "nix-ld"
-      "nix-ssh-serve"
-      "printing"
-      "quickemu"
-      "retroarch"
-      "signal"
-      "snapper"
-      "steam"
-      "virt-manager"
-      "wine"
-    ];
+    ../common/global
+    ../common/users/addison
+    ../common/users/audrey
+  ]
+  ++ map (moduleName: ../common/optional/${moduleName}.nix) [
+    "docker"
+    "kde"
+    "nix-ld"
+    "nix-ssh-serve"
+    "printing"
+    "quickemu"
+    "retroarch"
+    "signal"
+    "snapper"
+    "steam"
+    "virt-manager"
+    "wine"
+  ];
 
   services.displayManager.hiddenUsers = [ "nixremote" ];
 

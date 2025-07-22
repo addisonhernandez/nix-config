@@ -8,7 +8,8 @@
   imports = [
     ./catppuccin.nix
     ../features/cli
-  ] ++ (builtins.attrValues outputs.homeModules or { });
+  ]
+  ++ (builtins.attrValues outputs.homeModules or { });
 
   programs = {
     home-manager.enable = true;
