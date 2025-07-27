@@ -9,7 +9,10 @@
       ];
       on-unmatched = "info";
     };
-    formatter.nixfmt.options = [ "--strict" ];
+    formatter.nixfmt.options = [
+      "--strict"
+      "--width=80"
+    ];
   };
 
   programs = {

@@ -23,7 +23,9 @@ in
   };
 
   home.sessionVariables = {
-    NIX_PATH = lib.concatStringsSep ":" (lib.mapAttrsToList (k: v: "${k}=${v.outPath}") flakeInputs);
+    NIX_PATH = lib.concatStringsSep ":" (
+      lib.mapAttrsToList (k: v: "${k}=${v.outPath}") flakeInputs
+    );
   };
 
   nixpkgs = {

@@ -20,5 +20,7 @@
 
   age.secrets.tailscaleNixosAuthkey.file = "${inputs.secrets}/services/tailscale/nixos-authkey.age";
 
-  networking.firewall.trustedInterfaces = [ config.services.tailscale.interfaceName ];
+  networking.firewall.trustedInterfaces = [
+    config.services.tailscale.interfaceName
+  ];
 }

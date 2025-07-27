@@ -15,7 +15,9 @@
   };
 
   # Adds pkgs.stable == inputs.nixpkgs-stable.legacyPackages.${pkgs.system}
-  stable = final: _: { stable = inputs.nixpkgs-stable.legacyPackages.${final.system}; };
+  stable = final: _: {
+    stable = inputs.nixpkgs-stable.legacyPackages.${final.system};
+  };
 
   # Add custom packages from ../pkgs
   additions = final: _: import ../pkgs { pkgs = final; };

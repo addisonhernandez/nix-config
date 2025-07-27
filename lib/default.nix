@@ -37,7 +37,9 @@ let
       };
     };
 
-  defaultStr = default: maybeStr: if (builtins.toString maybeStr) != "" then maybeStr else default;
+  defaultStr =
+    default: maybeStr:
+    if (builtins.toString maybeStr) != "" then maybeStr else default;
 
   mkTailnetNode =
     config: service:

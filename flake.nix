@@ -56,7 +56,9 @@
       forEachHost = lib.genAttrs hostnames;
       forEachHome = f: lib.mergeAttrsList (map f userHostPairs);
 
-      treefmt = forEachSystem (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+      treefmt = forEachSystem (
+        pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix
+      );
     in
     {
       inherit lib;

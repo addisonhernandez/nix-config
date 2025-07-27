@@ -37,7 +37,9 @@ in
         dotnet-sdk = dotnetCorePackages.sdk_8_0;
         dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
 
-        makeWrapperArgs = [ "--set DOTNET_WEBROOT ${placeholder "out"}/lib/lubelogger/wwwroot" ];
+        makeWrapperArgs = [
+          "--set DOTNET_WEBROOT ${placeholder "out"}/lib/lubelogger/wwwroot"
+        ];
 
         executables = [ "CarCareTracker" ]; # This wraps "$out/lib/$pname/foo" to `$out/bin/foo`.
 
