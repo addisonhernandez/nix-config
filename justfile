@@ -59,23 +59,28 @@ diff-system prev="/nix/var/nix/profiles/system" final="./result": build
 # build and activate the config, and make it the boot default
 [confirm('Build and switch to the new config?')]
 [group('build tools')]
-rebuild-switch host=hostname:
+rebuild-switch host=hostname: && rm-build-artifacts
     @sudo true
     nixos-rebuild switch --flake .#{{ host }} --sudo
 
 # build the config, and activate it after a reboot
 [confirm('Build the new config and activate after reboot?')]
 [group('build tools')]
-rebuild-boot host=hostname:
+rebuild-boot host=hostname: && rm-build-artifacts
     @sudo true
     nixos-rebuild boot --flake .#{{ host }} --sudo
 
 # build the config and test it in the current session
 [confirm('Build new config and test it in this session?')]
 [group('build tools')]
-rebuild-test host=hostname:
+rebuild-test host=hostname: && rm-build-artifacts
     @sudo true
     nixos-rebuild test --flake .#{{ host }} --sudo
+
+# Clean leftover nix build artifacts
+[group('build tools')]
+rm-build-artifacts:
+    @fd --no-ignore --type symlink 'result.*' . --exec-batch rm --dir {}
 
 # build the config for a host, then send it via ssh
 [group('build tools')]
