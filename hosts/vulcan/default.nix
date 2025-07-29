@@ -6,10 +6,7 @@
     ../common/users/addison
   ]
   ++ map (moduleName: ../common/optional/${moduleName}.nix) [
-    "docker"
     "nix-ld"
-    "printing"
-    "signal"
     "snapper"
     "xfce"
   ];
