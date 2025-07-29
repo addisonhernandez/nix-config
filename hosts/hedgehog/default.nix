@@ -7,7 +7,6 @@
     ../common/users/audrey
   ]
   ++ map (moduleName: ../common/optional/${moduleName}.nix) [
-    "docker"
     "fwupd"
     "kde"
     "nix-ld"
@@ -16,13 +15,10 @@
     "signal"
     "snapper"
     "steam"
-    "virt-manager"
   ];
 
-  networking = {
-    hostName = "hedgehog";
-    networkmanager.enable = true;
-  };
+  networking.hostName = "hedgehog";
+  networking.networkmanager.enable = true;
 
   system.stateVersion = "24.05";
 }
