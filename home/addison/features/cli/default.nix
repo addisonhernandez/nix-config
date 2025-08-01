@@ -16,7 +16,6 @@
     ./bat.nix
     ./btop.nix
     ./direnv.nix
-    ./distrobox.nix
     ./fish.nix
     ./fzf.nix
     ./nix-index.nix
