@@ -1,24 +1,26 @@
-{ inputs, ... }:
+{ inputs }:
 {
-  # For every flake input, aliases 'pkgs.inputs.${flake}' to
-  # 'inputs.${flake}.packages.${pkgs.system}' or
-  # 'inputs.${flake}.legacyPackages.${pkgs.system}'
-  flake-inputs = final: _: {
-    inputs = builtins.mapAttrs (
-      _: flake:
-      let
-        legacyPackages = (flake.legacyPackages or { }).${final.system} or { };
-        packages = (flake.packages or { }).${final.system} or { };
-      in
-      if legacyPackages != { } then legacyPackages else packages
-    ) inputs;
+  # For every flake input, aliases `pkgs.fromInput.${inputName}` to
+  # `inputs.${inputName}.legacyPackages.${pkgs.system}` or
+  # `inputs.${inputName}.packages.${pkgs.system}`
+  inputPkgs =
+    _: prev:
+    let
+      inherit (prev) lib;
+      inputHasPkgs = _: input: input ? legacyPackages || input ? packages;
+      inputsWithPkgs = lib.filterAttrs inputHasPkgs inputs;
+      pkgsFromInput =
+        _: input: input.legacyPackages.${prev.system} or input.packages.${prev.system};
+    in
+    {
+      fromInput = lib.mapAttrs pkgsFromInput inputsWithPkgs;
+    };
+
+  # Alias `pkgs.stable` to `inputs.nixpkgs-stable.legacyPackages.${pkgs.system}`
+  stablePkgs = _: prev: {
+    stable = inputs.nixpkgs-stable.legacyPackages.${prev.system};
   };
 
-  # Adds pkgs.stable == inputs.nixpkgs-stable.legacyPackages.${pkgs.system}
-  stable = final: _: {
-    stable = inputs.nixpkgs-stable.legacyPackages.${final.system};
-  };
-
-  # Add custom packages from ../pkgs
-  additions = final: _: import ../pkgs { pkgs = final; };
+  # Add custom packages from ../pkgs directly to `pkgs`
+  myPkgs = final: _: import "${inputs.self}/pkgs" { pkgs = final; };
 }

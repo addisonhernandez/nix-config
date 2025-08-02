@@ -1,4 +1,4 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = [ pkgs.inputs.agenix.default ];
+  environment.systemPackages = [ pkgs.fromInput.agenix.default ];
 }
