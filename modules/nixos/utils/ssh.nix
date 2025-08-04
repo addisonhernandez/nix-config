@@ -7,8 +7,8 @@
 }:
 let
   inherit (lib) types;
-  nixOSHostNames = builtins.attrNames outputs.nixosConfigurations;
-  forEachHost = lib.genAttrs nixOSHostNames;
+
+  forEachHost = lib.genAttrs (builtins.attrNames outputs.nixosConfigurations);
 
   knownHostsType.options = {
     hostNames = lib.mkOption { type = types.listOf types.str; };

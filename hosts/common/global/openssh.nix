@@ -10,8 +10,10 @@
       StreamLocalBindUnlink = "yes";
       # Allow forwarding ports to everywhere
       GatewayPorts = "clientspecified";
-      # Let WAYLAND_DISPLAY be forwarded
-      AcceptEnv = "WAYLAND_DISPLAY";
+      AcceptEnv = builtins.concatStringsSep " " [
+        "WAYLAND_DISPLAY"
+        "COLORTERM"
+      ];
       X11Forwarding = true;
     };
   };
