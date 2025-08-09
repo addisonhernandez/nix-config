@@ -22,11 +22,9 @@ in
       extra-trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
-      flake-registry = ""; # disable global flake registry
-      trusted-users = [
-        "root"
-        "@wheel"
-      ];
+      flake-registry = "";
+      keep-going = true;
+      trusted-users = [ "@wheel" ];
       warn-dirty = false;
     };
 
