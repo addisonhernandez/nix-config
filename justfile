@@ -84,8 +84,8 @@ rm-build-artifacts:
 
 # build the config for a host, then send it via ssh
 [group('build tools')]
-send-build host: (test-store host) (build host)
-    nix copy --no-check-sigs --to "ssh-ng://{{ host }}.lan" "$(readlink ./result)"
+send-build host: (test-store host)
+    nixos-rebuild build --flake .#{{ host }} --target-host {{ host }}.lan
     @rm --dir result
 
 # test connection to a remote nix store
