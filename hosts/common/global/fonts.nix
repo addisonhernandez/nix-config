@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   # Install some fonts
   fonts = {
@@ -22,7 +22,7 @@
 
       # icons / symbols
       font-awesome
-      # joypixels # requires manually accepting an unfree license
+      joypixels # requires manually accepting an unfree license
 
       # math
       fira-math
@@ -52,4 +52,7 @@
     };
     fontconfig.useEmbeddedBitmaps = true;
   };
+
+  nixpkgs.config.allowUnfreePredicate = pkg: (lib.getName pkg) == "joypixels";
+  nixpkgs.config.joypixels.acceptLicense = true;
 }
