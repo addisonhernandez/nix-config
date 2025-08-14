@@ -18,7 +18,11 @@
 
   # Alias `pkgs.stable` to `inputs.nixpkgs-stable.legacyPackages.${pkgs.system}`
   stablePkgs = _: prev: {
-    stable = inputs.nixpkgs-stable.legacyPackages.${prev.system};
+    # stable = inputs.nixpkgs-stable.legacyPackages.${prev.system};
+    stable = import inputs.nixpkgs-stable {
+      inherit (prev) system;
+      config.allowUnfree = true;
+    };
   };
 
   # Add custom packages from ../pkgs directly to `pkgs`
