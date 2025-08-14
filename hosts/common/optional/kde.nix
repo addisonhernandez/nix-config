@@ -11,7 +11,11 @@
       plasma-browser-integration
     ];
 
-    systemPackages = [ pkgs.wl-clipboard ];
+    systemPackages = with pkgs; [
+      wl-clipboard
+      # sddm system settings configuration plugin
+      kdePackages.sddm-kcm
+    ];
 
     sessionVariables = {
       NIXOS_OZONE_WL = 1;
