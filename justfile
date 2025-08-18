@@ -37,7 +37,12 @@ dry-activate host=hostname:
 build host=hostname:
     nixos-rebuild build --flake .#{{ host }} --keep-going
 
-# build all hosts
+# build the local config on a remote host (default greenbeen)
+[group('build tools')]
+remote-build build_host="greenbeen":
+    nixos-rebuild build --flake .#{{ hostname }} --build-host {{ build_host }}.lan
+
+# build all host configurations
 [group('build tools')]
 build-all:
     nix eval .#nixosConfigurations --raw --apply '\
