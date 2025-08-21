@@ -66,7 +66,7 @@ in
               }
               {
                 Audiobookshelf = {
-                  href = mkSubdomainLink "audiobooks";
+                  href = mkSubdomainLink "audiobookshelf";
                   description = "Audiobooks";
                   icon = "audiobookshelf";
                 };
@@ -97,28 +97,28 @@ in
           }
           {
             Radarr = {
-              href = mkSubdomainLink "movies";
+              href = mkSubdomainLink "radarr";
               description = "Movie Management";
               icon = "radarr";
             };
           }
           {
             Sonarr = {
-              href = mkSubdomainLink "shows";
+              href = mkSubdomainLink "sonarr";
               description = "TV Show Management";
               icon = "sonarr";
             };
           }
           {
             Prowlarr = {
-              href = mkSubdomainLink "indexers";
+              href = mkSubdomainLink "prowlarr";
               description = "Torrent Tracker Management";
               icon = "prowlarr";
             };
           }
           {
             qBittorrent = {
-              href = mkSubdomainLink "torrents";
+              href = mkSubdomainLink "qbittorrent";
               description = "Torrent Management";
               icon = "qbittorrent";
             };
