@@ -8,7 +8,7 @@
   services.caddy = {
     enable = true;
 
-    environmentFile = config.age.secrets.caddyNixosAuthkey.path;
+    environmentFile = config.age.secrets.caddyEphemeralAuthkey.path;
 
     globalConfig =
       # Caddyfile
@@ -28,8 +28,8 @@
     };
   };
 
-  age.secrets.caddyNixosAuthkey = {
-    file = "${inputs.secrets}/services/caddy/nixos-authkey.age";
+  age.secrets.caddyEphemeralAuthkey = {
+    file = "${inputs.secrets}/services/caddy/ephemeral.age";
     owner = config.users.users.caddy.name;
     group = config.users.groups.caddy.name;
   };
