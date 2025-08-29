@@ -47,19 +47,18 @@ remote-build build_host="greenbeen":
 build-all:
     nix eval .#nixosConfigurations --raw --apply '\
         configs: \
-        let \
-            hostnames = builtins.attrNames configs; \
-            mkInstallable = host: "${toString ./.}#nixosConfigurations.${host}.config.system.build.toplevel"; \
-        in \
-            builtins.concatStringsSep " " (map mkInstallable hostnames)' \
+        configs \
+        |> builtins.attrNames \
+        |> map (host: "${toString ./.}#nixosConfigurations.${host}.config.system.build.toplevel") \
+        |> builtins.concatStringsSep " "' \
         | nix build --no-link --stdin
 
 # diff the activated system and a freshly built config
 [group('build tools')]
-diff-system prev="/nix/var/nix/profiles/system" final="./result": build
-    @test -r {{ prev }}
-    @test -r {{ final }}
-    nvd diff {{ prev }} {{ final }}
+diff-system *args: build
+    @test -r "/nix/var/nix/profiles/system"
+    @test -r "./result"
+    nvd diff {{ args }} "/nix/var/nix/profiles/system" "./result"
 
 # build and activate the config, and make it the boot default
 [confirm('Build and switch to the new config?')]

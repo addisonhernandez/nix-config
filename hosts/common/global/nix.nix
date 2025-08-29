@@ -17,6 +17,7 @@ in
       experimental-features = [
         "flakes"
         "nix-command"
+        "pipe-operator"
       ];
       extra-substituters = [ "https://nix-community.cachix.org" ];
       extra-trusted-public-keys = [
