@@ -26,5 +26,10 @@ in
     jellyfin-media-player
   ];
 
+  # [fixme] temp fix while jellyfin-media-player depends on qt5
+  nixpkgs.config.permittedInsecurePackages = [
+    pkgs.libsForQt5.qt5.qtwebengine.name
+  ];
+
   services.caddy.virtualHosts.jellyfin = mkTailnetNode "jellyfin";
 }
