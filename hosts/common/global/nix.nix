@@ -12,11 +12,14 @@ in
     package = pkgs.lixPackageSets.latest.lix;
 
     settings = {
-      auto-optimise-store = lib.mkDefault true;
-      # download-buffer-size = 1024 * 1024 * 1024;
+      auto-optimise-store = true;
       experimental-features = [
+        "auto-allocate-uids"
+        "cgroups"
         "flakes"
+        "lix-custom-sub-commands"
         "nix-command"
+        "no-url-literals"
         "pipe-operator"
       ];
       extra-substituters = [ "https://nix-community.cachix.org" ];
@@ -27,6 +30,10 @@ in
       keep-going = true;
       trusted-users = [ "@wheel" ];
       warn-dirty = false;
+
+      # Settings gated by experimental features
+      auto-allocate-uids = true;
+      use-cgroups = true;
     };
 
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
