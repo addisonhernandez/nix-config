@@ -18,18 +18,34 @@ in
   programs.ssh = {
     enable = true;
 
-    addKeysToAgent = "yes";
-
     matchBlocks = {
+      "*" = {
+        # Settings formerly set by `programs.ssh.enableDefaultConfig`
+        addKeysToAgent = "no";
+        compression = false;
+        controlMaster = "no";
+        controlPath = "~/.ssh/master-%r@%n:%p";
+        controlPersist = "no";
+        forwardAgent = false;
+        hashKnownHosts = false;
+        serverAliveCountMax = 3;
+        serverAliveInterval = 0;
+        userKnownHostsFile = "~/.ssh/known_hosts";
+      };
+
       "codeberg.org" = {
-        user = "git";
+        addKeysToAgent = "yes";
         identityFile = "~/.ssh/codeberg";
+        user = "git";
       };
       "github.com" = {
-        user = "git";
+        addKeysToAgent = "yes";
         identityFile = "~/.ssh/github";
+        user = "git";
       };
+
       "${builtins.concatStringsSep " " nixosHostNames}" = {
+        addKeysToAgent = "yes";
         forwardX11 = true;
         setEnv.COLORTERM = "truecolor";
       };
