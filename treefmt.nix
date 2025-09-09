@@ -1,32 +1,47 @@
 {
   projectRootFile = "flake.nix";
 
-  settings = {
-    global = {
-      excludes = [
-        "LICENSE"
-        "*.example"
-      ];
-      on-unmatched = "info";
-    };
-    formatter.nixfmt.options = [
-      "--strict"
-      "--width=80"
-    ];
-  };
+  settings.global.excludes = [
+    "LICENSE"
+    "*.example"
+  ];
 
   programs = {
-    # Nix
-    nixfmt.enable = true;
+    # JSON
+    jsonfmt.enable = true;
+
+    # Just
+    just.enable = true;
 
     # Lua
     stylua = {
       enable = true;
       settings = {
+        column_width = 80;
         indent_type = "Spaces";
         indent_width = 2;
       };
     };
+
+    # Markdown
+    mdformat.enable = true;
+
+    # Nix
+    deadnix.enable = true;
+    nixfmt = {
+      enable = true;
+      strict = true;
+      width = 80;
+    };
+    statix.enable = true;
+
+    # Shell
+    fish_indent.enable = true;
+    shellcheck.enable = true;
+    shfmt.enable = true;
+
+    # Toml
+    taplo.enable = true;
 
     # Yaml
     yamlfmt = {
@@ -38,8 +53,5 @@
         trim_trailing_whitespace = true;
       };
     };
-
-    # Just
-    just.enable = true;
   };
 }
