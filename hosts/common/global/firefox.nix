@@ -48,10 +48,10 @@
             Value = false;
             Status = "locked";
           };
-          locked-true = {
-            Value = true;
-            Status = "locked";
-          };
+          # locked-true = {
+          #   Value = true;
+          #   Status = "locked";
+          # };
           locked-empty = {
             Value = "";
             Status = "locked";
