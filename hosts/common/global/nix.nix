@@ -13,6 +13,17 @@ in
 
     settings = {
       auto-optimise-store = true;
+      extra-substituters = [ "https://nix-community.cachix.org" ];
+      extra-trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+      flake-registry = "";
+      http-connections = 50; # default: 25
+      keep-going = true;
+      trusted-users = [ "@wheel" ];
+      use-xdg-base-directories = true;
+      warn-dirty = false;
+
       experimental-features = [
         "auto-allocate-uids"
         "cgroups"
@@ -22,20 +33,11 @@ in
         "no-url-literals"
         "pipe-operator"
       ];
-      extra-substituters = [ "https://nix-community.cachix.org" ];
-      extra-trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
-      flake-registry = "";
-      keep-going = true;
-      trusted-users = [ "@wheel" ];
-      warn-dirty = false;
-
-      # Settings gated by experimental features
       auto-allocate-uids = true;
       use-cgroups = true;
     };
 
+    channel.enable = false;
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
     nixPath = lib.mapAttrsToList (k: v: "${k}=${v.outPath}") flakeInputs;
   };
