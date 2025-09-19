@@ -39,10 +39,11 @@
       lib = import ./lib { inherit inputs outputs; };
 
       hostnames = [
-        "hedgehog" # Laptop (Dell XPS 9560)
-        "vulcan" # Desktop
         "greenbeen" # Mini Desktop (Beelink SER7)
+        "hedgehog" # Laptop (Dell XPS 9560)
+        "iso" # Custom installer image
         "jeeves" # Media Server (Beelink Mini S12 Pro)
+        "vulcan" # Desktop
       ];
       usernames = [
         "addison"
@@ -73,7 +74,13 @@
       });
       devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
       formatter = forEachSystem (pkgs: treefmt.${pkgs.system}.config.build.wrapper);
-      packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
+      packages = forEachSystem (
+        pkgs:
+        (import ./pkgs { inherit pkgs; })
+        // {
+          inherit (self.nixosConfigurations.iso.config.system.build) isoImage;
+        }
+      );
 
       nixosConfigurations = forEachHost mkHostConfig;
       homeConfigurations = forEachHome mkHomeConfig;

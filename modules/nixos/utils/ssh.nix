@@ -20,14 +20,19 @@ in
     knownHosts = lib.mkOption {
       type = types.attrsOf (types.submodule knownHostsType);
       description = "Default SSH known hosts";
-      default = forEachHost (hostName: {
-        hostNames = [
-          hostName
-          "${hostName}.lan"
-          "${hostName}.${config.myUtils.tailnet.magicDNSSuffix}"
-        ];
-        publicKeyFile = "${inputs.secrets}/hosts/public_keys/host_${hostName}_ed25519.pub";
-      });
+      default = forEachHost (
+        hostName:
+        lib.mkIf
+          (builtins.pathExists "${inputs.secrets}/hosts/public_keys/host_${hostName}_ed25519.pub")
+          {
+            hostNames = [
+              hostName
+              "${hostName}.lan"
+              "${hostName}.${config.myUtils.tailnet.magicDNSSuffix}"
+            ];
+            publicKeyFile = "${inputs.secrets}/hosts/public_keys/host_${hostName}_ed25519.pub";
+          }
+      );
     };
   };
 }

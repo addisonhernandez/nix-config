@@ -135,10 +135,10 @@
         "agenix": []
       },
       "locked": {
-        "lastModified": 1755799431,
-        "narHash": "sha256-l3diAkgHcBkPG9Cysa0YJHC4HRZs2XoyTV1XCi91Jtg=",
+        "lastModified": 1758215080,
+        "narHash": "sha256-O/m8+5JGG22IAJheKedGtUMI8tW/42BZu2HJDTHtEZk=",
         "ref": "main",
-        "rev": "3dba715c1b31705cd7b7321b31e0b5fd7634e514",
+        "rev": "d554768e0886a93d627e2ac42563e8e562e5bac7",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@codeberg.org/addison/secrets.git"
