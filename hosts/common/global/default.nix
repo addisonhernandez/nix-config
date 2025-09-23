@@ -1,24 +1,20 @@
 # Config options common to all hosts
-{
-  inputs,
-  outputs,
-  pkgs,
-  ...
-}:
+{ outputs, ... }:
 {
   imports = [
-    inputs.agenix.nixosModules.default
-    inputs.catppuccin.nixosModules.default
-    inputs.home-manager.nixosModules.default
+    ./agenix.nix
     ./catppuccin.nix
     ./editors.nix
     ./firefox.nix
     ./fish.nix
     ./flatpak.nix
     ./fonts.nix
+    ./home-manager.nix
+    ./librewolf.nix
     ./locale.nix
     ./nh.nix
     ./nix.nix
+    ./nixpkgs.nix
     ./openssh.nix
     ./pay-respects.nix
     ./pipewire.nix
@@ -31,18 +27,5 @@
 
   boot.tmp.cleanOnBoot = true;
 
-  environment.systemPackages = [ pkgs.librewolf ];
-
-  home-manager = {
-    backupFileExtension = "bak";
-    useGlobalPkgs = true;
-    extraSpecialArgs = { inherit inputs outputs; };
-  };
-
-  nixpkgs = {
-    overlays = builtins.attrValues outputs.overlays;
-    config.allowUnfree = true;
-  };
-
-  hardware.enableRedistributableFirmware = true;
+  hardware.enableAllFirmware = true;
 }
