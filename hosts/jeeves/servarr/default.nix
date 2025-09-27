@@ -29,7 +29,7 @@ in
 
   users.groups.media = {
     gid = 6969;
-    members = builtins.filter (user: config.users.users ? user) [
+    members = builtins.filter (user: config.users.users ? ${user}) [
       "audiobookshelf"
       "hotio"
       "jellyfin"
