@@ -2,13 +2,10 @@
   inputs,
   lib,
   pkgs,
-  modulesPath,
   ...
 }:
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-
     # Hardware: (github.com/NixOS/nixos-hardware/tree/master/dell/xps/15-9560)
     # Platform  Dell XPS 15 9560
     # CPU       Core i7-7700HQ
@@ -21,16 +18,19 @@
     ../common/optional/btrfs.nix
   ];
 
-  boot.initrd.availableKernelModules = [
-    "ahci"
-    "nvme"
-    "rtsx_pci_sdmmc"
-    "sd_mod"
-    "usbhid"
-    "usb_storage"
-    "xhci_pci"
-  ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot = {
+    initrd.availableKernelModules = [
+      "ahci"
+      "nvme"
+      "rtsx_pci_sdmmc"
+      "sd_mod"
+      "usbhid"
+      "usb_storage"
+      "xhci_pci"
+    ];
+    kernelModules = [ "kvm-intel" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
 
   fileSystems = {
     "/" = {

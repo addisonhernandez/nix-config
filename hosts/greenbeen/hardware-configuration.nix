@@ -1,13 +1,11 @@
 {
   inputs,
   lib,
-  modulesPath,
+  pkgs,
   ...
 }:
 {
   imports = with inputs.hardware.nixosModules; [
-    (modulesPath + "/installer/scan/not-detected.nix")
-
     # Hardware: (github.com/NixOS/nixos-hardware)
     # Platform  Beelink SER7
     # CPU       Ryzen 7 7840HS
@@ -23,15 +21,18 @@
     ../common/optional/btrfs.nix
   ];
 
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "sd_mod"
-    "thunderbolt"
-    "usbhid"
-    "usb_storage"
-    "xhci_pci"
-  ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot = {
+    initrd.availableKernelModules = [
+      "nvme"
+      "sd_mod"
+      "thunderbolt"
+      "usbhid"
+      "usb_storage"
+      "xhci_pci"
+    ];
+    kernelModules = [ "kvm-amd" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
 
   fileSystems = {
     "/" = {
