@@ -23,7 +23,7 @@ in
     jellyfin-web
     jellyfin-ffmpeg
 
-    jellyfin-media-player
+    # jellyfin-media-player
   ];
 
   # [fixme] temp fix while jellyfin-media-player depends on qt5
