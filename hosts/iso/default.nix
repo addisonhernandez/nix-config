@@ -60,7 +60,7 @@ in
   # Networking
   systemd.services.sshd.wantedBy = lib.mkForce [ "multi-user.target" ];
   users.users.root.openssh.authorizedKeys.keyFiles =
-    inputs.secrets.pubKeys.userPubKeys;
+    inputs.secrets.pubKeys.userKeys;
 
   # Nix
   nix = {
