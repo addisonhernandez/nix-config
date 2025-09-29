@@ -16,6 +16,7 @@
     "printing"
     "quickemu"
     "retroarch"
+    "samba"
     "signal"
     "snapper"
     "steam"

@@ -21,6 +21,7 @@
       "media"
       "networkmanager"
       "podman"
+      "samba"
       "wheel"
     ];
   };

@@ -12,6 +12,7 @@
       "git"
       "networkmanager"
       "media"
+      "samba"
       "wheel"
     ];
     createHome = true;
