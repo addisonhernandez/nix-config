@@ -18,6 +18,8 @@ in
   programs.ssh = {
     enable = true;
 
+    enableDefaultConfig = false;
+
     matchBlocks = {
       "*" = {
         # Settings formerly set by `programs.ssh.enableDefaultConfig`
