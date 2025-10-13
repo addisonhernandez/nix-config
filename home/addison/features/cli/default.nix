@@ -18,6 +18,7 @@
     ./direnv.nix
     ./fish.nix
     ./fzf.nix
+    ./lazydocker.nix
     ./nix-index.nix
     ./ssh.nix
     ./starship.nix
@@ -44,11 +45,14 @@
     fastfetch
     fd # better find
     glow # render markdown in the terminal
+    hyperfine # benchmarking tool
+    jless # TUI JSON viewer
     jq # JSON CLI tool
     just # command runner
     lsof # list open files and ports
     p7zip # archiver
     ripgrep # better grep (provides `rg`)
+    sd # better sed
 
     # Nix / NixOS utilities
     nh # nix CLI helper
