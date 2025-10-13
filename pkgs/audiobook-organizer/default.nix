@@ -4,9 +4,9 @@
   lib,
 }:
 let
-  version = "0.9.17";
-  sha256 = "03xd6s1cjli81hw0bxbaqipkmsqk90nan4909m0mi3868wq6799v";
-  vendorHash = "sha256-zUaRiQKmYPOhCppBQUwlohXpQmpNGwpKcriEwAmM9Sw=";
+  version = "0.10.1";
+  sha256 = "sha256-dRg3hP/QkZCekBeNwcwvGD1sRX79xF7oAQZ127Sjr+Y=";
+  vendorHash = "sha256-ZUHq5KbFWODpe4HI2NoGdvDrkZYDM1Hvls2YmP49vso=";
 in
 buildGoModule {
   inherit version vendorHash;
