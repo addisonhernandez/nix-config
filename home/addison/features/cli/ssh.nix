@@ -1,3 +1,4 @@
+{ config, ... }:
 let
   # [todo] use a snippet in @/modules/home-manager to abstract this
   nixosHostNames =
@@ -13,6 +14,7 @@ let
         "jeeves"
         "vulcan"
       ];
+  sshDir = config.home.homeDirectory + "/.ssh";
 in
 {
   programs.ssh = {
@@ -26,23 +28,28 @@ in
         addKeysToAgent = "no";
         compression = false;
         controlMaster = "no";
-        controlPath = "~/.ssh/master-%r@%n:%p";
+        controlPath = "${sshDir}/master-%r@%n:%p";
         controlPersist = "no";
         forwardAgent = false;
         hashKnownHosts = false;
         serverAliveCountMax = 3;
         serverAliveInterval = 0;
-        userKnownHostsFile = "~/.ssh/known_hosts";
+        userKnownHostsFile = "${sshDir}/known_hosts";
       };
 
       "codeberg.org" = {
         addKeysToAgent = "yes";
-        identityFile = "~/.ssh/codeberg";
+        identityFile = "${sshDir}/codeberg";
         user = "git";
       };
       "github.com" = {
         addKeysToAgent = "yes";
-        identityFile = "~/.ssh/github";
+        identityFile = "${sshDir}/github";
+        user = "git";
+      };
+      "git.sr.ht" = {
+        addKeysToAgent = "yes";
+        identityFile = "${sshDir}/sourcehut";
         user = "git";
       };
 
