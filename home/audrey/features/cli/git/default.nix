@@ -2,27 +2,27 @@
   imports = [ ./delta.nix ];
   programs.git = {
     enable = true;
-    userName = "Audrey Link";
-    userEmail = "audsbol@gmail.com";
-    aliases = {
-      ci = "commit";
-      co = "checkout";
-      comp = "-c delta.side-by-side=true diff --ignore-space-change";
-      fest = "!_git_fest() { git fetch; git st; }; _git_fest";
-      ff = "merge --ff-only";
-      fog = "!_git_fog() { git fetch; git logadog main^..origin/main; }; _git_fog";
-      freeze = "update-index --skip-worktree";
-      thaw = "update-index --no-skip-worktree";
-      logadog = "log --all --decorate --oneline --graph";
-      rv = "remote --verbose";
-      st = "status";
-    };
     ignores = [
       "*~"
       ".*.swp"
       ".DS_Store"
     ];
-    extraConfig = {
+    settings = {
+      user.name = "Audrey Link";
+      user.email = "audsbol@gmail.com";
+      alias = {
+        ci = "commit";
+        co = "checkout";
+        comp = "-c delta.side-by-side=true diff --ignore-space-change";
+        fest = "!_git_fest() { git fetch; git st; }; _git_fest";
+        ff = "merge --ff-only";
+        fog = "!_git_fog() { git fetch; git logadog main^..origin/main; }; _git_fog";
+        freeze = "update-index --skip-worktree";
+        thaw = "update-index --no-skip-worktree";
+        logadog = "log --all --decorate --oneline --graph";
+        rv = "remote --verbose";
+        st = "status";
+      };
       branch.sort = "-committerdate";
       column.ui = "auto";
       commit.verbose = "true";
