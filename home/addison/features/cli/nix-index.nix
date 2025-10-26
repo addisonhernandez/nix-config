@@ -1,6 +1,5 @@
+{ inputs, ... }:
 {
-  programs.nix-index = {
-    enable = true;
-    enableFishIntegration = true;
-  };
+  imports = [ inputs.nix-index-db.homeModules.nix-index ];
+  programs.nix-index.enable = true;
 }

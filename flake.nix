@@ -23,6 +23,9 @@
     catppuccin.url = "github:catppuccin/nix";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-index-db.url = "github:nix-community/nix-index-database";
+    nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
+
     secrets.url = "git+ssh://git@codeberg.org/addison/secrets.git?ref=main&shallow=1";
     secrets.inputs.agenix.follows = "";
 
