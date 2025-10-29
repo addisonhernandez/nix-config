@@ -14,8 +14,11 @@ in
     package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
     settings = {
       experimental-features = [
+        "auto-allocate-uids"
+        "cgroups"
         "flakes"
         "nix-command"
+        "pipe-operator"
       ];
       flake-registry = ""; # Disable global flake registry
     };

@@ -58,9 +58,7 @@
         "auto-allocate-uids"
         "cgroups"
         "flakes"
-        "lix-custom-sub-commands"
         "nix-command"
-        "no-url-literals"
         "pipe-operator"
       ]
     }";
