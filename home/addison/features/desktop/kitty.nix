@@ -1,8 +1,14 @@
+{ config, lib, ... }:
+let
+  inherit (config.programs) bash fish;
+in
 {
   programs.kitty = {
     enable = true;
 
     settings = {
+      shell = lib.getExe (if fish.enable then fish else bash).package;
+
       enable_audio_bell = "no";
       remember_window_size = "no";
 

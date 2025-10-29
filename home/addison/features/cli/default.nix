@@ -27,16 +27,15 @@
     ./zoxide.nix
   ];
 
-  home.sessionVariables = {
-    SHELL = lib.getExe (
-      let
-        inherit (config.programs) fish bash;
-      in
-      if fish.enable then fish.package else bash.package
-    );
-    EDITOR = lib.getExe pkgs.helix;
-    VISUAL = lib.getExe pkgs.helix;
-  };
+  home.sessionVariables =
+    let
+      inherit (config.programs) fish bash;
+    in
+    {
+      SHELL = lib.getExe (if fish.enable then fish.package else bash.package);
+      EDITOR = lib.getExe pkgs.helix;
+      VISUAL = lib.getExe pkgs.helix;
+    };
 
   home.packages = with pkgs; [
     # Utilities

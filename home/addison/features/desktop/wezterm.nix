@@ -1,3 +1,8 @@
+{ config, lib, ... }:
+let
+  inherit (config.programs) bash fish;
+  shellExe = lib.getExe (if fish.enable then fish.package else bash.package);
+in
 {
   programs.wezterm = {
     enable = true;
@@ -9,6 +14,9 @@
         -- local wezterm = require("wezterm")
 
         local config = wezterm.config_builder()
+
+        -- wezterm deliberately ignores $SHELL
+        config.default_prog = { '${shellExe}' }
 
         -- ------------------- --
         -- Colors & Appearance --

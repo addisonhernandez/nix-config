@@ -1,8 +1,14 @@
+{ config, lib, ... }:
+let
+  inherit (config.programs) bash fish;
+in
 {
   programs.ghostty = {
     enable = true;
 
     settings = {
+      command = lib.getExe (if fish.enable then fish else bash).package;
+
       font-family = "Maple Mono NF";
       font-feature = builtins.concatStringsSep "," [
         "calt" # ligatures

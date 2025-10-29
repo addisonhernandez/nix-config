@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   imports = [
     ./home-manager.nix
@@ -8,11 +8,6 @@
   users.users.addison = {
     isNormalUser = true;
     description = "Addison";
-    shell =
-      if config.programs.fish.enable then
-        config.programs.fish.package
-      else
-        config.users.defaultUserShell;
     extraGroups = builtins.filter (g: builtins.hasAttr g config.users.groups) [
       "audiobookshelf"
       "caddy"
@@ -28,5 +23,9 @@
       "podman"
       "wheel"
     ];
+  };
+
+  environment.sessionVariables = lib.mkIf config.programs.fish.enable {
+    SHELL = lib.getExe config.programs.fish.package;
   };
 }

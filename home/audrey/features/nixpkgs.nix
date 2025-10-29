@@ -20,12 +20,7 @@ in
       flake-registry = ""; # Disable global flake registry
     };
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
-  };
-
-  home.sessionVariables = {
-    NIX_PATH = lib.concatStringsSep ":" (
-      lib.mapAttrsToList (k: v: "${k}=${v.outPath}") flakeInputs
-    );
+    nixPath = lib.mapAttrsToList (k: v: "${k}=flake:${v.outPath}") flakeInputs;
   };
 
   nixpkgs = {

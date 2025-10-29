@@ -37,6 +37,6 @@ in
 
     channel.enable = false;
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
-    nixPath = lib.mapAttrsToList (k: v: "${k}=${v.outPath}") flakeInputs;
+    nixPath = lib.mapAttrsToList (k: v: "${k}=flake:${v.outPath}") flakeInputs;
   };
 }
