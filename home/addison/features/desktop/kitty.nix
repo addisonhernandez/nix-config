@@ -1,6 +1,12 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  nixosConfig ? { },
+  ...
+}:
 let
   inherit (config.programs) bash fish;
+  kdeEnabled = nixosConfig.services.desktopManager.plasma6.enable or false;
 in
 {
   programs.kitty = {
@@ -19,6 +25,7 @@ in
       inactive_text_alpha = "0.25";
       hide_window_decorations = "yes";
       background_opacity = "0.95";
+      background_blur = if kdeEnabled then "20" else "0";
 
       tab_bar_style = "powerline";
       tab_powerline_style = "slanted";
@@ -31,7 +38,7 @@ in
         bold_font        auto
         italic_font      auto
         bold_italic_font auto
-        font_size        11.0
+        font_size        12.0
       '';
   };
 
