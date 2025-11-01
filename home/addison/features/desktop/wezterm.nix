@@ -22,14 +22,7 @@ in
         -- Colors & Appearance --
         -- ------------------- --
 
-        function color_from_system(appearance)
-          if appearance:find "Dark" then
-            return "Catppuccin Macchiato"
-          else
-            return "Catppuccin Latte"
-          end
-        end
-        config.color_scheme = color_from_system(wezterm.gui.get_appearance())
+        config.color_scheme = "Catppuccin Macchiato"
 
         config.hide_tab_bar_if_only_one_tab = true
         config.window_background_opacity = 0.95
