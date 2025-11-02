@@ -2,19 +2,19 @@
 let
   # [todo] use a snippet in @/modules/home-manager to abstract this
   nixosHostNames =
-    builtins.concatMap
-      (host: [
-        host
-        "${host}.lan"
-        "${host}.beefalo-spica.ts.net"
-      ])
-      [
-        "greenbeen"
-        "hedgehog"
-        "jeeves"
-        "vulcan"
-      ];
+    [
+      "greenbeen"
+      "hedgehog"
+      "jeeves"
+      "vulcan"
+    ]
+    |> map (host: "${host} ${host}.lan ${host}.beefalo-spica.ts.net")
+    |> builtins.concatStringsSep " ";
   sshDir = config.home.homeDirectory + "/.ssh";
+  defaultBlockSettings = {
+    addKeysToAgent = "yes";
+    user = "git";
+  };
 in
 {
   programs.ssh = {
@@ -37,23 +37,20 @@ in
         userKnownHostsFile = "${sshDir}/known_hosts";
       };
 
-      "codeberg.org" = {
-        addKeysToAgent = "yes";
+      "codeberg.org" = defaultBlockSettings // {
         identityFile = "${sshDir}/codeberg";
-        user = "git";
       };
-      "github.com" = {
-        addKeysToAgent = "yes";
+      "github.com" = defaultBlockSettings // {
         identityFile = "${sshDir}/github";
-        user = "git";
       };
-      "git.sr.ht" = {
-        addKeysToAgent = "yes";
+      "git.sr.ht" = defaultBlockSettings // {
         identityFile = "${sshDir}/sourcehut";
-        user = "git";
+      };
+      "tangled.sh" = defaultBlockSettings // {
+        identityFile = "${sshDir}/tangled";
       };
 
-      "${builtins.concatStringsSep " " nixosHostNames}" = {
+      ${nixosHostNames} = {
         addKeysToAgent = "yes";
         forwardX11 = true;
         setEnv.COLORTERM = "truecolor";
