@@ -1,4 +1,5 @@
 hostname := `uname -n`
+current_branch := `git symbolic-ref --short HEAD`
 
 # list just command runner recipes
 default:
@@ -55,10 +56,10 @@ build-all:
 
 # diff the activated system and a freshly built config
 [group('build tools')]
-diff-system *args: build
+diff-system *nvd-diff-args: build
     @test -r "/nix/var/nix/profiles/system"
     @test -r "./result"
-    nvd diff {{ args }} "/nix/var/nix/profiles/system" "./result"
+    nvd diff {{ nvd-diff-args }} "/nix/var/nix/profiles/system" "./result"
 
 # build and activate the config, and make it the boot default
 [confirm('Build and switch to the new config?')]
@@ -95,3 +96,8 @@ send-build host: (test-store host)
 # test connection to a remote nix store
 test-store host:
     @nix store ping --store "ssh-ng://{{ host }}.lan" --quiet
+
+# push the current branch to all remotes
+[group('version control')]
+push *git-push-args:
+    git remote | xargs -I {} git push {{ git-push-args }} {} {{ current_branch }}
