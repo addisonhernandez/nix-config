@@ -7,7 +7,7 @@
     nixpkgs.follows = "nixpkgs-unstable";
 
     systems.url = "github:nix-systems/x86_64-linux";
-    hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";

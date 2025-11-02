@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = with inputs.hardware.nixosModules; [
+  imports = with inputs.nixos-hardware.nixosModules; [
     # Hardware: (github.com/NixOS/nixos-hardware)
     # Platform  Beelink SER7
     # CPU       Ryzen 7 7840HS
