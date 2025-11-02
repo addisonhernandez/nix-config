@@ -3,11 +3,12 @@
 result
 result-*
 
-.devcontainer/
-.github/
-.vscode/
-
 .env*
 !.env*.example
 
 .direnv/
+
+# Editor configs
+.helix/
+.vscode/
+.zed/
