@@ -47,21 +47,6 @@
         "type": "github"
       }
     },
-    "hardware": {
-      "locked": {
-        "lastModified": 1762463231,
-        "narHash": "sha256-hv1mG5j5PTbnWbtHHomzTus77pIxsc4x8VrMjc7+/YE=",
-        "owner": "nixos",
-        "repo": "nixos-hardware",
-        "rev": "52113c4f5cfd1e823001310e56d9c8d0699a6226",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixos-hardware",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -102,6 +87,21 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1761933221,
+        "narHash": "sha256-rNHeoG3ZrA94jczyLSjxCtu67YYPYIlXXr0uhG3wNxM=",
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "rev": "7467f155fcba189eb088a7601f44fbef7688669b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1762233356,
@@ -138,9 +138,9 @@
       "inputs": {
         "agenix": "agenix",
         "catppuccin": "catppuccin",
-        "hardware": "hardware",
         "home-manager": "home-manager",
         "nix-index-db": "nix-index-db",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": [
           "nixpkgs-unstable"
         ],

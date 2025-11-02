@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 {
-  imports = [ inputs.hardware.nixosModules.common-gpu-intel ];
+  imports = [ inputs.nixos-hardware.nixosModules.common-gpu-intel ];
 
   hardware = {
     intelgpu = {

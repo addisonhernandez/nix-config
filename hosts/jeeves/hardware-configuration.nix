@@ -1,26 +1,22 @@
+{ inputs, lib, ... }:
 {
-  inputs,
-  lib,
-  modulesPath,
-  ...
-}:
-{
-  imports = with inputs.hardware.nixosModules; [
-    (modulesPath + "/installer/scan/not-detected.nix")
+  imports =
+    with inputs.nixos-hardware.nixosModules;
+    [
+      # Hardware: (github.com/NixOS/nixos-hardware)
+      # Platform  Beelink Mini S12
+      # CPU       Intel N100 (Alder Lake)
+      # iGPU      Intel UHD Graphics
+      common-cpu-intel-cpu-only
+      common-pc
+      common-pc-ssd
+    ]
+    ++ [
+      ./intel-graphics-drivers.nix
 
-    # Hardware: (github.com/NixOS/nixos-hardware)
-    # Platform  Beelink Mini S12
-    # CPU       Intel N100 (Alder Lake)
-    # iGPU      Intel UHD Graphics
-    common-cpu-intel-cpu-only
-    common-pc
-    common-pc-ssd
-
-    ./intel-graphics-drivers.nix
-
-    ../common/optional/bluetooth.nix
-    ../common/optional/btrfs.nix
-  ];
+      ../common/optional/bluetooth.nix
+      ../common/optional/btrfs.nix
+    ];
 
   boot.initrd.availableKernelModules = [
     "ahci"

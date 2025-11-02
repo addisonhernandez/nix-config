@@ -13,8 +13,8 @@
     # Mobo  MSI MS-7751
     # CPU   i5-3570K
     # GPU   NVIDIA GTX 660 Ti
-    inputs.hardware.nixosModules.common-cpu-intel-cpu-only
-    inputs.hardware.nixosModules.common-gpu-nvidia-nonprime
+    inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
     ./nvidia-legacy-470.nix
 
