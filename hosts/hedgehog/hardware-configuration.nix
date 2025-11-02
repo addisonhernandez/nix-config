@@ -11,8 +11,9 @@
     # CPU       Core i7-7700HQ
     # dGPU      NVIDIA GeForce GTX 1050 Mobile
     # iGPU      Intel HD Graphics 630
-    # inputs.hardware.nixosModules.dell-xps-15-9560 # nvidia prime dGPU/iGPU
-    inputs.hardware.nixosModules.dell-xps-15-9560-intel # iGPU only
+    # [todo] use a specialization to swap between iGPU & dGPU setups
+    # inputs.nixos-hardware.nixosModules.dell-xps-15-9560 # nvidia prime dGPU/iGPU
+    inputs.nixos-hardware.nixosModules.dell-xps-15-9560-intel # iGPU only
 
     ../common/optional/bluetooth.nix
     ../common/optional/btrfs.nix
