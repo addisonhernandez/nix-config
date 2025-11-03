@@ -15,6 +15,7 @@
     "kde"
     "nix-ld"
     "nix-ssh-serve"
+    "plymouth"
     "steam"
   ];
 

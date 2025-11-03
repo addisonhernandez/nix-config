@@ -10,6 +10,7 @@
     "fwupd"
     "kde"
     "nix-ld"
+    "plymouth"
     "printing"
     "retroarch"
     "signal"
