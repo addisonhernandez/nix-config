@@ -7,10 +7,13 @@
     _: prev:
     let
       inherit (prev) lib;
+      inherit (prev.stdenv.hostPlatform) system;
+
       inputHasPkgs = _: input: input ? legacyPackages || input ? packages;
       inputsWithPkgs = lib.filterAttrs inputHasPkgs inputs;
+
       pkgsFromInput =
-        _: input: input.legacyPackages.${prev.system} or input.packages.${prev.system};
+        _: input: input.legacyPackages.${system} or input.packages.${system};
     in
     {
       fromInput = lib.mapAttrs pkgsFromInput inputsWithPkgs;
@@ -18,9 +21,8 @@
 
   # Alias `pkgs.stable` to `inputs.nixpkgs-stable.legacyPackages.${pkgs.system}`
   stablePkgs = _: prev: {
-    # stable = inputs.nixpkgs-stable.legacyPackages.${prev.system};
     stable = import inputs.nixpkgs-stable {
-      inherit (prev) system;
+      inherit (prev.stdenv.hostPlatform) system;
       config.allowUnfree = true;
     };
   };
