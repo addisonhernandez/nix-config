@@ -48,58 +48,55 @@
   };
 
   outputs =
-    { self, ... }@inputs:
-    let
-      inherit (self) outputs;
-      inherit (lib) forEachSystem mkHomeConfig mkHostConfig;
+    { self, flake-parts, ... }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      # [todo] migrate to `import-tree ./modules`
+      imports = [ ./modules/flake ];
 
-      lib = import ./lib { inherit inputs outputs; };
+      # [todo] migrate to dendritic modules / aspects
+      flake =
+        let
+          inherit (self) outputs;
 
-      hostnames = [
-        "greenbeen" # Mini Desktop (Beelink SER7)
-        "hedgehog" # Laptop (Dell XPS 9560)
-        "iso" # Custom installer image
-        "jeeves" # Media Server (Beelink Mini S12 Pro)
-        "vulcan" # Desktop
-      ];
-      usernames = [
-        "addison"
-        "audrey"
-      ];
-      userHostPairs = lib.cartesianProduct {
-        user = usernames;
-        host = hostnames;
-      };
+          lib = import ./lib { inherit inputs outputs; };
 
-      forEachHost = lib.genAttrs hostnames;
-      forEachHome = f: lib.mergeAttrsList (map f userHostPairs);
+          hostnames = [
+            "greenbeen" # Mini Desktop (Beelink SER7)
+            "hedgehog" # Laptop (Dell XPS 9560)
+            "iso" # Custom installer image
+            "jeeves" # Media Server (Beelink Mini S12 Pro)
+            "vulcan" # Desktop
+          ];
+          usernames = [
+            "addison"
+            "audrey"
+          ];
+          userHostPairs = lib.cartesianProduct {
+            user = usernames;
+            host = hostnames;
+          };
 
-      treefmt = forEachSystem (
-        pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix
-      );
-    in
-    {
-      inherit lib;
+          forEachHost = lib.genAttrs hostnames;
+          forEachHome = f: lib.mergeAttrsList (map f userHostPairs);
+        in
+        {
+          inherit lib;
 
-      nixosModules = import ./modules/nixos;
-      # homeModules = import ./modules/home-manager;
+          nixosModules = import ./modules/nixos;
 
-      overlays = import ./overlays { inherit inputs; };
+          overlays = import ./overlays { inherit inputs; };
 
-      checks = forEachSystem (pkgs: {
-        formatting = treefmt.${pkgs.system}.config.build.check self;
-      });
-      devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
-      formatter = forEachSystem (pkgs: treefmt.${pkgs.system}.config.build.wrapper);
-      packages = forEachSystem (
-        pkgs:
-        (import ./pkgs { inherit pkgs; })
-        // {
-          inherit (self.nixosConfigurations.iso.config.system.build) isoImage;
-        }
-      );
+          nixosConfigurations = forEachHost lib.mkHostConfig;
+          homeConfigurations = forEachHome lib.mkHomeConfig;
+        };
 
-      nixosConfigurations = forEachHost mkHostConfig;
-      homeConfigurations = forEachHome mkHomeConfig;
+      perSystem =
+        { lib, pkgs, ... }:
+        let
+          pkgNames = builtins.attrNames (builtins.readDir ./pkgs);
+        in
+        {
+          packages = lib.genAttrs pkgNames (name: pkgs.callPackage ./pkgs/${name} { });
+        };
     };
 }
