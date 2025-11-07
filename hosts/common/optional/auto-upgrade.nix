@@ -1,14 +1,16 @@
-{ outputs, ... }:
 let
-  inherit (outputs.lib) defaultStr;
+  flakeOrDefault =
+    maybeStr:
+    if (toString maybeStr) != "" then
+      maybeStr
+    else
+      "git+https://codeberg.org/addison/nix-config";
 in
 {
   system.autoUpgrade = {
     enable = true;
 
-    flake = defaultStr "git+https://codeberg.org/addison/nix-config" (
-      builtins.getEnv "NH_FLAKE"
-    );
+    flake = builtins.getEnv "NH_FLAKE" |> flakeOrDefault;
     allowReboot = true;
     dates = "daily";
     operation = "boot";

@@ -1,8 +1,19 @@
-{ config, outputs, ... }:
+{ config, ... }:
 let
-  mkTailnetNode = outputs.lib.mkTailnetNode config;
+  inherit (config.myUtils.tailnet.networkMap) lubelogger;
 in
 {
-  services.lubelogger.enable = true;
-  services.caddy.virtualHosts.lubelogger = mkTailnetNode "lubelogger";
+  services = {
+    lubelogger.enable = true;
+    caddy.virtualHosts.lubelogger = {
+      extraConfig =
+        # Caddyfile
+        ''
+          bind ${lubelogger.bindHosts}
+          reverse_proxy :${toString lubelogger.proxiedPort}
+        '';
+      hostName = builtins.head lubelogger.FQDNs;
+      serverAliases = builtins.tail lubelogger.FQDNs;
+    };
+  };
 }
