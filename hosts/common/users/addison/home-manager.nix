@@ -5,7 +5,9 @@
   ...
 }:
 {
-  users.users.addison.packages = [ pkgs.fromInput.home-manager.default ];
+  users.users.addison.packages = [
+    inputs.home-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
   home-manager.users = {
     addison = import "${inputs.self}/home/addison/${config.networking.hostName}.nix";
   };

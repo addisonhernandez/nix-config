@@ -1,12 +1,21 @@
 {
   config,
   inputs,
-  outputs,
   lib,
   ...
 }:
 let
-  mkTailnetNode = outputs.lib.mkTailnetNode config;
+  inherit (config.myUtils.tailnet) networkMap;
+  mkTailnetNode = service: {
+    extraConfig =
+      # Caddyfile
+      ''
+        bind ${networkMap.${service}.bindHosts}
+        reverse_proxy :${toString networkMap.${service}.proxiedPort}
+      '';
+    hostName = builtins.head networkMap.${service}.FQDNs;
+    serverAliases = builtins.tail networkMap.${service}.FQDNs;
+  };
 in
 {
   imports = [

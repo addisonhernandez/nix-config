@@ -3,7 +3,6 @@
 
   inputs = {
     ## Configuration building blocks
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.follows = "nixpkgs-unstable";
 
@@ -48,55 +47,6 @@
   };
 
   outputs =
-    { self, flake-parts, ... }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      # [todo] migrate to `import-tree ./modules`
-      imports = [ ./modules/flake ];
-
-      # [todo] migrate to dendritic modules / aspects
-      flake =
-        let
-          inherit (self) outputs;
-
-          lib = import ./lib { inherit inputs outputs; };
-
-          hostnames = [
-            "greenbeen" # Mini Desktop (Beelink SER7)
-            "hedgehog" # Laptop (Dell XPS 9560)
-            "iso" # Custom installer image
-            "jeeves" # Media Server (Beelink Mini S12 Pro)
-            "vulcan" # Desktop
-          ];
-          usernames = [
-            "addison"
-            "audrey"
-          ];
-          userHostPairs = lib.cartesianProduct {
-            user = usernames;
-            host = hostnames;
-          };
-
-          forEachHost = lib.genAttrs hostnames;
-          forEachHome = f: lib.mergeAttrsList (map f userHostPairs);
-        in
-        {
-          inherit lib;
-
-          nixosModules = import ./modules/nixos;
-
-          overlays = import ./overlays { inherit inputs; };
-
-          nixosConfigurations = forEachHost lib.mkHostConfig;
-          homeConfigurations = forEachHome lib.mkHomeConfig;
-        };
-
-      perSystem =
-        { lib, pkgs, ... }:
-        let
-          pkgNames = builtins.attrNames (builtins.readDir ./pkgs);
-        in
-        {
-          packages = lib.genAttrs pkgNames (name: pkgs.callPackage ./pkgs/${name} { });
-        };
-    };
+    { flake-parts, import-tree, ... }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } (import-tree ./modules/flake);
 }

@@ -19,21 +19,6 @@ in
       description = "working directory for the web server";
       default = /opt/lubelogger;
     };
-
-    # TODO: allow setting env vars for customization
-    # see: https://docs.lubelogger.com/Advanced/Environment%20Variables
-    #
-    # username = lib.mkOption {
-    #   type = types.nullOr types.str;
-    #   default = null;
-    # };
-    # password = lib.mkOption {};
-    #
-    # pgConnection = lib.mkOption {
-    #   type = types.nullOr types.str;
-    #   default = null;
-    #   example = "postgres://user:pass@localhost:5432/dbname";
-    # };
   };
 
   config = lib.mkIf cfg.enable {

@@ -19,7 +19,7 @@
     hashedPasswordFile = config.age.secrets.audreyPasswordsNixOS.path;
 
     packages = [
-      pkgs.fromInput.home-manager.default
+      inputs.home-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
       pkgs.onlyoffice-desktopeditors
     ];
   };

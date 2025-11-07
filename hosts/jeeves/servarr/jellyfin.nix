@@ -1,12 +1,5 @@
-{
-  config,
-  outputs,
-  pkgs,
-  ...
-}:
-let
-  mkTailnetNode = outputs.lib.mkTailnetNode config;
-in
+{ config, pkgs, ... }:
+
 {
   # services.jellyfin = {
   #   enable = true;
@@ -31,5 +24,18 @@ in
     pkgs.libsForQt5.qt5.qtwebengine.name
   ];
 
-  services.caddy.virtualHosts.jellyfin = mkTailnetNode "jellyfin";
+  services.caddy.virtualHosts.jellyfin =
+    let
+      inherit (config.myUtils.tailnet.networkMap) jellyfin;
+    in
+    {
+      extraConfig =
+        # Caddyfile
+        ''
+          bind ${jellyfin.bindHosts}
+          reverse_proxy :${toString jellyfin.proxiedPort}
+        '';
+      hostName = builtins.head jellyfin.FQDNs;
+      serverAliases = builtins.tail jellyfin.FQDNs;
+    };
 }

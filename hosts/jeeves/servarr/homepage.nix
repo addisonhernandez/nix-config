@@ -1,8 +1,7 @@
-{ config, outputs, ... }:
+{ config, ... }:
 let
   inherit (config.myUtils) tailnet;
   mkSubdomainLink = subdomain: "https://${subdomain}.${tailnet.magicDNSSuffix}";
-  mkTailnetNode = outputs.lib.mkTailnetNode config;
 in
 {
   services.homepage-dashboard = {
@@ -175,5 +174,18 @@ in
     ];
   };
 
-  services.caddy.virtualHosts.home = mkTailnetNode "homepage";
+  services.caddy.virtualHosts.home =
+    let
+      inherit (config.myUtils.tailnet.networkMap) homepage;
+    in
+    {
+      extraConfig =
+        # Caddyfile
+        ''
+          bind ${homepage.bindHosts}
+          reverse_proxy :${toString homepage.proxiedPort}
+        '';
+      hostName = builtins.head homepage.FQDNs;
+      serverAliases = builtins.tail homepage.FQDNs;
+    };
 }

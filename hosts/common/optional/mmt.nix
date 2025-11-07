@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
-  environment.systemPackages = [ pkgs.mmt ];
+  environment.systemPackages = [
+    # [todo] migrate to self.packages
+    (pkgs.callPackage "${inputs.self}/pkgs/mmt" { })
+  ];
 }
