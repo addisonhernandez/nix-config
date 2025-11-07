@@ -17,6 +17,7 @@ in
       ++ tailnet.networkMap.homepage.FQDNs
     );
 
+    # See: https://homepage.dev/docs/features/bookmarks
     bookmarks = [
       {
         Dev = [
@@ -33,6 +34,22 @@ in
               {
                 icon = "github";
                 href = "https://github.com/addisonhernandez";
+              }
+            ];
+          }
+          {
+            "hernan on sourcehut" = [
+              {
+                icon = "si-sourcehut";
+                href = "https://git.sr.ht/~hernan/";
+              }
+            ];
+          }
+          {
+            "@addisonhernandez.com on tangled" = [
+              {
+                icon = "https://assets.tangled.network/tangled_dolly_face_only_white_on_trans.svg";
+                href = "https://tangled.org/@addisonhernandez.com";
               }
             ];
           }
