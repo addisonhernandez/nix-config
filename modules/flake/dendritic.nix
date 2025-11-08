@@ -13,6 +13,9 @@
 # sets up a user's ssh preferences.
 { inputs, ... }:
 {
+  # Enable flake-parts attribute introspection in `nix repl`.
+  debug = true;
+
   imports = [
     # enable `flake.modules.<class>.<aspect>` construction
     inputs.flake-parts.flakeModules.modules
