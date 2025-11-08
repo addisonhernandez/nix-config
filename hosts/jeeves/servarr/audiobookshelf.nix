@@ -11,8 +11,8 @@
     port = 8008;
   };
   environment.systemPackages = [
-    # [todo] migrate to self.packages
-    (pkgs.callPackage "${inputs.self}/pkgs/audiobook-organizer" { })
+    # [todo] simplify with flake-parts self' parameter
+    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.audiobook-organizer
   ];
 
   services.caddy.virtualHosts.audiobookshelf =
