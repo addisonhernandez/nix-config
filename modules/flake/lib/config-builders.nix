@@ -10,6 +10,7 @@ in
       host:
       nixpkgs.lib.nixosSystem {
         modules = [ "${self}/hosts/${host}" ];
+        # [fixme] bad smell 👃. lean on flake-parts instead.
         specialArgs = { inherit inputs outputs; };
       };
     mkHomeConfig =
@@ -25,6 +26,7 @@ in
             "${self}/home/${user}/features/nixpkgs.nix"
           ];
           pkgs = pkgsFor.${system};
+          # [fixme] bad smell 👃. lean on flake-parts instead.
           extraSpecialArgs = {
             inherit inputs outputs;
             myHome = {
