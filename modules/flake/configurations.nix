@@ -20,7 +20,7 @@
         host = hostnames;
       };
 
-      forEachHost = lib.genAttrs hostnames;
+      forEachHost = lib.genAttrs (hostnames ++ [ "iso" ]);
       forEachHome = f: lib.mergeAttrsList (map f userHostPairs);
     in
     {
