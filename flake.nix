@@ -10,6 +10,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
     systems.url = "github:nix-systems/x86_64-linux";
 
