@@ -1,4 +1,1 @@
-{
-  lubelogger = ./lubelogger.nix;
-  myUtils = ./utils;
-}
+{ myUtils = ./utils; }
