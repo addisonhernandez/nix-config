@@ -19,6 +19,8 @@
       "browser.gesture.swipe.right" = "";
       "browser.search.openintab" = true;
       "browser.urlbar.suggest.history" = false;
+      "browser.urlbar.trimHttps" = false;
+      "browser.urlbar.trimURLs" = false;
       "middlemouse.paste" = false;
       "widget.use-xdg-desktop-portal.file-picker" = 1;
 
