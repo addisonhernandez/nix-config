@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   # [todo] use a snippet in @/modules/home-manager to abstract this
   nixosHostNames =
@@ -52,8 +52,24 @@ in
 
       ${nixosHostNames} = {
         addKeysToAgent = "yes";
+        extraOptions = lib.mkIf config.programs.fish.enable {
+          # Do not use `lib.getExe` to get a path to the nix store fish binary.
+          # Instead allow the remote host to use path lookup to allow different
+          # versions of fish across hosts.
+          RemoteCommand = ''fish --login'';
+        };
         forwardX11 = true;
-        setEnv.COLORTERM = "truecolor";
+        # [todo] this option doesn't exist for some reason. define it?
+        # remoteCommand = lib.mkIf config.programs.fish.enable ''
+        #   # Do not use `lib.getExe` to get a path to the nix store fish binary.
+        #   # Instead allow the remote host to use path lookup to allow different
+        #   # versions of fish across hosts.
+        #   fish --login
+        # '';
+        sendEnv = [
+          "COLORTERM"
+          "WAYLAND_DISPLAY"
+        ];
       };
     };
   };
