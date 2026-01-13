@@ -56,7 +56,7 @@
     nix-diff # detailed difftool
     nix-output-monitor # more output info while building (provides `nom`)
     nixd # nix LSP
-    nixfmt-rfc-style # new nix formatter
+    nixfmt # nix formatter
     nvd # difftool
   ];
 }

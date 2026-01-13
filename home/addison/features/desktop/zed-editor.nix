@@ -28,9 +28,10 @@
       # Editor Look & Feel
       buffer_font_family = "Maple Mono NF";
       buffer_font_features = {
-        calt = true;
-        cv06 = true;
-        ss03 = true;
+        calt = true; # default ligatures
+        cv06 = true; # alternate `i`
+        cv66 = true; # alternate pipe operators `|>` `<|`
+        ss03 = true; # arbitrary tags `[info] [fixme] [todo]`
       };
       buffer_font_fallbacks = [
         "FiraCode Nerd Font"

@@ -13,6 +13,7 @@ in
       font-feature = builtins.concatStringsSep "," [
         "calt" # ligatures
         "cv06" # alternate `i`
+        "cv66" # alternate pipe operators `|>` `<|`
         "ss03" # [todo] [info] [fixme]
       ];
       # mouse-scroll-multiplier = 3;

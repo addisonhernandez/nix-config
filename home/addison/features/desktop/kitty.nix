@@ -34,7 +34,7 @@ in
     extraConfig =
       # ini
       ''
-        font_family      family='Maple Mono NF' features='+calt +cv06 +ss03'
+        font_family      family='Maple Mono NF' features='+calt +cv06 +cv66 +ss03'
         bold_font        auto
         italic_font      auto
         bold_italic_font auto

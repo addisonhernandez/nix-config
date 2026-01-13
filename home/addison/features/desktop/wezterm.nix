@@ -40,8 +40,9 @@ in
             family = "Maple Mono NF",
             harfbuzz_features = {
               -- see: https://font.subf.dev/en/playground/
-              "calt",
+              "calt", -- default ligatures
               "cv06", -- alternate `i`
+              "cv66", -- alternate pipe operators `|>` `<|`
               "ss03", -- [todo], [info], [fixme]
             },
           },
