@@ -54,6 +54,7 @@
     sd # better sed
 
     # Nix / NixOS utilities
+    dix # difftool
     nh # nix CLI helper
     nil # nix LSP written in Rust
     nix-diff # detailed difftool
