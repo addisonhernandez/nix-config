@@ -9,6 +9,7 @@
   ]
   ++ map (moduleName: ../common/optional/${moduleName}.nix) [
     "docker"
+    "heroic"
     "kde"
     "mmt"
     "nix-ld"

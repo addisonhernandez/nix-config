@@ -8,6 +8,7 @@
   ]
   ++ map (moduleName: ../common/optional/${moduleName}.nix) [
     "fwupd"
+    "heroic"
     "kde"
     "nix-ld"
     "plymouth"
