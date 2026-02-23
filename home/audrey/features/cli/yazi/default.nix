@@ -25,6 +25,8 @@
         tab_size = 2;
       };
     };
+
+    shellWrapperName = "y";
   };
 
   catppuccin.yazi.enable = true;
