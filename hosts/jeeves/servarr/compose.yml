@@ -25,8 +25,8 @@ services:
       test: curl -fsL http://localhost:8096/health || exit 1
 
   requests:
-    container_name: jellyseerr
-    image: ghcr.io/hotio/jellyseerr:latest
+    container_name: seerr
+    image: ghcr.io/hotio/seerr:latest
     ports:
       - "5055:5055"
     env_file:
