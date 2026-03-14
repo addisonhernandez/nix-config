@@ -5,6 +5,11 @@ current_branch := `git symbolic-ref --short HEAD`
 default:
     @just --list --unsorted --justfile {{ justfile() }}
 
+# validate sudo privileges
+[private]
+sudo:
+    @sudo -v
+
 # check whether the config flake evaluates
 check:
     nix flake check .
@@ -64,22 +69,19 @@ diff-system *nvd-diff-args: build
 # build and activate the config, and make it the boot default
 [confirm('Build and switch to the new config?')]
 [group('build tools')]
-rebuild-switch host=hostname: && rm-build-artifacts
-    @sudo true
+rebuild-switch host=hostname: sudo && rm-build-artifacts
     nixos-rebuild switch --flake .#{{ host }} --sudo
 
 # build the config, and activate it after a reboot
 [confirm('Build the new config and activate after reboot?')]
 [group('build tools')]
-rebuild-boot host=hostname: && rm-build-artifacts
-    @sudo true
+rebuild-boot host=hostname: sudo && rm-build-artifacts
     nixos-rebuild boot --flake .#{{ host }} --sudo
 
 # build the config and test it in the current session
 [confirm('Build new config and test it in this session?')]
 [group('build tools')]
-rebuild-test host=hostname: && rm-build-artifacts
-    @sudo true
+rebuild-test host=hostname: sudo && rm-build-artifacts
     nixos-rebuild test --flake .#{{ host }} --sudo
 
 # Clean leftover nix build artifacts
