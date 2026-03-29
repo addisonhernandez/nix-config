@@ -40,13 +40,17 @@ dry-activate host=hostname:
 
 # build the config and link the derivation to ./result
 [group('build tools')]
-build host=hostname:
-    nixos-rebuild build --flake .#{{ host }} --keep-going
+build host=hostname *args:
+    nixos-rebuild build \
+        --flake .#{{ host }} \
+        --keep-going \
+        --log-format internal-json \
+        {{ args }} \
+        |& nom --json
 
 # build the local config on a remote host (default greenbeen)
 [group('build tools')]
-remote-build build_host="greenbeen":
-    nixos-rebuild build --flake .#{{ hostname }} --build-host {{ build_host }}.lan
+remote-build build_host="greenbeen.lan": (build hostname "--build-host" build_host)
 
 # build all host configurations
 [group('build tools')]
@@ -61,10 +65,10 @@ build-all:
 
 # diff the activated system and a freshly built config
 [group('build tools')]
-diff-system *nvd-diff-args: build
+diff-system *diff-args: (build hostname "--no-reexec")
     @test -r "/nix/var/nix/profiles/system"
     @test -r "./result"
-    nvd diff {{ nvd-diff-args }} "/nix/var/nix/profiles/system" "./result"
+    dix {{ diff-args }} -- "/nix/var/nix/profiles/system" "./result"
 
 # build and activate the config, and make it the boot default
 [confirm('Build and switch to the new config?')]
