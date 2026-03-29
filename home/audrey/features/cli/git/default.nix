@@ -49,5 +49,6 @@
       rerere.autoUpdate = "true";
       tag.sort = "version:refname";
     };
+    signing.format = null;
   };
 }
