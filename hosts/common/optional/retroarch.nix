@@ -10,7 +10,6 @@
         beetle-psx
         beetle-psx-hw
         pcsx2
-        play
 
         # Nintendo
         snes9x
