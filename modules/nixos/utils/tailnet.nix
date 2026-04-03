@@ -21,7 +21,7 @@ in
 {
   options.myUtils.tailnet = {
     magicDNSSuffix = lib.mkOption {
-      type = types.strMatching "[[:lower:]]+-[[:lower:]]+\.ts\.net";
+      type = types.strMatching "[[:lower:]]+-[[:lower:]]+\\.ts\\.net";
       description = "Tailnet name";
       default = "beefalo-spica.ts.net";
       example = "pango-lin.ts.net";
