@@ -6,6 +6,8 @@
     ../common/users/addison
   ]
   ++ map (moduleName: ../common/optional/${moduleName}.nix) [
+    "caddy"
+    "immich"
     "nix-ld"
     "snapper"
     "xfce"

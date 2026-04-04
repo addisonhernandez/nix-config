@@ -23,6 +23,8 @@
           qbittorrent = mkSvcOnJeeves [ "qbittorrent" ] 8080;
           radarr = mkSvcOnJeeves [ "radarr" ] 7878;
           sonarr = mkSvcOnJeeves [ "sonarr" ] 8989;
+
+          immich = mkService "vulcan" [ "immich" "images" ] 2283;
         };
       };
   };
