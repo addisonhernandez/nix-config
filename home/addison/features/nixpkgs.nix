@@ -7,7 +7,7 @@
   ...
 }:
 let
-  flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+  inherit (inputs.self.lib) flakeInputs;
 in
 {
   nix = {

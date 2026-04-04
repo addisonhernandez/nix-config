@@ -1,16 +1,11 @@
-{
-  inputs,
-  lib,
-  pkgs,
-  ...
-}:
+{ inputs, lib, ... }:
 let
-  flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+  inherit (inputs.self.lib) flakeInputs;
 in
 {
-  nix = {
-    package = pkgs.lixPackageSets.latest.lix;
+  imports = [ ./lix.nix ];
 
+  nix = {
     settings = {
       auto-optimise-store = true;
       extra-substituters = [ "https://nix-community.cachix.org" ];
@@ -29,7 +24,6 @@ in
         "cgroups"
         "flakes"
         "nix-command"
-        "pipe-operator"
       ];
       auto-allocate-uids = true;
       use-cgroups = true;
