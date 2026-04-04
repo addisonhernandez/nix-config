@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (config.myUtils.tailnet) networkMap;
+  inherit (inputs.self.lib.tailnet) networkMap;
   mkTailnetNode = service: {
     extraConfig =
       # Caddyfile

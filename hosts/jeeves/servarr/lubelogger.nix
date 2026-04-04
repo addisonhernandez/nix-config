@@ -1,6 +1,6 @@
-{ config, ... }:
+{ inputs, ... }:
 let
-  inherit (config.myUtils.tailnet.networkMap) lubelogger;
+  inherit (inputs.self.lib.tailnet.networkMap) lubelogger;
 in
 {
   services = {

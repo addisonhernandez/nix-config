@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   # services.jellyfin = {
@@ -11,22 +11,18 @@
   #   # logDir = "";
   # };
 
-  environment.systemPackages = with pkgs; [
-    jellyfin
-    jellyfin-web
-    jellyfin-ffmpeg
-
-    # jellyfin-media-player
-  ];
-
-  # [fixme] temp fix while jellyfin-media-player depends on qt5
-  nixpkgs.config.permittedInsecurePackages = [
-    pkgs.libsForQt5.qt5.qtwebengine.name
-  ];
+  environment.systemPackages = builtins.attrValues {
+    inherit (pkgs)
+      jellyfin
+      jellyfin-desktop
+      jellyfin-ffmpeg
+      jellyfin-web
+      ;
+  };
 
   services.caddy.virtualHosts.jellyfin =
     let
-      inherit (config.myUtils.tailnet.networkMap) jellyfin;
+      inherit (inputs.self.lib.tailnet.networkMap) jellyfin;
     in
     {
       extraConfig =

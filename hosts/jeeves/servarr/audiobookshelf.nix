@@ -1,9 +1,4 @@
-{
-  config,
-  inputs,
-  pkgs,
-  ...
-}:
+{ inputs, pkgs, ... }:
 {
   services.audiobookshelf = {
     enable = true;
@@ -17,7 +12,7 @@
 
   services.caddy.virtualHosts.audiobookshelf =
     let
-      inherit (config.myUtils.tailnet.networkMap) audiobookshelf;
+      inherit (inputs.self.lib.tailnet.networkMap) audiobookshelf;
     in
     {
       extraConfig =

@@ -1,1 +1,1 @@
-{ myUtils = ./utils; }
+_: { }

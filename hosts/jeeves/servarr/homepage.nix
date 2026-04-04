@@ -1,6 +1,6 @@
-{ config, ... }:
+{ inputs, ... }:
 let
-  inherit (config.myUtils) tailnet;
+  inherit (inputs.self.lib) tailnet;
   mkSubdomainLink = subdomain: "https://${subdomain}.${tailnet.magicDNSSuffix}";
 in
 {
@@ -176,7 +176,7 @@ in
 
   services.caddy.virtualHosts.home =
     let
-      inherit (config.myUtils.tailnet.networkMap) homepage;
+      inherit (tailnet.networkMap) homepage;
     in
     {
       extraConfig =
