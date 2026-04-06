@@ -1,6 +1,7 @@
 {
   programs.fish = {
     enable = true;
+    generateCompletions = false;
 
     functions = {
       fish_greeting = "";
