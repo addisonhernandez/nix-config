@@ -4,6 +4,9 @@
     enable = true;
     vimAlias = true;
 
+    withPython3 = false;
+    withRuby = false;
+
     extraPackages = with pkgs; [
       gnumake
       unzip
