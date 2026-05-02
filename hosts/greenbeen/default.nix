@@ -21,7 +21,6 @@
     "snapper"
     "steam"
     "virt-manager"
-    "waydroid"
     "wine"
   ];
 
