@@ -4,11 +4,29 @@
     tailnet =
       let
         magicDNSSuffix = "beefalo-spica.ts.net";
-        mkService = hostName: nodeNames: proxiedPort: {
-          inherit hostName nodeNames proxiedPort;
-          bindHosts = lib.concatMapStringsSep " " (n: "tailscale/${n}") nodeNames;
-          FQDNs = map (node: "${node}.${magicDNSSuffix}") nodeNames;
-        };
+        mkService =
+          host: nodeNames: proxiedPort:
+          let
+            bindHosts = lib.concatMapStringsSep " " (n: "tailscale/${n}") nodeNames;
+            FQDNs = map (node: "${node}.${magicDNSSuffix}") nodeNames;
+          in
+          {
+            inherit
+              bindHosts
+              FQDNs
+              host
+              nodeNames
+              proxiedPort
+              ;
+            hostName = builtins.head FQDNs;
+            serverAliases = builtins.tail FQDNs;
+            extraConfig =
+              # Caddyfile
+              ''
+                bind ${bindHosts}
+                reverse_proxy :${proxiedPort}
+              '';
+          };
         mkSvcOnJeeves = mkService "jeeves";
       in
       {
@@ -25,6 +43,7 @@
           sonarr = mkSvcOnJeeves [ "sonarr" ] 8989;
 
           immich = mkService "vulcan" [ "immich" "images" ] 2283;
+          redlib = mkService "vulcan" [ "redlib" "reddit" ] 8069;
         };
       };
   };
