@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ lib, self, ... }:
 let
   forEachHost = lib.genAttrs (
     builtins.attrNames self.outputs.nixosConfigurations

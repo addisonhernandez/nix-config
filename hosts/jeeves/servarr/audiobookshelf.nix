@@ -10,18 +10,11 @@
     inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.audiobook-organizer
   ];
 
-  services.caddy.virtualHosts.audiobookshelf =
-    let
-      inherit (inputs.self.lib.tailnet.networkMap) audiobookshelf;
-    in
-    {
-      extraConfig =
-        # Caddyfile
-        ''
-          bind ${audiobookshelf.bindHosts}
-          reverse_proxy :${toString audiobookshelf.proxiedPort}
-        '';
-      hostName = builtins.head audiobookshelf.FQDNs;
-      serverAliases = builtins.tail audiobookshelf.FQDNs;
-    };
+  services.caddy.virtualHosts.audiobookshelf = {
+    inherit (inputs.self.lib.tailnet.networkMap.audiobookshelf)
+      extraConfig
+      hostName
+      serverAliases
+      ;
+  };
 }

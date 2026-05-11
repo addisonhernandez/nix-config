@@ -1,16 +1,5 @@
 { inputs, pkgs, ... }:
-
 {
-  # services.jellyfin = {
-  #   enable = true;
-  #   user = "addison";
-
-  #   # configDir = "";
-  #   # dataDir = "";
-  #   # cacheDir = "";
-  #   # logDir = "";
-  # };
-
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       jellyfin
@@ -20,18 +9,11 @@
       ;
   };
 
-  services.caddy.virtualHosts.jellyfin =
-    let
-      inherit (inputs.self.lib.tailnet.networkMap) jellyfin;
-    in
-    {
-      extraConfig =
-        # Caddyfile
-        ''
-          bind ${jellyfin.bindHosts}
-          reverse_proxy :${toString jellyfin.proxiedPort}
-        '';
-      hostName = builtins.head jellyfin.FQDNs;
-      serverAliases = builtins.tail jellyfin.FQDNs;
-    };
+  services.caddy.virtualHosts.jellyfin = {
+    inherit (inputs.self.lib.tailnet.networkMap.jellyfin)
+      extraConfig
+      hostName
+      serverAliases
+      ;
+  };
 }

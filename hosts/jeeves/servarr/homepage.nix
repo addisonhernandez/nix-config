@@ -174,18 +174,7 @@ in
     ];
   };
 
-  services.caddy.virtualHosts.home =
-    let
-      inherit (tailnet.networkMap) homepage;
-    in
-    {
-      extraConfig =
-        # Caddyfile
-        ''
-          bind ${homepage.bindHosts}
-          reverse_proxy :${toString homepage.proxiedPort}
-        '';
-      hostName = builtins.head homepage.FQDNs;
-      serverAliases = builtins.tail homepage.FQDNs;
-    };
+  services.caddy.virtualHosts.home = {
+    inherit (tailnet.networkMap.homepage) extraConfig hostName serverAliases;
+  };
 }

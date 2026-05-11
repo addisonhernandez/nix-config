@@ -5,16 +5,12 @@
   ...
 }:
 let
-  inherit (inputs.self.lib.tailnet) networkMap;
   mkTailnetNode = service: {
-    extraConfig =
-      # Caddyfile
-      ''
-        bind ${networkMap.${service}.bindHosts}
-        reverse_proxy :${toString networkMap.${service}.proxiedPort}
-      '';
-    hostName = builtins.head networkMap.${service}.FQDNs;
-    serverAliases = builtins.tail networkMap.${service}.FQDNs;
+    inherit (inputs.self.lib.tailnet.networkMap.${service})
+      extraConfig
+      hostName
+      serverAliases
+      ;
   };
 in
 {
