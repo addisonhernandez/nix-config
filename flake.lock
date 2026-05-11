@@ -214,10 +214,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1773493606,
-        "narHash": "sha256-QuZK2xFFSVus688en+NKUydzRO7jjyFXoxTXGaIXryc=",
+        "lastModified": 1778497550,
+        "narHash": "sha256-w0SaTFlrfp/NJ1Drh6s8XPHrbktn3Vtq/9nvXH/m+sc=",
         "ref": "main",
-        "rev": "b3f42088d8ffb41b7e3f7eb0840daf20c7fc9274",
+        "rev": "6ec141bde35d3dedcd167eb6cd085f050511d4f9",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@codeberg.org/addison/secrets.git"
