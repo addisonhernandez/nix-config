@@ -9,7 +9,6 @@
     "caddy"
     "immich"
     "nix-ld"
-    "redlib"
     "snapper"
     "xfce"
   ];
