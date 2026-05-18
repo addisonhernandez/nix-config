@@ -8,6 +8,7 @@
       ".editorconfig"
       ".gitattributes"
       "LICENSE"
+      "hosts/common/assets/*"
     ];
 
     programs = {
