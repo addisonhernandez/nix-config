@@ -18,6 +18,11 @@ in
         "cgroups"
         "flakes"
         "nix-command"
+
+        # Lix-specific experimental features:
+        # Allow "v${version}" instead of "v${toString version}"
+        "coerce-integers"
+        # Nix uses "pipe-operators" (plural)
         "pipe-operator"
       ];
       flake-registry = ""; # Disable global flake registry

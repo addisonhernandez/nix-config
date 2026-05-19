@@ -69,8 +69,15 @@ in
     settings = {
       auto-optimise-store = false;
       experimental-features = [
+        "auto-allocate-uids"
+        "cgroups"
         "flakes"
         "nix-command"
+
+        # Lix-specific experimental features:
+        # Allow "v${version}" instead of "v${toString version}"
+        "coerce-integers"
+        # Nix uses "pipe-operators" (plural)
         "pipe-operator"
       ];
       extra-substituters = [ "https://nix-community.cachix.org" ];

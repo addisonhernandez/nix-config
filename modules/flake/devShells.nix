@@ -47,6 +47,7 @@
           builtins.concatStringsSep " " [
             "auto-allocate-uids"
             "cgroups"
+            "coerce-integers"
             "flakes"
             "nix-command"
             "pipe-operator"
