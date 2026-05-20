@@ -6,8 +6,8 @@ let
       lib,
     }:
     let
-      version = "0.10.1";
-      sha256 = "sha256-dRg3hP/QkZCekBeNwcwvGD1sRX79xF7oAQZ127Sjr+Y=";
+      version = "0.11.0";
+      sha256 = "sha256-81r3iMpDRxVJ1jL2FuiL8WRnZtfuCaVjImqxpKGl8tc=";
       vendorHash = "sha256-ZUHq5KbFWODpe4HI2NoGdvDrkZYDM1Hvls2YmP49vso=";
     in
     buildGoModule {
