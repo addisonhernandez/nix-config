@@ -4,7 +4,7 @@
 
     enableDefaultConfig = false;
 
-    matchBlocks."*" = {
+    settings."*" = {
       # Settings formerly set by `programs.ssh.enableDefaultConfig`
       addKeysToAgent = "no";
       compression = false;

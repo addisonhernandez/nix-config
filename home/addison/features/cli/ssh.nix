@@ -11,7 +11,7 @@ let
     |> map (host: "${host} ${host}.lan ${host}.beefalo-spica.ts.net")
     |> builtins.concatStringsSep " ";
   sshDir = config.home.homeDirectory + "/.ssh";
-  defaultBlockSettings = {
+  defaultHostSettings = {
     addKeysToAgent = "yes";
     user = "git";
   };
@@ -22,7 +22,7 @@ in
 
     enableDefaultConfig = false;
 
-    matchBlocks = {
+    settings = {
       "*" = {
         # Settings formerly set by `programs.ssh.enableDefaultConfig`
         addKeysToAgent = "no";
@@ -37,23 +37,23 @@ in
         userKnownHostsFile = "${sshDir}/known_hosts";
       };
 
-      "codeberg.org" = defaultBlockSettings // {
+      "codeberg.org" = defaultHostSettings // {
         identityFile = "${sshDir}/codeberg";
       };
-      "github.com" = defaultBlockSettings // {
+      "github.com" = defaultHostSettings // {
         identityFile = "${sshDir}/github";
       };
-      "git.sr.ht" = defaultBlockSettings // {
+      "git.sr.ht" = defaultHostSettings // {
         identityFile = "${sshDir}/sourcehut";
       };
-      "tangled.sh" = defaultBlockSettings // {
+      "tangled.sh" = defaultHostSettings // {
         identityFile = "${sshDir}/tangled";
       };
 
       ${nixosHostNames} = {
         addKeysToAgent = "yes";
         forwardX11 = true;
-        setEnv.COLORTERM = "truecolor";
+        SetEnv.COLORTERM = "truecolor";
       };
     };
   };
