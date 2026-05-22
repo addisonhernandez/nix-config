@@ -59,6 +59,7 @@ build-all:
         configs: \
         configs \
         |> builtins.attrNames \
+        |> builtins.filter (host: host != "iso") \
         |> map (host: "${toString ./.}#nixosConfigurations.${host}.config.system.build.toplevel") \
         |> builtins.concatStringsSep " "' \
         | nix build --no-link --stdin

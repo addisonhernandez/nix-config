@@ -38,6 +38,7 @@ in
     }
   ];
   environment.etc."nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
+  boot.zfs.forceImportRoot = false;
 
   # Image customization
   image = {
