@@ -6,11 +6,11 @@
     settings = {
       plugin.prepend_previewers = [
         {
-          name = "*.md";
+          url = "*.md";
           run = ''piper -- CLICOLOR_FORCE=1 glow --width=$w --style=dark "$1"'';
         }
         {
-          name = "*.tar";
+          url = "*.tar";
           run = ''piper --format=url -- tar tf "$1"'';
         }
       ];

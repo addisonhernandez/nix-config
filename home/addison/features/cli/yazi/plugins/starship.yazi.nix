@@ -14,6 +14,14 @@
           flags_after_prompt = true, -- Default: true
           -- Custom starship configuration file to use
           -- config_file = "~/.config/starship_full.toml", -- Default: nil
+          -- Whether to enable support for starship's right prompt (i.e. `starship prompt --right`).
+          -- show_right_prompt = false,
+          -- Whether to hide the count widget, in case you want only your right prompt to show up. Only has
+          -- an effect when `show_right_prompt = true`
+          -- hide_count = false,
+          -- Separator to place between the right prompt and the count widget. Use `count_separator = ""`
+          -- to have no space between the widgets.
+          -- count_separator = " ",
         })
       '';
   };

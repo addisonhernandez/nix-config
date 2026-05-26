@@ -6,7 +6,7 @@
     keymap = {
       mgr.prepend_keymap = [
         {
-          on = "R";
+          on = [ "R" ];
           run = "plugin rsync";
           desc = "Copy files using rsync";
         }

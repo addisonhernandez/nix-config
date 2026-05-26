@@ -6,19 +6,22 @@
     initLua =
       #lua
       ''
-        require("git"):setup()
+        require("git"):setup {
+          -- Order of status signs showing in linemode
+          order = 1500,
+        }
       '';
     settings = {
       plugin.prepend_fetchers = [
         {
-          id = "git";
-          name = "*";
+          url = "*";
           run = "git";
+          group = "git";
         }
         {
-          id = "git";
-          name = "*/";
+          url = "*/";
           run = "git";
+          group = "git";
         }
       ];
     };
