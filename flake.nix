@@ -13,6 +13,8 @@
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
+
     systems.url = "github:nix-systems/x86_64-linux";
 
     ## Dendritic pattern inputs
