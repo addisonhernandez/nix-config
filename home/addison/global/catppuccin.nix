@@ -2,6 +2,11 @@
 {
   imports = [ inputs.catppuccin.homeModules.default ];
 
-  catppuccin.flavor = "macchiato";
-  catppuccin.accent = "mauve";
+  catppuccin = {
+    autoEnable = false;
+    enable = true;
+
+    flavor = "macchiato";
+    accent = "mauve";
+  };
 }
