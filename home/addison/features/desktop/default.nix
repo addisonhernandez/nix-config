@@ -5,5 +5,6 @@
     ./kitty.nix
     ./librewolf.nix
     ./wezterm.nix
+    ./zen-browser.nix
   ];
 }
