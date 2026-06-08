@@ -22,6 +22,7 @@
     ./tailscale.nix
     ./udisks.nix
     ./xserver.nix
+    ./zen-browser.nix
   ]
   ++ (builtins.attrValues outputs.nixosModules or { });
 
