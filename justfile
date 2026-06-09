@@ -22,7 +22,7 @@ update:
 # format nix files with nixfmt
 [group('style')]
 nixfmt:
-    fd --extension "nix" --exec-batch nixfmt --strict {}
+    fd --extension "nix" --exec-batch nixfmt --strict --width=80 {}
 
 # lint nix files with statix
 [group('style')]
