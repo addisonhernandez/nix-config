@@ -96,8 +96,8 @@ rm-build-artifacts:
 
 # build the config for a host, then send it via ssh
 [group('build tools')]
-send-build host: (test-store host)
-    just build {{ host }} "--target-host {{ host }}.lan"
+send-build host *build-args: (test-store host)
+    just build {{ host }} "--target-host {{ host }}.lan" {{ build-args }}
     @rm --dir result
 
 # test connection to a remote nix store
