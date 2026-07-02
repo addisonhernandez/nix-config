@@ -38,10 +38,16 @@
     nix-index-db.url = "github:nix-community/nix-index-database";
     nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixfmt-rs.url = "github:Mic92/nixfmt-rs";
+    nixfmt-rs.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      treefmt-nix.follows = "treefmt-nix";
+    };
+
     secrets.url = "git+ssh://git@codeberg.org/addison/secrets.git?ref=main&shallow=1";
-    secrets = {
-      inputs.agenix.follows = "agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+    secrets.inputs = {
+      agenix.follows = "agenix";
+      nixpkgs.follows = "nixpkgs";
     };
 
     sops-nix.url = "github:Mic92/sops-nix";
