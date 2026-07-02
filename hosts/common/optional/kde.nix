@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [ ./sddm.nix ];
+  imports = [ ./plasma-login.nix ];
 
   services.desktopManager.plasma6.enable = true;
 
@@ -9,12 +9,13 @@
       elisa # music player
       konsole # terminal
       plasma-browser-integration
+      qrca # QR code scanner
     ];
 
     systemPackages = with pkgs; [
+      kdePackages.filelight # disk usage visualizer
+      kdePackages.kdeconnect-kde
       wl-clipboard
-      # sddm system settings configuration plugin
-      kdePackages.sddm-kcm
     ];
 
     sessionVariables = {
