@@ -1,18 +1,33 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
 
   perSystem =
-    { inputs', ... }:
+    { inputs', pkgs, ... }:
     {
       treefmt = {
-        settings.global.excludes = [
-          "*.example"
-          ".editorconfig"
-          ".gitattributes"
-          "LICENSE"
-          "hosts/common/assets/*"
-        ];
+        settings = {
+          global.excludes = [
+            "*.example"
+            ".editorconfig"
+            ".gitattributes"
+            "LICENSE"
+            "hosts/common/assets/*"
+          ];
+
+          # Custom formatters
+          formatter = {
+            # toml
+            tombi = {
+              command = lib.getExe pkgs.tombi;
+              options = [
+                "format"
+                "--offline"
+              ];
+              includes = [ "*.toml" ];
+            };
+          };
+        };
 
         programs = {
           # json
@@ -48,9 +63,6 @@
           fish_indent.enable = true;
           shellcheck.enable = true;
           shfmt.enable = true;
-
-          # toml
-          taplo.enable = true;
 
           # yaml
           yamlfmt = {
