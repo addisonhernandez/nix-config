@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     ./interactive-login.nix
+    ./plasma-bigscreen.nix
     ./sddm-4k-scaling.nix
 
     ./servarr
