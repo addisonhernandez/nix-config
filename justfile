@@ -1,5 +1,19 @@
+set lazy
+set unstable
+
 hostname := `uname -n`
 current_branch := `git symbolic-ref --short HEAD`
+host_refs := ```
+    nix eval .#nixosConfigurations --raw --apply '
+        configs:
+        configs
+        |> builtins.attrNames
+        |> builtins.filter (host: host != "iso")
+        |> map (host: "${toString ./.}#nixosConfigurations.${host}.config.system.build.toplevel")
+        |> builtins.concatStringsSep " "'
+    ```
+
+build_outpath(host) := shell('nix eval --raw .#nixosConfigurations.$1.config.system.build.toplevel.outPath', host)
 
 # list just command runner recipes
 default:
@@ -55,14 +69,11 @@ remote-build build_host="greenbeen.lan": (build hostname "--build-host" build_ho
 # build all host configurations
 [group('build tools')]
 build-all:
-    nix eval .#nixosConfigurations --raw --apply '\
-        configs: \
-        configs \
-        |> builtins.attrNames \
-        |> builtins.filter (host: host != "iso") \
-        |> map (host: "${toString ./.}#nixosConfigurations.${host}.config.system.build.toplevel") \
-        |> builtins.concatStringsSep " "' \
-        | nix build --no-link --stdin
+    nix build \
+        --no-link \
+        --log-format internal-json \
+        {{ host_refs }} \
+        |& nom --json
 
 # diff the activated system and a freshly built config
 [group('build tools')]
