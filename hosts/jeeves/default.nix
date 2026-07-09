@@ -1,7 +1,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./interactive-login.nix
+    # ./interactive-login.nix
     ./plasma-bigscreen.nix
     ./sddm-4k-scaling.nix
 
@@ -24,6 +24,8 @@
     hostName = "jeeves";
     networkmanager.enable = true;
   };
+
+  services.displayManager.autoLogin.user = "addison";
 
   system.stateVersion = "24.05";
 }
