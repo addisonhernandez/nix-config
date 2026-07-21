@@ -1,61 +1,49 @@
 { config, lib, ... }:
 let
   inherit (config.programs) bash fish;
-  shellExe = lib.getExe (if fish.enable then fish.package else bash.package);
+  shellPkg = if fish.enable then fish.package else bash.package;
 in
 {
   programs.wezterm = {
     enable = true;
-    extraConfig =
-      # lua
-      ''
-        -- The following gets prepended automatically in the wezterm home-manager
-        -- module. Uncomment it while editing in another context to fix warnings.
-        -- local wezterm = require("wezterm")
 
-        local config = wezterm.config_builder()
+    settings = {
+      default_prog = lib.generators.mkLuaInline "{ '${lib.getExe shellPkg}' }";
 
-        -- wezterm deliberately ignores $SHELL
-        config.default_prog = { '${shellExe}' }
+      # Colors & Appearance
+      color_scheme = "Catppuccin Macchiato";
 
-        -- ------------------- --
-        -- Colors & Appearance --
-        -- ------------------- --
+      hide_tab_bar_if_only_one_tab = true;
+      window_background_opacity = 0.95;
+      wayland_window_background_blur = true;
 
-        config.color_scheme = "Catppuccin Macchiato"
+      initial_cols = 100;
+      initial_rows = 36;
 
-        config.hide_tab_bar_if_only_one_tab = true
-        config.window_background_opacity = 0.95
-        config.kde_window_background_blur = true
-
-        config.initial_cols = 100
-        config.initial_rows = 36
-
-        -- -------------------- --
-        -- Fonts & Font Shaping --
-        -- -------------------- --
-
-        config.font = wezterm.font_with_fallback({
-          {
-            family = "Maple Mono NF",
-            harfbuzz_features = {
-              -- see: https://font.subf.dev/en/playground/
-              "calt", -- default ligatures
-              "cv06", -- alternate `i`
-              "cv66", -- alternate pipe operators `|>` `<|`
-              "ss03", -- [todo], [info], [fixme]
-            },
-          },
-          {
-            family = "FiraCode Nerd Font",
-            harfbuzz_features = { "calt", "zero", "cv16" },
-          },
-          "Noto Color Emoji",
-        })
-        -- Fix font rendering (https://github.com/wez/wezterm/issues/5990)
-        config.front_end = "WebGpu"
-
-        return config
-      '';
+      # Fonts & Font Shaping
+      font =
+        lib.generators.mkLuaInline
+          #lua
+          ''
+            wezterm.font_with_fallback({
+              {
+                family = "Maple Mono NF",
+                harfbuzz_features = {
+                  -- see: https://font.subf.dev/en/playground/
+                  "calt", -- default ligatures
+                  "cv06", -- alternate `i`
+                  "cv66", -- alternate pipe operators `|>` `<|`
+                  "ss03", -- [todo], [info], [fixme]
+                },
+              },
+              {
+                family = "FiraCode Nerd Font",
+                harfbuzz_features = { "calt", "zero", "cv16" },
+              },
+              "Noto Color Emoji",
+            })'';
+      # Fix font rendering (https://github.com/wez/wezterm/issues/5990)
+      front_end = "WebGpu";
+    };
   };
 }
