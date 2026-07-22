@@ -9,7 +9,6 @@
       elisa # music player
       konsole # terminal
       plasma-browser-integration
-      qrca # QR code scanner
     ];
 
     systemPackages = with pkgs; [
