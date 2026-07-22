@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [
     ./plugins/chmod.yazi.nix
@@ -9,6 +10,11 @@
 
   programs.yazi = {
     enable = true;
+
+    extraPackages = [
+      pkgs.exiftool
+      pkgs.mediainfo
+    ];
 
     settings = {
       # https://yazi-rs.github.io/docs/configuration/yazi
