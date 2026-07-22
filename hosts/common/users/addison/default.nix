@@ -16,6 +16,7 @@
       "gamemode"
       "git"
       "jellyfin"
+      "kvm"
       "libvirtd"
       "lxd"
       "media"
