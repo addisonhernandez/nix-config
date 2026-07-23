@@ -33,8 +33,6 @@
     catppuccin.url = "github:catppuccin/nix";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
 
-    flake-compat.url = "github:edolstra/flake-compat";
-
     nix-index-db.url = "github:nix-community/nix-index-database";
     nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -60,8 +58,8 @@
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
 
     ## Non-flake inputs
-    # <name>.url = "...";
-    # <name.flake = false;
+    flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.flake = false;
   };
 
   outputs =
