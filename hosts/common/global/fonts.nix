@@ -1,6 +1,5 @@
 { lib, pkgs, ... }:
 {
-  # Install some fonts
   fonts = {
     # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/config/fonts/packages.nix#L42
     enableDefaultPackages = true;

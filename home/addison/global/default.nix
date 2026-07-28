@@ -7,6 +7,7 @@
 {
   imports = [
     ./catppuccin.nix
+    ./fonts.nix
     ../features/cli
   ]
   ++ (builtins.attrValues outputs.homeModules or { });
