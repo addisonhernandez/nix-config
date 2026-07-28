@@ -49,7 +49,7 @@ nh-clean:
 
 # build the config and show what would change
 [group('build tools')]
-dry-activate host=hostname:
+dry-activate host=hostname: sudo
     nixos-rebuild dry-activate --flake .#{{ host }} --sudo
 
 # build the config and link the derivation to ./result
