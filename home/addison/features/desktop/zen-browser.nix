@@ -6,49 +6,46 @@
   ...
 }:
 let
-  defaultPrefs =
-    lib.mapAttrsToList
-      (name: value: "pref(${lib.toJSON name}, ${lib.toJSON value});")
-      {
-        "browser.backup.location" =
-          "${config.home.homeDirectory}/Documents/backup/Zen Browser";
-        "browser.gesture.swipe.left" = "";
-        "browser.gesture.swipe.right" = "";
-        "browser.uidensity" = 1; # 0->Normal 1->Compact 2->Touch
-        "browser.urlbar.trimHttps" = false;
-        "browser.urlbar.trimURLs" = false;
+  mkPref = n: v: "pref(${lib.toJSON n}, ${lib.toJSON v});";
+  mkLockedPref = n: v: "lockedPref(${lib.toJSON n}, ${lib.toJSON v});";
 
-        "font.default.x-western" = "sans-serif";
-        "font.name.monospace.x-western" = "Maple Mono NF";
-        "font.name.sans-serif.x-western" = "Inter";
-        "font.name.serif.x-western" = "Noto Serif";
+  defaultPrefs = lib.mapAttrsToList mkPref {
+    "browser.backup.location" =
+      "${config.home.homeDirectory}/Documents/backup/Zen Browser";
+    "browser.gesture.swipe.left" = "";
+    "browser.gesture.swipe.right" = "";
+    "browser.uidensity" = 1; # 0->Normal 1->Compact 2->Touch
+    "browser.urlbar.trimHttps" = false;
+    "browser.urlbar.trimURLs" = false;
 
-        "widget.use-xdg-desktop-portal.file-picker" = 1;
+    "font.default.x-western" = "sans-serif";
+    "font.name.monospace.x-western" = "Maple Mono NF";
+    "font.name.sans-serif.x-western" = "Inter";
+    "font.name.serif.x-western" = "Noto Serif";
 
-        "zen.tabs.vertical.right-side" = true;
-        "zen.theme.accent-color" = "#c6a0f6"; # catppuccin-macchiato mauve
-        "zen.view.compact.enable-at-startup" = true;
-        "zen.view.compact.hide-tabbar" = true;
-        "zen.view.compact.hide-toolbar" = true;
-        "zen.view.compact.should-enable-at-startup" = true;
-        "zen.view.use-single-toolbar" = false;
-      };
-  lockedPrefs =
-    lib.mapAttrsToList
-      (name: value: "lockedPref(${lib.toJSON name}, ${lib.toJSON value});")
-      {
-        "browser.aboutConfig.showWarning" = false;
-        "browser.compactmode.show" = true;
-        "browser.ml.enable" = false;
-        "browser.ml.chat.enable" = false;
-        "browser.ml.pageAssist.enable" = false;
-        "browser.newtabpage.activity-stream.showSponsored" = false;
-        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-        "browser.newtabpage.activity-stream.system.showSponsored" = false;
-        "browser.urlbar.sponsoredTopSites" = false;
+    "widget.use-xdg-desktop-portal.file-picker" = 1;
 
-        "middlemouse.paste" = false;
-      };
+    "zen.tabs.vertical.right-side" = true;
+    "zen.theme.accent-color" = "#c6a0f6"; # catppuccin-macchiato mauve
+    "zen.view.compact.enable-at-startup" = true;
+    "zen.view.compact.hide-tabbar" = true;
+    "zen.view.compact.hide-toolbar" = true;
+    "zen.view.compact.should-enable-at-startup" = true;
+    "zen.view.use-single-toolbar" = false;
+  };
+  lockedPrefs = lib.mapAttrsToList mkLockedPref {
+    "browser.aboutConfig.showWarning" = false;
+    "browser.compactmode.show" = true;
+    "browser.ml.enable" = false;
+    "browser.ml.chat.enable" = false;
+    "browser.ml.pageAssist.enable" = false;
+    "browser.newtabpage.activity-stream.showSponsored" = false;
+    "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+    "browser.newtabpage.activity-stream.system.showSponsored" = false;
+    "browser.urlbar.sponsoredTopSites" = false;
+
+    "middlemouse.paste" = false;
+  };
 
   defaultExtensions =
     let

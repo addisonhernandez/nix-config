@@ -1,17 +1,12 @@
-{ config, ... }:
+{ config, outputs, ... }:
 let
   # [todo] use a snippet in @/modules/home-manager to abstract this
   nixosHostNames =
-    [
-      "greenbeen"
-      "hedgehog"
-      "jeeves"
-      "vulcan"
-    ]
+    outputs.hostnames
     |> map (host: "${host} ${host}.lan ${host}.beefalo-spica.ts.net")
     |> builtins.concatStringsSep " ";
-  sshDir = config.home.homeDirectory + "/.ssh";
-  defaultHostSettings = {
+  sshDir = "${config.home.homeDirectory}/.ssh";
+  gitForgeDefaults = {
     addKeysToAgent = "yes";
     user = "git";
   };
@@ -37,16 +32,16 @@ in
         userKnownHostsFile = "${sshDir}/known_hosts";
       };
 
-      "codeberg.org" = defaultHostSettings // {
+      "codeberg.org" = gitForgeDefaults // {
         identityFile = "${sshDir}/codeberg";
       };
-      "github.com" = defaultHostSettings // {
+      "github.com" = gitForgeDefaults // {
         identityFile = "${sshDir}/github";
       };
-      "git.sr.ht" = defaultHostSettings // {
+      "git.sr.ht" = gitForgeDefaults // {
         identityFile = "${sshDir}/sourcehut";
       };
-      "tangled.sh" = defaultHostSettings // {
+      "tangled.sh" = gitForgeDefaults // {
         identityFile = "${sshDir}/tangled";
       };
 

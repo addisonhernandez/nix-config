@@ -10,7 +10,7 @@ let
 
   getCoreExe = lib.getExe' pkgs.coreutils;
   mkLocalFontsDir = pkgs.writeShellScript "make-local-fonts-dir" ''
-    [[ -d ${localFontsDir} ]] || ${getCoreExe "mkdir"} -p ${localFontsDir}
+    [[ -d ${localFontsDir} ]] || ${getCoreExe "mkdir"} --parents ${localFontsDir}
   '';
   cpSysFontsToLocal = pkgs.writeShellScript "copy-sys-fonts-to-local" ''
     ${getCoreExe "cp"} --dereference --reflink=always --force ${systemFontsDir}/* ${localFontsDir}

@@ -5,9 +5,8 @@
   ...
 }:
 let
-  fishEnabled = config.programs.fish.enable;
   zellijCompletions =
-    if fishEnabled then
+    if config.programs.fish.enable then
       pkgs.runCommand "zellij_completions" { } ''
         ${lib.getExe pkgs.zellij} setup --generate-completion fish > $out
       ''
@@ -17,8 +16,13 @@ in
 {
   programs.zellij = {
     enable = true;
-    enableFishIntegration = false;
+
+    # Shell integrations set an annoying auto-start hook
+    # https://github.com/nix-community/home-manager/blob/bf9ce9fec78f95f374e8dd3b503863a3ec128ebe/modules/programs/zellij.nix#L396
     enableBashIntegration = false;
+    enableFishIntegration = false;
+    enableZshIntegration = false;
+
     settings = {
       copy_command = lib.getExe' pkgs.wl-clipboard "wl-copy";
       default_shell = lib.getExe config.programs.fish.package;
@@ -38,7 +42,7 @@ in
     };
   };
 
-  xdg.configFile = lib.mkIf fishEnabled {
+  xdg.configFile = lib.mkIf config.programs.fish.enable {
     "fish/completions/zellij.fish".source = zellijCompletions;
   };
 

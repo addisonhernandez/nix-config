@@ -11,7 +11,7 @@
     marksman # markdown
     nil
     nixd
-    taplo # toml
+    tombi # toml
     yaml-language-server
 
     # Plugin dependencies

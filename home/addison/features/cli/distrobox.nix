@@ -1,4 +1,1 @@
-{ pkgs, ... }:
-{
-  home.packages = [ pkgs.distrobox ];
-}
+{ programs.distrobox.enable = true; }

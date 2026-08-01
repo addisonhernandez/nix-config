@@ -32,13 +32,14 @@
       inherit (config.programs) fish bash;
     in
     {
-      SHELL = lib.getExe (if fish.enable then fish.package else bash.package);
+      SHELL = lib.getExe (if fish.enable then fish else bash).package;
       EDITOR = lib.getExe pkgs.helix;
       VISUAL = lib.getExe pkgs.helix;
     };
 
   home.packages = with pkgs; [
     # Utilities
+    _7zip-zstd-rar # archive creation/extraction
     delta # diff tool
     eza # better ls
     fastfetch
@@ -49,7 +50,6 @@
     jq # JSON CLI tool
     just # command runner
     lsof # list open files and ports
-    p7zip # archiver
     ripgrep # better grep (provides `rg`)
     sd # better sed
 
