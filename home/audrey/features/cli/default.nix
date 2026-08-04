@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -29,10 +30,9 @@
   home.sessionVariables =
     let
       inherit (config.programs) bash fish helix;
-      userShell = if fish.enable then fish else bash;
     in
     {
-      SHELL = lib.getExe userShell.package;
+      SHELL = lib.getExe (if fish.enable then fish else bash).package;
       EDITOR = lib.getExe helix.package;
       VISUAL = lib.getExe helix.package;
     };
@@ -56,7 +56,8 @@
     nix-diff # detailed difftool
     nix-output-monitor # more output info while building (provides `nom`)
     nixd # nix LSP
-    nixfmt # nix formatter
+    # nixfmt # nix formatter
+    inputs.nixfmt-rs.packages.${pkgs.stdenv.hostPlatform.system}.default
     nvd # difftool
   ];
 }

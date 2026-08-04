@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -60,7 +61,8 @@
     nix-diff # detailed difftool
     nix-output-monitor # more output info while building (provides `nom`)
     nixd # nix LSP
-    nixfmt-rs # nix formatter
+    # nixfmt-rs # nix formatter
+    inputs.nixfmt-rs.packages.${pkgs.stdenv.hostPlatform.system}.default
     nvd # difftool
   ];
 }
