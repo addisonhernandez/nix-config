@@ -82,39 +82,44 @@
     };
 
     # Interal HDD
-    "backup" = {
-      label = "aux";
-      fsType = "btrfs";
-      mountPoint = "/home/addison/Documents/backup";
+    "/mnt/hdd24tb" = {
+      label = "hdd24tb";
+      fsType = "ext4";
       options = [
-        "subvol=@backup"
-        "autodefrag"
-        "noatime"
-        "compress=zstd:15"
+        "rw"
+        "lazytime"
+        "suid"
+        "nodev"
+        "exec"
+        "auto"
+        "nouser"
+        "async"
+        "commit=60" # default 5. reduces head movement
       ];
+    };
+
+    "backup" = {
+      depends = [ "/home" ];
+      device = "/mnt/hdd24tb/backup";
+      fsType = "ext4";
+      mountPoint = "/home/addison/Documents/backup";
+      options = [ "bind" ];
     };
 
     "games" = {
-      label = "aux";
-      fsType = "btrfs";
+      depends = [ "/home" ];
+      device = "/mnt/hdd24tb/Games";
+      fsType = "ext4";
       mountPoint = "/home/addison/Games";
-      options = [
-        "subvol=@games"
-        "autodefrag"
-        "compress=zstd:15"
-      ];
+      options = [ "bind" ];
     };
 
-    "temp" = {
-      label = "aux";
-      fsType = "btrfs";
-      mountPoint = "/home/addison/Downloads/.temp";
-      options = [
-        "subvol=@temp"
-        "autodefrag"
-        "noatime"
-        "compress=zstd:15"
-      ];
+    "downloads" = {
+      depends = [ "/home" ];
+      device = "/mnt/hdd24tb/Downloads";
+      fsType = "ext4";
+      mountPoint = "/home/addison/Downloads";
+      options = [ "bind" ];
     };
   };
 
