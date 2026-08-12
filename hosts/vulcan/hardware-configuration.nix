@@ -1,24 +1,18 @@
-{
-  config,
-  inputs,
-  lib,
-  modulesPath,
-  ...
-}:
+# Hardware:
+# Mobo  MSI MS-7751
+# CPU   i5-3570K
+# GPU   NVIDIA GTX 660 Ti
+# Disks
+# ├─ 256 GB SSD - nixos
+# ├─   2 TB HDD - aux
+# └─  24 TB HDD - hdd24tb
+{ inputs, ... }:
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-
-    # Hardware:
-    # Mobo  MSI MS-7751
-    # CPU   i5-3570K
-    # GPU   NVIDIA GTX 660 Ti
     inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
     ./nvidia-legacy-470.nix
-
-    ../common/optional/btrfs.nix
   ];
 
   boot.initrd.availableKernelModules = [
@@ -36,44 +30,15 @@
     # Root SSD
     "/" = {
       label = "nixos";
-      fsType = "btrfs";
+      fsType = "ext4";
       options = [
-        "subvol=@"
-        "compress=zstd"
-      ];
-    };
-
-    "/home" = {
-      label = "nixos";
-      fsType = "btrfs";
-      options = [
-        "subvol=@home"
-        "compress=zstd"
-      ];
-    };
-
-    "/nix" = {
-      label = "nixos";
-      fsType = "btrfs";
-      options = [
-        "subvol=@nix"
-        "compress=zstd"
+        "defaults"
         "noatime"
       ];
     };
 
-    "/var/log" = {
-      label = "nixos";
-      fsType = "btrfs";
-      options = [
-        "subvol=@log"
-        "compress=zstd"
-      ];
-    };
-
-    # Boot EFI
     "/boot" = {
-      device = "/dev/disk/by-label/boot";
+      label = "boot";
       fsType = "vfat";
       options = [
         "fmask=0077"
@@ -81,7 +46,16 @@
       ];
     };
 
-    # Interal HDD
+    # Interal HDDs
+    "/home" = {
+      label = "aux";
+      fsType = "btrfs";
+      options = [
+        "subvol=@home"
+        "autodefrag"
+      ];
+    };
+
     "/mnt/hdd24tb" = {
       label = "hdd24tb";
       fsType = "ext4";
@@ -97,41 +71,13 @@
         "commit=60" # default 5. reduces head movement
       ];
     };
-
-    "backup" = {
-      depends = [ "/home" ];
-      device = "/mnt/hdd24tb/backup";
-      fsType = "ext4";
-      mountPoint = "/home/addison/Documents/backup";
-      options = [ "bind" ];
-    };
-
-    "games" = {
-      depends = [ "/home" ];
-      device = "/mnt/hdd24tb/Games";
-      fsType = "ext4";
-      mountPoint = "/home/addison/Games";
-      options = [ "bind" ];
-    };
-
-    "downloads" = {
-      depends = [ "/home" ];
-      device = "/mnt/hdd24tb/Downloads";
-      fsType = "ext4";
-      mountPoint = "/home/addison/Downloads";
-      options = [ "bind" ];
-    };
   };
 
-  swapDevices = [ ];
+  swapDevices = [
+    # { # swapfile
+    #   device = "/var/lib/swapfile"; size = 16 * 1024; # 16 GiB
+    # }
+  ];
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  nixpkgs.hostPlatform = "x86_64-linux";
 }

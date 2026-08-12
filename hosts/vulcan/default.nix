@@ -1,3 +1,4 @@
+{ inputs, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -5,7 +6,7 @@
     ../common/global
     ../common/users/addison
   ]
-  ++ map (moduleName: ../common/optional/${moduleName}.nix) [
+  ++ inputs.self.lib.optionalModules [
     "caddy"
     "immich"
     "nix-ld"
@@ -13,8 +14,11 @@
     "xfce"
   ];
 
-  networking.hostName = "vulcan";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "vulcan";
+    networkmanager.enable = true;
+    useDHCP = lib.mkDefault true;
+  };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "26.05";
 }
