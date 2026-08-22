@@ -4,11 +4,9 @@ set unstable
 hostname := `uname -n`
 current_branch := `git symbolic-ref --short HEAD`
 host_refs := ```
-    nix eval .#nixosConfigurations --raw --apply '
-        configs:
-        configs
-        |> builtins.attrNames
-        |> builtins.filter (host: host != "iso")
+    nix eval .#hostnames --raw --apply '
+        hosts:
+        hosts
         |> map (host: "${toString ./.}#nixosConfigurations.${host}.config.system.build.toplevel")
         |> builtins.concatStringsSep " "'
     ```
@@ -50,17 +48,16 @@ nh-clean:
 # build the config and show what would change
 [group('build tools')]
 dry-activate host=hostname: sudo
-    nixos-rebuild dry-activate --flake .#{{ host }} --sudo
+    nixos-rebuild dry-activate \
+        --flake .#{{ host }} \
+        --sudo \
+        --log-format internal-json \
+        |& nom --json
 
 # build the config and link the derivation to ./result
 [group('build tools')]
-build host=hostname *args:
-    nixos-rebuild build \
-        --flake .#{{ host }} \
-        --keep-going \
-        --log-format internal-json \
-        {{ args }} \
-        |& nom --json
+build host=hostname *nh_args:
+    nh os build --hostname {{ host }} --out-link ./result {{ nh_args }}
 
 # build the local config on a remote host (default greenbeen)
 [group('build tools')]
@@ -77,39 +74,44 @@ build-all:
 
 # diff the activated system and a freshly built config
 [group('build tools')]
-diff-system *diff-args: (build hostname "--no-reexec")
+diff-system *diff_args: (build hostname "--no-validate" "--diff never")
     @test -r "/nix/var/nix/profiles/system"
     @test -r "./result"
-    dix {{ diff-args }} -- "/nix/var/nix/profiles/system" "./result"
+    dix {{ diff_args }} -- "/nix/var/nix/profiles/system" "./result"
 
 # build and activate the config, and make it the boot default
 [confirm('Build and switch to the new config?')]
 [group('build tools')]
-rebuild-switch host=hostname: sudo && rm-build-artifacts
-    nixos-rebuild switch --flake .#{{ host }} --sudo
+rebuild-switch *nh_args: sudo && rm-build-artifacts
+    nh os switch --ask {{ nh_args }}
 
 # build the config, and activate it after a reboot
 [confirm('Build the new config and activate after reboot?')]
 [group('build tools')]
-rebuild-boot host=hostname: sudo && rm-build-artifacts
-    nixos-rebuild boot --flake .#{{ host }} --sudo
+rebuild-boot *nh_args: sudo && rm-build-artifacts
+    nh os boot --ask {{ nh_args }}
+
+# deploy the config to a remote machine
+[confirm('Build the config for ' + host + ' and activate after reboot?')]
+[group('build tools')]
+deploy host *nh_args:
+    nh os boot --target-host {{ host }} --ask {{ nh_args }}
+
+# build the config for a host, then send it via ssh
+[group('build tools')]
+send-build host *nh_args: (test-store host) && rm-build-artifacts
+    nh os build --target-host {{ host }} --ask {{ nh_args }}
 
 # build the config and test it in the current session
 [confirm('Build new config and test it in this session?')]
 [group('build tools')]
-rebuild-test host=hostname: sudo && rm-build-artifacts
-    nixos-rebuild test --flake .#{{ host }} --sudo
+rebuild-test *nh_args: sudo && rm-build-artifacts
+    nh os test --ask {{ nh_args }}
 
 # Clean leftover nix build artifacts
 [group('build tools')]
 rm-build-artifacts:
     @fd --no-ignore --type symlink 'result.*' . --exec-batch rm --dir {}
-
-# build the config for a host, then send it via ssh
-[group('build tools')]
-send-build host *build-args: (test-store host)
-    just build {{ host }} "--target-host {{ host }}.lan" {{ build-args }}
-    @rm --dir result
 
 # test connection to a remote nix store
 test-store host:
@@ -117,5 +119,5 @@ test-store host:
 
 # push the current branch to all remotes
 [group('version control')]
-push *git-push-args:
-    git remote | xargs -I {} git push {{ git-push-args }} {} {{ current_branch }}
+push *git_push_args:
+    git remote | xargs -I{} -P0 git push {{ git_push_args }} {} {{ current_branch }}
