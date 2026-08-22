@@ -13,6 +13,7 @@
     ./librewolf.nix
     ./locale.nix
     ./nh.nix
+    ./nfs-client.nix
     ./nix.nix
     ./nixpkgs.nix
     ./openssh.nix

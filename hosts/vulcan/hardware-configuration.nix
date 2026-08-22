@@ -3,9 +3,9 @@
 # CPU   i5-3570K
 # GPU   NVIDIA GTX 660 Ti
 # Disks
-# ├─ 256 GB SSD - nixos
-# ├─   2 TB HDD - aux
-# └─  24 TB HDD - hdd24tb
+# ├─ 256 GB SSD - nixos   (boot and root fs)
+# ├─   2 TB HDD - aux     (home)
+# └─  24 TB HDD - hdd24tb (media and backup storage)
 { inputs, ... }:
 {
   imports = [
@@ -57,9 +57,10 @@
       ];
     };
 
-    "/mnt/hdd24tb" = {
+    hdd24tb = {
       label = "hdd24tb";
       fsType = "ext4";
+      mountPoint = "/mnt/hdd24tb";
       options = [
         "rw"
         "lazytime"
@@ -75,9 +76,11 @@
   };
 
   swapDevices = [
-    # { # swapfile
-    #   device = "/var/lib/swapfile"; size = 16 * 1024; # 16 GiB
-    # }
+    {
+      # swapfile
+      device = "/var/lib/swapfile";
+      size = 16 * 1024; # 16 GiB
+    }
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";

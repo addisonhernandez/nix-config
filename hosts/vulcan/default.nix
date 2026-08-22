@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./nfs-server.nix
 
     ../common/global
     ../common/users/addison
@@ -20,5 +21,5 @@
     useDHCP = lib.mkDefault true;
   };
 
-  system.stateVersion = "26.05";
+  system.stateVersion = "26.11";
 }
