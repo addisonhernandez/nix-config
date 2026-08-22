@@ -1,31 +1,36 @@
-{ inputs, lib, ... }:
+# Hardware: (github.com/NixOS/nixos-hardware)
+# Platform  Beelink Mini S12
+# CPU       Intel N100 (Alder Lake)
+# iGPU      Intel UHD Graphics
 {
-  imports =
-    with inputs.nixos-hardware.nixosModules;
-    [
-      # Hardware: (github.com/NixOS/nixos-hardware)
-      # Platform  Beelink Mini S12
-      # CPU       Intel N100 (Alder Lake)
-      # iGPU      Intel UHD Graphics
-      common-cpu-intel-cpu-only
-      common-pc
-      common-pc-ssd
-    ]
-    ++ [
-      ./intel-graphics-drivers.nix
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  imports = [
+    inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
 
-      ../common/optional/bluetooth.nix
-      ../common/optional/btrfs.nix
-    ];
+    ./intel-graphics-drivers.nix
 
-  boot.initrd.availableKernelModules = [
-    "ahci"
-    "sd_mod"
-    "usbhid"
-    "usb_storage"
-    "xhci_pci"
+    ../common/optional/bluetooth.nix
+    ../common/optional/btrfs.nix
   ];
-  boot.kernelModules = [ "kvm-intel" ];
+
+  boot = {
+    initrd.availableKernelModules = [
+      "ahci"
+      "sd_mod"
+      "usbhid"
+      "usb_storage"
+      "xhci_pci"
+    ];
+    kernelModules = [ "kvm-intel" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
 
   fileSystems = {
     "/" = {
@@ -89,15 +94,12 @@
     };
   };
 
-  swapDevices = [ ];
-
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024; # 16 GiB
+    }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

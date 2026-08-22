@@ -1,3 +1,4 @@
+{ inputs, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -11,7 +12,7 @@
     ../common/users/addison
     ../common/users/audrey
   ]
-  ++ map (moduleName: ../common/optional/${moduleName}.nix) [
+  ++ inputs.self.lib.optionalModules [
     "docker"
     "kde"
     "nix-ld"
@@ -23,6 +24,7 @@
   networking = {
     hostName = "jeeves";
     networkmanager.enable = true;
+    useDHCP = lib.mkDefault true;
   };
 
   services.displayManager.autoLogin.user = "addison";
