@@ -100,7 +100,7 @@ deploy host *nh_args:
 # build the config for a host, then send it via ssh
 [group('build tools')]
 send-build host *nh_args: (test-store host) && rm-build-artifacts
-    nh os build --target-host {{ host }} --ask {{ nh_args }}
+    nh os build --target-host {{ host }} {{ nh_args }}
 
 # build the config and test it in the current session
 [confirm('Build new config and test it in this session?')]
