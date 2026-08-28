@@ -24,7 +24,7 @@
         # See: https://wiki.nixos.org/wiki/Caddy#Plug-ins for plugin version tag
         "github.com/tailscale/caddy-tailscale@v0.0.0-20250508175905-642f61fea3cc"
       ];
-      hash = [ "sha256-Q29cFA2U8N2TLjzCvXfEkGqy+g5szbPAnYt5F2D6fBc=" ];
+      hash = [ "sha256-ab0EDO5DmpDF5GGg2bsGf/yLacjxhr/lISl0yu+w8GM=" ];
     };
   };
 
