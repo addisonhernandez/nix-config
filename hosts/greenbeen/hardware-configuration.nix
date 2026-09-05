@@ -1,3 +1,7 @@
+# Hardware: (github.com/NixOS/nixos-hardware)
+# Platform  Beelink SER7
+# CPU       Ryzen 7 7840HS
+# iGPU      Radeon 780M
 {
   inputs,
   lib,
@@ -6,10 +10,6 @@
 }:
 {
   imports = with inputs.nixos-hardware.nixosModules; [
-    # Hardware: (github.com/NixOS/nixos-hardware)
-    # Platform  Beelink SER7
-    # CPU       Ryzen 7 7840HS
-    # iGPU      Radeon 780M
     common-cpu-amd
     common-cpu-amd-pstate
     common-cpu-amd-raphael-igpu
@@ -113,14 +113,12 @@
     };
   };
 
-  swapDevices = [ ];
-
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 8 * 1024; # 8 GiB
+    }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

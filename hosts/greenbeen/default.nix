@@ -1,3 +1,4 @@
+{ inputs, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -7,7 +8,7 @@
     ../common/users/addison
     ../common/users/audrey
   ]
-  ++ map (moduleName: ../common/optional/${moduleName}.nix) [
+  ++ inputs.self.lib.optionalModules [
     "docker"
     "heroic"
     "kde"
@@ -29,6 +30,7 @@
   networking = {
     hostName = "greenbeen";
     networkmanager.enable = true;
+    useDHCP = lib.mkDefault true;
   };
 
   # Use XBOOTLDR partition to prevent filling the tiny MSFT EFI partition
