@@ -1,3 +1,4 @@
+{ inputs, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -6,7 +7,7 @@
     ../common/users/addison
     ../common/users/audrey
   ]
-  ++ map (moduleName: ../common/optional/${moduleName}.nix) [
+  ++ inputs.self.lib.optionalModules [
     "fwupd"
     "heroic"
     "kde"
@@ -19,8 +20,11 @@
     "steam"
   ];
 
-  networking.hostName = "hedgehog";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "hedgehog";
+    networkmanager.enable = true;
+    useDHCP = lib.mkDefault true;
+  };
 
   system.stateVersion = "24.05";
 }
