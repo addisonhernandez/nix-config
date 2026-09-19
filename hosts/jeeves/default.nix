@@ -1,4 +1,9 @@
-{ inputs, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [
     ./hardware-configuration.nix
@@ -14,9 +19,10 @@
   ]
   ++ inputs.self.lib.optionalModules [
     "docker"
-    "kde"
+    # "kde"
     "nix-ld"
     "nix-ssh-serve"
+    "plasma-bigscreen"
     "plymouth"
     "steam"
   ];
@@ -27,7 +33,8 @@
     useDHCP = lib.mkDefault true;
   };
 
-  services.displayManager.autoLogin.user = "addison";
+  services.displayManager.autoLogin.user =
+    config.users.users.addison.name or null;
 
   system.stateVersion = "24.05";
 }
