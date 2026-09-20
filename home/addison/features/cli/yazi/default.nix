@@ -11,6 +11,9 @@
   programs.yazi = {
     enable = true;
 
+    # Add the ability to peer into RAR archives
+    package = pkgs.yazi.override { _7zz = pkgs._7zip-zstd-rar; };
+
     extraPackages = [
       pkgs.exiftool
       pkgs.mediainfo
