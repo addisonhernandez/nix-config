@@ -12,6 +12,7 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
+    ./bind-mounts.nix
     ./nvidia-legacy-470.nix
   ];
 
