@@ -6,8 +6,8 @@ let
     |> map (host: "${host} ${host}.lan ${host}.beefalo-spica.ts.net")
     |> builtins.concatStringsSep " ";
   gitForgeDefaults = {
-    addKeysToAgent = "yes";
-    user = "git";
+    AddKeysToAgent = "yes";
+    User = "git";
   };
 in
 {
@@ -17,34 +17,34 @@ in
     settings = {
       "*" = {
         # Settings formerly set by `programs.ssh.enableDefaultConfig`
-        addKeysToAgent = "no";
-        compression = false;
-        controlMaster = "no";
-        controlPath = "%d/.ssh/master-%r@%n:%p";
-        controlPersist = "no";
-        forwardAgent = false;
-        hashKnownHosts = false;
-        serverAliveCountMax = 3;
-        serverAliveInterval = 0;
-        userKnownHostsFile = "%d/.ssh/known_hosts";
+        AddKeysToAgent = "no";
+        Compression = false;
+        ControlMaster = "no";
+        ControlPath = "%d/.ssh/master-%r@%n:%p";
+        ControlPersist = "no";
+        ForwardAgent = false;
+        HashKnownHosts = false;
+        ServerAliveCountMax = 3;
+        ServerAliveInterval = 0;
+        UserKnownHostsFile = "%d/.ssh/known_hosts";
       };
 
       "codeberg.org" = gitForgeDefaults // {
-        identityFile = "%d/.ssh/codeberg";
+        IdentityFile = "%d/.ssh/codeberg";
       };
       "github.com" = gitForgeDefaults // {
-        identityFile = "%d/.ssh/github";
+        IdentityFile = "%d/.ssh/github";
       };
       "git.sr.ht" = gitForgeDefaults // {
-        identityFile = "%d/.ssh/sourcehut";
+        IdentityFile = "%d/.ssh/sourcehut";
       };
       "tangled.sh" = gitForgeDefaults // {
-        identityFile = "%d/.ssh/tangled";
+        IdentityFile = "%d/.ssh/tangled";
       };
 
       ${nixosHostNames} = {
-        addKeysToAgent = "yes";
-        forwardX11 = true;
+        AddKeysToAgent = "yes";
+        ForwardX11 = true;
         SetEnv.COLORTERM = "truecolor";
       };
     };
