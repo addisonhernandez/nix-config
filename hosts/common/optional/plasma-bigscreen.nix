@@ -13,6 +13,4 @@ in
   };
 
   xdg.portal.configPackages = [ plasma-bigscreen ];
-
-  services.desktopManager.plasma6.enable = true;
 }
