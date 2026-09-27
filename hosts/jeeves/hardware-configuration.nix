@@ -94,6 +94,12 @@
     };
   };
 
+  nfs-client.mounts = {
+    backup.enable = true;
+    homelab.enable = true;
+    media.enable = true;
+  };
+
   swapDevices = [
     {
       device = "/var/lib/swapfile";

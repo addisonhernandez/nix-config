@@ -81,6 +81,8 @@
     };
   };
 
+  nfs-client.mounts.backup.enable = true;
+
   swapDevices = [
     {
       device = "/var/lib/swapfile";
