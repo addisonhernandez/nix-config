@@ -24,12 +24,7 @@
 
     ## Flake inputs
     agenix.url = "github:ryantm/agenix";
-    agenix.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      home-manager.follows = "home-manager";
-      systems.follows = "systems";
-      darwin.follows = "";
-    };
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
 
     catppuccin.url = "github:catppuccin/nix";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
@@ -47,10 +42,8 @@
     secrets.inputs = {
       agenix.follows = "agenix";
       nixpkgs.follows = "nixpkgs";
+      systems.follows = "systems";
     };
-
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";

@@ -15,6 +15,7 @@ in
       flake-registry = "";
       http-connections = 50; # default: 25
       keep-going = true;
+      nix-path = lib.mapAttrsToList (k: v: "${k}=flake:${v.outPath}") flakeInputs;
       trusted-users = [ "@wheel" ];
       use-xdg-base-directories = true;
       warn-dirty = false;
@@ -31,6 +32,5 @@ in
 
     channel.enable = false;
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
-    nixPath = lib.mapAttrsToList (k: v: "${k}=flake:${v.outPath}") flakeInputs;
   };
 }
