@@ -1,15 +1,15 @@
 let
+  version = "0.13.2";
+  sha256 = "sha256-2X/cgq1A7hUSRxihoIH0Z0Juc2K0qHeqTie/xKW8f+g=";
+  vendorHash = "sha256-AYeqs+VWjJDrV0osqupc+jTnPblt6H60PjjyQEVn2kE=";
+
   audiobookOrganizer =
     {
       buildGoModule,
       fetchFromGitHub,
       lib,
+      gitMinimal,
     }:
-    let
-      version = "0.11.0";
-      sha256 = "sha256-81r3iMpDRxVJ1jL2FuiL8WRnZtfuCaVjImqxpKGl8tc=";
-      vendorHash = "sha256-ZUHq5KbFWODpe4HI2NoGdvDrkZYDM1Hvls2YmP49vso=";
-    in
     buildGoModule {
       inherit version vendorHash;
       pname = "audiobook-organizer";
@@ -19,6 +19,11 @@ let
         repo = "audiobook-organizer";
         tag = "v${version}";
       };
+
+      nativeBuildInputs = [
+        # dependency for beta test script
+        gitMinimal
+      ];
 
       meta = {
         description = "CLI tool to organize audiobooks for audiobookshelf";
