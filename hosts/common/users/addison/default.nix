@@ -20,6 +20,7 @@
       "flatpak"
       "gamemode"
       "git"
+      "immich"
       "jellyfin"
       "kvm"
       "libvirtd"
