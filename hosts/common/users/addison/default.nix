@@ -27,6 +27,7 @@
       "lxd"
       "media"
       "networkmanager"
+      "openrazer"
       "podman"
       "wheel"
     ];

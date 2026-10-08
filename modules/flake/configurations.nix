@@ -21,7 +21,7 @@ let
 in
 {
   flake = {
-    inherit hostnames;
+    inherit hostnames usernames;
     nixosConfigurations = forEachHost self.lib.mkHostConfig;
     homeConfigurations = forEachHome self.lib.mkHomeConfig;
   };

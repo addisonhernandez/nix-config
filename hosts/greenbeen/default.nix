@@ -17,6 +17,7 @@
     "nix-ssh-serve"
     "printing"
     "quickemu"
+    "razer"
     "retroarch"
     "signal"
     "snapper"
