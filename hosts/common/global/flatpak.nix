@@ -18,28 +18,42 @@
       });
     '';
 
-  systemd =
-    let
-      description = "daily flatpak update";
-    in
-    {
-      services."flatpak-autoupdate" = {
-        inherit description;
-        after = [ "network-online.target" ];
-        requires = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
+  systemd = {
+    services = {
+      "flatpak-autoupdate" = {
+        description = "daily flatpak update";
+        path = [ pkgs.flatpak ];
+        # script = "flatpak update --noninteractive --assumeyes";
+
         serviceConfig = {
+          ExecStart = "flatpak update --noninteractive --assumeyes";
           Type = "oneshot";
         };
-        path = [ pkgs.flatpak ];
-        script = ''
-          flatpak update --noninteractive --assumeyes
-          flatpak uninstall --unused --noninteractive --assumeyes
-        '';
+        unitConfig.OnSuccess = [ "flatpak-remove-unused.service" ];
+
+        after = [
+          "NetworkManager.service"
+          "network-online.target"
+          "systemd-resolved.service"
+        ];
+        requires = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
       };
 
-      timers."flatpak-autoupdate" = {
-        inherit description;
+      "flatpak-remove-unused" = {
+        description = "remove unused flatpak dependencies";
+        path = [ pkgs.flatpak ];
+
+        serviceConfig = {
+          ExecStart = "flatpak uninstall --unused --noninteractive --assumeyes";
+          Type = "oneshot";
+        };
+      };
+    };
+
+    timers = {
+      "flatpak-autoupdate" = {
+        description = "daily flatpak update";
         wantedBy = [ "timers.target" ];
         timerConfig = {
           OnCalendar = "daily";
@@ -48,4 +62,5 @@
         };
       };
     };
+  };
 }
