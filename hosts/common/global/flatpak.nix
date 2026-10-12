@@ -22,13 +22,11 @@
     services = {
       "flatpak-autoupdate" = {
         description = "daily flatpak update";
-        path = [ pkgs.flatpak ];
-        # script = "flatpak update --noninteractive --assumeyes";
 
-        serviceConfig = {
-          ExecStart = "flatpak update --noninteractive --assumeyes";
-          Type = "oneshot";
-        };
+        path = [ pkgs.flatpak ];
+        script = "flatpak update --noninteractive --assumeyes";
+
+        serviceConfig.Type = "oneshot";
         unitConfig.OnSuccess = [ "flatpak-remove-unused.service" ];
 
         after = [
@@ -42,12 +40,11 @@
 
       "flatpak-remove-unused" = {
         description = "remove unused flatpak dependencies";
-        path = [ pkgs.flatpak ];
 
-        serviceConfig = {
-          ExecStart = "flatpak uninstall --unused --noninteractive --assumeyes";
-          Type = "oneshot";
-        };
+        path = [ pkgs.flatpak ];
+        script = "flatpak uninstall --unused --noninteractive --assumeyes";
+
+        serviceConfig.Type = "oneshot";
       };
     };
 
