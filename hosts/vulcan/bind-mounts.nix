@@ -22,5 +22,10 @@ in
       device = "${hdd24tb.mountPoint}/Downloads";
       mountPoint = "/home/addison/Downloads";
     };
+
+    immich = commonBindMountOpts // {
+      device = "${hdd24tb.mountPoint}/immich";
+      mountPoint = "/var/lib/immich";
+    };
   };
 }
