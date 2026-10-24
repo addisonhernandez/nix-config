@@ -22,9 +22,9 @@
     package = pkgs.caddy.withPlugins {
       plugins = [
         # See: https://wiki.nixos.org/wiki/Caddy#Plug-ins for plugin version tag
-        "github.com/tailscale/caddy-tailscale@v0.0.0-20250508175905-642f61fea3cc"
+        "github.com/tailscale/caddy-tailscale@v0.0.0-20260826180304-de41b249af4f"
       ];
-      hash = [ "sha256-JxsaP12OBPLCDv1JLSuiuikpUSB30nmY51sBAq8v8BE=" ];
+      hash = [ "sha256-wf5UqVWvm9XhNG9b0wCtyzXLIVWpubxhrs0Qop/YBhU=" ];
     };
   };
 
