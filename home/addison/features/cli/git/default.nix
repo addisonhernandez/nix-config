@@ -7,6 +7,7 @@
       "*~"
       ".*.swp"
       ".DS_Store"
+      ".direnv/"
     ];
     settings = {
       user.name = "Addison Hernandez";
