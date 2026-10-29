@@ -18,6 +18,28 @@
           "--width=80"
         ];
       }
+      {
+        name = "toml";
+        auto-format = true;
+        formatter.command = "tombi";
+        formatter.args = [
+          "format"
+          "-"
+        ];
+        language-servers = [
+          "tombi"
+          "taplo"
+        ];
+      }
+      {
+        name = "yaml";
+        auto-format = true;
+        formatter.command = "prettier";
+        formatter.args = [
+          "--parser"
+          "yaml"
+        ];
+      }
     ];
 
     language-server =
@@ -44,6 +66,10 @@
             "--inlay-hints"
           ];
           settings.formatting = { inherit (nixfmt) command; };
+        };
+        yaml-language-server.config.yaml = {
+          completion = true;
+          validation = true;
         };
       };
   };
