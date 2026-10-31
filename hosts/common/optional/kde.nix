@@ -13,7 +13,6 @@
 
     systemPackages = with pkgs; [
       kdePackages.filelight # disk usage visualizer
-      kdePackages.kdeconnect-kde
       wl-clipboard
     ];
 
@@ -21,6 +20,8 @@
       NIXOS_OZONE_WL = 1;
     };
   };
+
+  programs.kdeconnect.enable = true;
 
   xdg.portal = {
     enable = true;
