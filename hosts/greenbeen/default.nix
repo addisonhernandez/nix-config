@@ -22,7 +22,7 @@
     "signal"
     "snapper"
     "steam"
-    "virt-manager"
+    # "virt-manager"
     "wine"
   ];
 
