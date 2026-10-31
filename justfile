@@ -77,7 +77,7 @@ build-all:
 diff-system *diff_args: (build hostname "--no-validate" "--diff never")
     @test -r "/nix/var/nix/profiles/system"
     @test -r "./result"
-    dix {{ diff_args }} -- "/nix/var/nix/profiles/system" "./result"
+    dix diff {{ diff_args }} -- "/nix/var/nix/profiles/system" "./result"
 
 # build and activate the config, and make it the boot default
 [confirm('Build and switch to the new config?')]
