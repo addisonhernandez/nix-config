@@ -7,6 +7,7 @@
     docker-compose-language-service
     fish-lsp
     jq-lsp
+    just-lsp
     lua-language-server
     marksman # markdown
     nil

@@ -1,7 +1,7 @@
 set lazy
 set unstable
 
-hostname := `uname -n`
+local_hostname := `uname -n`
 current_branch := `git symbolic-ref --short HEAD`
 host_refs := ```
     nix eval .#hostnames --raw --apply '
@@ -10,8 +10,6 @@ host_refs := ```
         |> map (host: "${toString ./.}#nixosConfigurations.${host}.config.system.build.toplevel")
         |> builtins.concatStringsSep " "'
     ```
-
-build_outpath(host) := shell('nix eval --raw .#nixosConfigurations.$1.config.system.build.toplevel.outPath', host)
 
 # list just command runner recipes
 default:
@@ -47,21 +45,27 @@ nh-clean:
 
 # build the config and show what would change
 [group('build tools')]
-dry-activate host=hostname: sudo
+dry-activate: sudo
     nixos-rebuild dry-activate \
-        --flake .#{{ host }} \
+        --flake .#{{ local_hostname }} \
         --sudo \
         --log-format internal-json \
         |& nom --json
 
 # build the config and link the derivation to ./result
 [group('build tools')]
-build host=hostname *nh_args:
+build host=local_hostname *nh_args:
     nh os build --hostname {{ host }} --out-link ./result {{ nh_args }}
 
 # build the local config on a remote host (default greenbeen)
 [group('build tools')]
-remote-build build_host="greenbeen.lan": (build hostname "--build-host" build_host)
+[arg("nh_op", pattern="boot|build|repl|switch|test")]
+[arg("build_host", long, short="b")]
+remote-op nh_op="build" build_host="greenbeen.lan" *nh_args:
+    nh os {{ nh_op }} \
+        --hostname {{ local_hostname }} \
+        --build-host {{ build_host }} \
+        {{ nh_args }}
 
 # build all host configurations
 [group('build tools')]
@@ -74,7 +78,7 @@ build-all:
 
 # diff the activated system and a freshly built config
 [group('build tools')]
-diff-system *diff_args: (build hostname "--no-validate" "--diff never")
+diff-system *diff_args: (build local_hostname "--no-validate" "--diff never")
     @test -r "/nix/var/nix/profiles/system"
     @test -r "./result"
     dix diff {{ diff_args }} -- "/nix/var/nix/profiles/system" "./result"
@@ -99,16 +103,11 @@ deploy host *nh_args:
 
 # build the config for a host, then send it via ssh
 [group('build tools')]
-send-build host *nh_args: (test-store host) && rm-build-artifacts
-    nh os build \
-        --target-host {{ host }} \
-        --use-substitutes \
-        --out-link ./result-{{ host }} \
-        {{ nh_args }}
+send-build host *nh_args: (test-store host) (build host nh_args) && rm-build-artifacts
     nix copy \
         --no-check-sigs \
         --to "ssh-ng://{{ host }}.lan" \
-        "$(readlink ./result-{{ host }})"
+        "$(readlink ./result)"
 
 # build the config and test it in the current session
 [confirm('Build new config and test it in this session?')]
@@ -128,4 +127,5 @@ test-store host:
 # push the current branch to all remotes
 [group('version control')]
 push *git_push_args:
-    git remote | xargs -I{} -P0 git push {{ git_push_args }} {} {{ current_branch }}
+    git remote \
+        | xargs -I{} -P0 git push {{ git_push_args }} {} {{ current_branch }}

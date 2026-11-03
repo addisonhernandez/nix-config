@@ -20,6 +20,7 @@
             sops
 
             # LSPs and formatters
+            just-lsp
             lua-language-server
             marksman # md
             nil
