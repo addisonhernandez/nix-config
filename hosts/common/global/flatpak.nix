@@ -23,6 +23,18 @@
       "flatpak-autoupdate" = {
         description = "daily flatpak update";
 
+        environment = {
+          # Fix a warning about '/var/lib/flatpak/exports/share' not found in
+          # the search path set by XDG_DATA_HOME and XDG_DATA_DIRS
+          XDG_DATA_DIRS = lib.makeSearchPath "share" [
+            "/var/lib/flatpak/exports"
+            "/root/.local"
+            "${pkgs.flatpak}"
+            "${pkgs.gsettings-desktop-schemas}"
+            "/usr/local"
+            "/usr"
+          ];
+        };
         path = [ pkgs.flatpak ];
         script = "flatpak update --noninteractive --assumeyes";
 
