@@ -1,7 +1,7 @@
 { inputs, ... }:
 let
   inherit (inputs.self.lib) tailnet;
-  mkSubdomainLink = subdomain: "https://${subdomain}.${tailnet.magicDNSSuffix}";
+  mkSubdomainLink = subdomain: "https://${subdomain}.${tailnet.DNSName}";
 in
 {
   services.homepage-dashboard = {
@@ -10,8 +10,8 @@ in
     allowedHosts = builtins.concatStringsSep "," (
       [
         "homelab.addisonhernandez.com"
-        "jeeves.${tailnet.magicDNSSuffix}"
-        "jeeves.${tailnet.magicDNSSuffix}:8082"
+        "jeeves.${tailnet.DNSName}"
+        "jeeves.${tailnet.DNSName}:8082"
       ]
       ++ tailnet.networkMap.homepage.FQDNs
     );

@@ -42,7 +42,7 @@ let
   };
   mkNFSExport = exportOptions: {
     # Hosts connected via Tailnet
-    "*.${tailnet.magicDNSSuffix}" = exportOptions;
+    "*.${tailnet.DNSName}" = exportOptions;
     # Hosts on LAN
     "192.168.1.0/24" = exportOptions;
     # jeeves

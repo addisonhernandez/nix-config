@@ -1,50 +1,57 @@
 { lib, ... }:
-{
-  flake.lib = {
-    tailnet =
-      let
-        magicDNSSuffix = "beefalo-spica.ts.net";
-        mkService =
-          host: nodeNames: proxiedPort:
-          let
-            bindHosts = lib.concatMapStringsSep " " (n: "tailscale/${n}") nodeNames;
-            FQDNs = map (node: "${node}.${magicDNSSuffix}") nodeNames;
-          in
-          {
-            inherit
-              bindHosts
-              FQDNs
-              host
-              nodeNames
-              proxiedPort
-              ;
-            hostName = builtins.head FQDNs;
-            serverAliases = builtins.tail FQDNs;
-            extraConfig =
-              # Caddyfile
-              ''
-                bind ${bindHosts}
-                reverse_proxy :${proxiedPort}
-              '';
-          };
-        mkSvcOnJeeves = mkService "jeeves";
-      in
-      {
-        inherit magicDNSSuffix;
-        networkMap = {
-          audiobookshelf = mkSvcOnJeeves [ "audiobookshelf" ] 8008;
-          homepage = mkSvcOnJeeves [ "home" ] 8082;
-          jellyfin = mkSvcOnJeeves [ "jellyfin" "media" ] 8096;
-          jellyseerr = mkSvcOnJeeves [ "jellyseerr" "requests" ] 5055;
-          lubelogger = mkSvcOnJeeves [ "lubelogger" ] 5000;
-          prowlarr = mkSvcOnJeeves [ "prowlarr" ] 9696;
-          qbittorrent = mkSvcOnJeeves [ "qbittorrent" ] 8080;
-          radarr = mkSvcOnJeeves [ "radarr" ] 7878;
-          sonarr = mkSvcOnJeeves [ "sonarr" ] 8989;
+let
+  DNSName = "beefalo-spica.ts.net";
+  mkTailnetSvc =
+    {
+      host,
+      nodeNames,
+      proxiedPort,
+    }:
+    let
+      bindHosts = lib.concatMapStringsSep " " (n: "tailscale/${n}") nodeNames;
+      FQDNs = map (node: "${node}.${DNSName}") nodeNames;
+    in
+    {
+      inherit
+        bindHosts
+        FQDNs
+        host
+        nodeNames
+        proxiedPort
+        ;
+      hostName = builtins.head FQDNs;
+      serverAliases = builtins.tail FQDNs;
+      extraConfig =
+        # Caddyfile
+        ''
+          bind ${bindHosts}
+          reverse_proxy :${proxiedPort}
+        '';
+    };
+  mkService =
+    host: nodeNames: proxiedPort:
+    mkTailnetSvc { inherit host nodeNames proxiedPort; };
 
-          immich = mkService "vulcan" [ "immich" "images" ] 2283;
-          redlib = mkService "vulcan" [ "redlib" "reddit" ] 8069;
-        };
-      };
+  # cfg = config.networking.tailnet;
+in
+{
+  flake.lib.tailnet = {
+    inherit DNSName;
+    networkMap = {
+      # Jeeves
+      audiobookshelf = mkService "jeeves" [ "audiobookshelf" ] 8008;
+      homepage = mkService "jeeves" [ "home" ] 8082;
+      jellyfin = mkService "jeeves" [ "jellyfin" "media" ] 8096;
+      lubelogger = mkService "jeeves" [ "lubelogger" ] 5000;
+      prowlarr = mkService "jeeves" [ "prowlarr" ] 9696;
+      qbittorrent = mkService "jeeves" [ "qbittorrent" ] 8080;
+      radarr = mkService "jeeves" [ "radarr" ] 7878;
+      seerr = mkService "jeeves" [ "seerr" "requests" ] 5055;
+      sonarr = mkService "jeeves" [ "sonarr" ] 8989;
+
+      # Vulcan
+      immich = mkService "vulcan" [ "immich" "images" ] 2283;
+      redlib = mkService "vulcan" [ "redlib" "reddit" ] 8069;
+    };
   };
 }

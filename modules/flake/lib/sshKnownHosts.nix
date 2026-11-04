@@ -17,7 +17,7 @@ in
         hostNames = [
           hostName
           "${hostName}.lan"
-          "${hostName}.${self.lib.tailnet.magicDNSSuffix}"
+          "${hostName}.${self.lib.tailnet.DNSName}"
         ];
       }
     );
