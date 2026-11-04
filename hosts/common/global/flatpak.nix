@@ -36,7 +36,13 @@
           ];
         };
         path = [ pkgs.flatpak ];
-        script = "flatpak update --noninteractive --assumeyes";
+        script = ''
+          until ping -c1 flathub.org
+          do
+            sleep 1
+          done
+          flatpak update --noninteractive --assumeyes
+        '';
 
         serviceConfig.Type = "oneshot";
         unitConfig.OnSuccess = [ "flatpak-remove-unused.service" ];
