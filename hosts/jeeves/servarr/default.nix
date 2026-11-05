@@ -25,10 +25,10 @@ in
 
   # [TODO] Move each host to a separate config module
   services.caddy.virtualHosts = lib.genAttrs [
-    "jellyseerr"
     "prowlarr"
     "qbittorrent"
     "radarr"
+    "seerr"
     "sonarr"
   ] mkTailnetNode;
 
