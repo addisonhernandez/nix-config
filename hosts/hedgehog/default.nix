@@ -12,7 +12,6 @@
     "heroic"
     "kde"
     "nix-ld"
-    "plymouth"
     "printing"
     "retroarch"
     "signal"
