@@ -35,7 +35,10 @@
             "/usr"
           ];
         };
-        path = [ pkgs.flatpak ];
+        path = [
+          pkgs.flatpak
+          pkgs.iputils
+        ];
         script = ''
           until ping -c1 flathub.org
           do
