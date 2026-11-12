@@ -99,7 +99,7 @@ rebuild-boot *nh_args: sudo && rm-build-artifacts
 [confirm('Build the config for ' + host + ' and activate after reboot?')]
 [group('build tools')]
 deploy host *nh_args:
-    nh os boot --target-host {{ host }} --ask --use-substitutes {{ nh_args }}
+    nh os boot --target-host {{ host }} --ask {{ nh_args }}
 
 # build the config for a host, then send it via ssh
 [group('build tools')]
