@@ -10,7 +10,11 @@
 
     authKeyFile = config.age.secrets.tailscaleNixosAuthkey.path;
 
-    extraUpFlags = [ "--ssh" ];
+    extraUpFlags = [
+      # Operate on tailscaled as Addison (without sudo)
+      "--operator=${config.users.users.addison.name}"
+      "--ssh"
+    ];
     openFirewall = true;
 
     # client | both => set reverse path filtering to loose
