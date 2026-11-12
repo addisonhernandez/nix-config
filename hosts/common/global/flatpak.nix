@@ -42,7 +42,7 @@
         script = ''
           until ping -c1 flathub.org
           do
-            sleep 1
+            sleep 60
           done
           flatpak update --noninteractive --assumeyes
         '';
