@@ -103,6 +103,7 @@ deploy host *nh_args:
 
 # build the config for a host, then send it via ssh
 [group('build tools')]
+[arg("host", pattern="greenbeen|hedgehog|jeeves|vulcan")]
 send-build host *nh_args: (test-store host) (build host nh_args) && rm-build-artifacts
     nix copy \
         --no-check-sigs \
