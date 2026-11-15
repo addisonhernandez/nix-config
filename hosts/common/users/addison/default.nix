@@ -13,7 +13,7 @@
     # isSystemUser    ~> false
     isNormalUser = true;
     description = "Addison";
-    extraGroups = builtins.filter (g: builtins.hasAttr g config.users.groups) [
+    extraGroups = builtins.filter (group: config.users.groups ? ${group}) [
       "audiobookshelf"
       "caddy"
       "docker"
@@ -29,6 +29,7 @@
       "networkmanager"
       "openrazer"
       "podman"
+      "samba"
       "wheel"
     ];
     uid = 1000;

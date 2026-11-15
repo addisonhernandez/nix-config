@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./nfs-server.nix
+    ./samba-shares.nix
 
     ../common/global
     ../common/users/addison
@@ -11,6 +12,7 @@
     "caddy"
     "immich"
     "nix-ld"
+    "samba-server"
     "snapper"
     "xfce"
   ];
