@@ -1,7 +1,7 @@
 # Hardware: (github.com/NixOS/nixos-hardware/tree/master/dell/xps/15-9560)
 # Platform  Dell XPS 15 9560
-# CPU       Core i7-7700HQ
-# dGPU      NVIDIA GeForce GTX 1050 Mobile
+# CPU       Core i7-7700HQ (Kaby Lake)
+# dGPU      NVIDIA GeForce GTX 1050 Mobile (Pascal)
 # iGPU      Intel HD Graphics 630
 {
   inputs,
@@ -11,9 +11,11 @@
 }:
 {
   imports = [
-    # [todo] use a specialization to swap between iGPU & dGPU setups
-    # inputs.nixos-hardware.nixosModules.dell-xps-15-9560 # nvidia prime dGPU/iGPU
-    inputs.nixos-hardware.nixosModules.dell-xps-15-9560-intel # iGPU only
+    "${inputs.nixos-hardware}/common/cpu/intel/kaby-lake"
+    "${inputs.nixos-hardware}/common/pc/laptop"
+    "${inputs.nixos-hardware}/dell/xps/15-9560/xps-common.nix"
+
+    ./gpu-specialisations.nix
 
     ../common/optional/bluetooth.nix
     ../common/optional/btrfs.nix
