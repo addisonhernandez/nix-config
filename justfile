@@ -58,9 +58,9 @@ build host=local_hostname *nh_args:
     nh os build --hostname {{ host }} --out-link ./result {{ nh_args }}
 
 # build the local config on a remote host (default greenbeen)
-[group('build tools')]
 [arg("nh_op", pattern="boot|build|repl|switch|test")]
 [arg("build_host", long, short="b")]
+[group('build tools')]
 remote-op nh_op="build" build_host="greenbeen.lan" *nh_args:
     nh os {{ nh_op }} \
         --hostname {{ local_hostname }} \
@@ -96,15 +96,24 @@ rebuild-boot *nh_args: sudo && rm-build-artifacts
     nh os boot --ask {{ nh_args }}
 
 # deploy the config to a remote machine
+[arg("host", pattern="greenbeen|hedgehog|jeeves|vulcan")]
 [confirm('Build the config for ' + host + ' and activate after reboot?')]
 [group('build tools')]
 deploy host *nh_args:
     nh os boot --target-host {{ host }} --ask {{ nh_args }}
 
-# build the config for a host, then send it via ssh
+# deploy from greenbeen to all other hosts
 [group('build tools')]
+deploy-all *nh_args:
+    {{ assert(local_hostname == "greenbeen", "recipe must be run from greenbeen, not " + local_hostname) }}
+    -just deploy "hedgehog" {{ nh_args }}
+    -just deploy "jeeves" {{ nh_args }}
+    -just deploy "vulcan" {{ nh_args }}
+
+# build the config for a host, then send it via ssh
 [arg("host", pattern="greenbeen|hedgehog|jeeves|vulcan")]
-send-build host *nh_args: (test-store host) (build host nh_args) && rm-build-artifacts
+[group('build tools')]
+send-build host *nh_args: (test-store host) (build host "--diff=never" nh_args) && rm-build-artifacts
     nix copy \
         --no-check-sigs \
         --to "ssh-ng://{{ host }}.lan" \
